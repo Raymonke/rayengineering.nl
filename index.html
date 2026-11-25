@@ -48,7 +48,8 @@ nav .wrap{display:flex;align-items:center;gap:20px;padding:10px max(5vw,16px);fl
 .links a{flex:none;text-decoration:none;padding:10px 12px;border-radius:6px;font-weight:600;font-size:16px}
 .links a:hover{background:var(--line)}
 .links{scrollbar-width:none}.links::-webkit-scrollbar{display:none}
-@media(max-width:900px){.links{gap:0}.links a{padding:8px 7px;font-size:15px}.tb{position:static;border-left:0}}
+@media(max-width:900px){.links{gap:0}.links a{padding:8px 7px;font-size:15px}}
+@media(max-width:600px){.sim3d .sgraph{width:58%}.sim3d .tb{margin-left:0}}
 /* hero */
 .hero{padding-bottom:0}
 .htop{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(20px,4vw,64px);align-items:end}
@@ -78,6 +79,18 @@ nav .wrap{display:flex;align-items:center;gap:20px;padding:10px max(5vw,16px);fl
 .sheet .thin{stroke-width:1.2}
 .sheet .cl{stroke-dasharray:18 5 3 5;stroke-dashoffset:0;animation:none;opacity:.7}
 .sheet text{fill:var(--pen);font:600 21px Archivo,sans-serif}
+.sim3d{border-bottom:2px solid var(--pen)}
+.sim3d .vp{height:clamp(320px,38vw,440px);background:linear-gradient(light-dark(#eef3f6,#16222d),var(--sheet))}
+.sim3d .sgraph{position:absolute;right:10px;top:10px;width:min(44%,300px);height:auto;background:color-mix(in srgb,var(--sheet) 90%,transparent);border:1px solid var(--line);border-radius:6px;pointer-events:none}
+.sim3d .sgraph text{fill:var(--pen);font:600 12px 'Source Sans 3',sans-serif}
+.simbar{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;padding:14px 16px;border-top:2px solid var(--pen);background:var(--sheet)}
+.simbar label{display:grid;gap:2px;font-size:15px;min-width:170px;flex:1}
+.simbar input{width:100%;accent-color:var(--sel);height:30px}
+.simbar output{font-weight:700;white-space:nowrap}
+.sread{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:15px;color:var(--mute);flex-basis:100%}
+.sread b{color:var(--ink);white-space:nowrap}
+#rLift{color:#e5612b;font-weight:600}
+.sim3d .tb{position:static;border:1px solid var(--pen);margin-left:auto}
 .sheet .wood{fill:#c9935a;opacity:.45;stroke:none}
 .sheet .armfill{fill:var(--oak);opacity:.28}
 .sheet .joint{fill:var(--sheet);stroke:var(--pen);stroke-width:2.2}
@@ -108,14 +121,17 @@ nav .wrap{display:flex;align-items:center;gap:20px;padding:10px max(5vw,16px);fl
 .card a{font-weight:600;color:var(--sel)}
 /* onderhoud */
 .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);margin-top:32px}
-.pest{margin-top:clamp(40px,5vw,64px);align-items:center}
-.pestfig{margin:0;background:light-dark(#eef7f8,#132a3d);border-radius:8px;padding:12px}
+.pest{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(18px,3vw,36px);align-items:center;margin-top:clamp(36px,4vw,52px);padding-top:clamp(24px,3vw,36px);border-top:1px solid var(--line)}
+.pest h3{font-size:22px;margin-bottom:8px}.pest p{font-size:16px;color:var(--mute);max-width:64ch}
+.pwat{fill:light-dark(#bfe1e5,#1d4a5a)}
+.pestfig{margin:0;background:light-dark(#f3f8f9,#132a3d);border-radius:8px;padding:8px}
 .pestfig svg{display:block;width:100%;height:auto}
 .pz{fill:light-dark(#d7e7ea,#1b3348)}.pl{fill:none;stroke:var(--pen);stroke-width:2.2}.pw{fill:light-dark(#ffffff,#182c40);stroke:none}.pf{fill:var(--pen)}.pd{fill:none;stroke:var(--pen);stroke-width:2}
 .pt{fill:none;stroke:#1f8f9b;stroke-width:5;stroke-linecap:round}.pt2{fill:#1f8f9b}
 .rat ellipse,.rat circle{fill:var(--mute)}.rat .tail{fill:none;stroke:var(--mute);stroke-width:2.5;stroke-linecap:round}
 .num circle{fill:#1f8f9b}.num text{fill:#fff;font:700 15px Archivo,sans-serif;text-anchor:middle}
-.pestlist{margin:14px 0 0;padding-left:22px}.pestlist li{margin:6px 0}
+.pestlist{margin:8px 0 0;padding-left:22px;columns:2;column-gap:28px;font-size:15px}.pestlist li{margin:3px 0;break-inside:avoid}
+@media(max-width:600px){.pest{grid-template-columns:minmax(0,1fr)}.pestlist{columns:1}}
 .certs{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 6px}.certs span{border:2px solid var(--ink);border-radius:999px;padding:5px 14px;font-weight:600;font-size:15px}
 .terms dt{font:700 19px Archivo,sans-serif;margin-top:18px}
 .terms dd{margin:4px 0 0;color:var(--mute)}
@@ -212,54 +228,23 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
 <main id="home">
 <header class="band hero" id="top"><div class="wrap">
   <div class="htop">
-    <div><h1><span class="sr">Ray Engineering</span><svg class="herologo" id="heroLogo" viewBox="48 0 708 300" aria-hidden="true"></svg></h1>
-    <p class="lhint">Beweeg over het logo: elke letter is een echte vakwerkconstructie.</p></div>
+    <div><h1><span class="sr">Ray Engineering</span><svg class="herologo" id="heroLogo" viewBox="48 0 708 300" aria-hidden="true"></svg></h1></div>
     <div>
       <p class="lead">Meubels en interieurwerk op maat, onderhoud en installatie van gebouwen, en technische R&amp;D: van prototype tot FEM-analyse. Ontworpen door een werktuigbouwkundige, gebouwd met eigen handen.</p>
       <div class="cta"><a class="btn fill" href="#projecten">Bekijk projecten</a><a class="btn" href="#rd">Naar R&amp;D</a></div>
     </div>
   </div>
-  <div class="sheet">
-    <svg id="draw" viewBox="0 0 1240 400" role="img" aria-label="Multibody-model van een swingarm: arm met wiel, scharnier aan het chassis en een veer-demperelement, met de berekende veerweg na een stoot">
-      <text class="hint" x="190" y="36">Klik op de tekening voor een stoot op het wiel</text>
-      <g>
-        <path class="ln" pathLength="1" d="M180 140H320M195 140l-14-14M215 140l-14-14M235 140l-14-14M255 140l-14-14M275 140l-14-14M295 140l-14-14M315 140l-14-14"/>
-        <path class="ln" pathLength="1" d="M250 190 222 140M250 190 278 140" style="animation-delay:.1s"/>
-        <path class="ln" pathLength="1" d="M420 62H520M435 62l-14-14M455 62l-14-14M475 62l-14-14M495 62l-14-14M515 62l-14-14" style="animation-delay:.15s"/>
-        <path class="ln thin" pathLength="1" d="M470 62V70"/>
-        <path class="ln" pathLength="1" d="M420 339H700Q730 318 760 339H840" style="animation-delay:.2s"/>
-        <path class="ln thin cl" d="M250 190H420"/>
-        <path id="sAng" class="ln thin" pathLength="1" style="animation-delay:1.2s"/>
-        <text x="330" y="186">θ</text>
-        <g id="sArm">
-          <path class="ln" pathLength="1" id="sArmBody" style="animation-delay:.35s"/>
-          <path class="armfill" id="sArmFill"/>
-          <ellipse class="ln thin" pathLength="1" cx="345" cy="205" rx="34" ry="8" transform="rotate(9.06 345 205)" style="animation-delay:.6s"/>
-          <ellipse class="ln thin" pathLength="1" cx="530" cy="235" rx="30" ry="7" transform="rotate(9.06 530 235)" style="animation-delay:.65s"/>
-          <circle class="ln" pathLength="1" cx="605" cy="247" r="92" style="animation-delay:.5s;stroke-width:9"/>
-          <circle class="ln thin" pathLength="1" cx="605" cy="247" r="60" style="animation-delay:.7s"/>
-          <path class="ln thin" pathLength="1" d="M605 235V187M616 251 662 266M598 257 570 296M612 257 640 296M594 251 548 266" style="animation-delay:.8s"/>
-          <circle class="ln" pathLength="1" cx="605" cy="247" r="12" style="animation-delay:.75s"/>
-          <circle class="cog" cx="410" cy="216" r="10"/><path class="cogq" d="M410 216V206A10 10 0 0 1 420 216ZM410 216V226A10 10 0 0 1 400 216Z"/>
-          <circle class="joint" cx="470.3" cy="225.6" r="6"/>
-          <path class="force ln" pathLength="1" d="M605 392V346M605 343l-7 13h14z" style="animation-delay:1.3s"/>
-          <text x="617" y="388">F(t)</text>
-          <text x="372" y="256">m, J</text>
-        </g>
-        <circle class="joint" cx="250" cy="190" r="8"/>
-        <circle class="joint" cx="470" cy="70" r="6"/>
-        <g id="sCo"><path id="sDamp" class="ln thin" pathLength="1" style="animation-delay:.9s"/><path id="sRod" class="ln thin" pathLength="1" style="animation-delay:.95s"/><path id="sSpring" class="ln" pathLength="1" style="animation-delay:1s;stroke-width:1.8"/></g>
-        <text x="502" y="140">k, c</text>
-      </g>
-      <g>
-        <text x="880" y="44">Veerweg van het wiel</text>
-        <path class="ln thin" pathLength="1" d="M890 70V230M890 150H1200M1200 150l-10-5v10z" style="animation-delay:.4s"/>
-        <path class="ln thin cl" d="M890 105H1190M890 195H1190" style="opacity:.35"/>
-        <text x="900" y="88">z</text><text x="1180" y="176">t</text>
-        <path id="sTrace" class="trace"/>
-      </g>
-    </svg>
-    <div class="tb"><span>Object</span><span><b>Swingarm, MBD-model</b></span><span>Model</span><span>1 vrijheidsgraad (θ)</span><span>Ontwerp</span><span>Ray Engineering</span></div>
+  <div class="sheet sim3d">
+    <div class="vp" id="vpArm"><div class="tip" hidden></div><svg class="triad" viewBox="0 0 64 64"></svg>
+      <svg class="sgraph" id="sGraph" viewBox="0 0 280 160" aria-label="Veerweg van het wiel en hoogte van de weg in de tijd"></svg>
+    </div>
+    <div class="simbar">
+      <button class="btn fill" id="sRun" type="button">Rij over de drempel</button>
+      <label>Veerstijfheid <output id="oK"></output><input id="inK" type="range" min="20" max="120" step="5" value="60"></label>
+      <label>Demping <output id="oC"></output><input id="inC" type="range" min="0.2" max="4" step="0.1" value="1.2"></label>
+      <div class="sread"><span>Dempingsgraad ζ <b id="rZ"></b></span><span>Eigenfrequentie <b id="rF"></b></span><span>Max. veerweg <b id="rX"></b></span><span id="rLift"></span></div>
+      <div class="tb"><span>Object</span><span><b>Swingarm, MBD-model</b></span><span>Kleur</span><span>Buigspanning in de arm</span></div>
+    </div>
   </div>
 </div></header>
 
@@ -317,33 +302,30 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
       <li>Timmerwerk<small>Deuren, kozijnen en afwerking</small></li>
     </ul>
   </div>
-  <div class="split pest" id="knaagdierwering">
+  <div class="pest" id="knaagdierwering">
     <figure class="pestfig">
-      <svg viewBox="0 0 560 400" role="img" aria-labelledby="pestT"><title id="pestT">Doorsnede van een gebouw met kelder en de plekken waar knaagdieren binnenkomen, dichtgemaakt</title>
-        <rect class="pz" x="0" y="168" width="560" height="232"/>
-        <path class="pl" d="M0 168H560"/>
-        <path class="pw" d="M120 40V340H470V40"/><path class="pl" d="M120 40H470M140 40V320H450V40"/>
-        <path class="pl" d="M140 150H450M140 320H450"/><rect class="pf" x="140" y="146" width="310" height="8"/>
-        <rect class="pd" x="300" y="62" width="60" height="84"/><path class="pt" d="M302 146H358"/>
-        <rect class="pd" x="120" y="96" width="20" height="34"/><path class="pt" d="M118 99H142M118 103H142M118 107H142M118 111H142M118 115H142M118 119H142M118 123H142M118 127H142"/>
-        <path class="pl" d="M40 260H140"/><rect class="pd" x="40" y="252" width="100" height="16"/><rect class="pt2" x="114" y="246" width="12" height="28"/>
-        <path class="pl" d="M140 318L160 300"/><path class="pt" d="M141 319H200" />
-        <g class="rat"><ellipse cx="62" cy="206" rx="22" ry="11"/><circle cx="84" cy="202" r="8"/><circle cx="86" cy="194" r="4"/><path class="tail" d="M40 208c-14 4-22 0-30 6"/></g>
-        <g class="num"><circle cx="330" cy="168" r="13"/><text x="330" y="173">1</text><circle cx="96" cy="113" r="13"/><text x="96" y="118">2</text><circle cx="120" cy="230" r="13"/><text x="120" y="235">3</text><circle cx="190" cy="296" r="13"/><text x="190" y="301">4</text></g>
+      <svg viewBox="0 0 400 320" role="img" aria-labelledby="pestT"><title id="pestT">Amsterdams grachtenpand met souterrain, met genummerd de plekken waar knaagdieren binnenkomen</title>
+        <rect class="pz" x="0" y="212" width="300" height="108"/><rect class="pwat" x="300" y="226" width="100" height="94"/>
+        <path class="pl" d="M0 212H300V320M312 240h24M346 252h30M318 268h22M352 284h26" style="stroke-width:1.6"/>
+        <path class="pw" d="M70 212V80H86V66H102V52H118V38H182V52H198V66H214V80H230V212Z"/>
+        <path class="pl" d="M70 212V80H86V66H102V52H118V38H182V52H198V66H214V80H230V212M150 38V28M150 28h16M166 28v8"/>
+        <g class="pl" style="stroke-width:1.6"><rect x="86" y="90" width="24" height="26"/><rect x="138" y="90" width="24" height="26"/><rect x="190" y="90" width="24" height="26"/><rect x="86" y="128" width="24" height="26"/><rect x="138" y="128" width="24" height="26"/><rect x="190" y="128" width="24" height="26"/><rect x="86" y="166" width="24" height="26"/><rect x="190" y="166" width="24" height="26"/><path d="M98 90v26M150 90v26M202 90v26M98 128v26M150 128v26M202 128v26M98 166v26M202 166v26"/></g>
+        <path class="pl" d="M138 212V170H162V212"/>
+        <rect class="pw" x="70" y="212" width="160" height="88"/><path class="pl" d="M70 212V300H230V212"/>
+        <path class="pl" d="M86 214H114V232H86ZM93 214V232M100 214V232M107 214V232" style="stroke-width:1.4"/>
+        <path class="pl" d="M24 258H72M24 268H72" style="stroke-width:1.6"/>
+        <path class="pt" d="M139 211H161"/><rect class="pt2" x="64" y="252" width="10" height="22"/><path class="pt" d="M73 298H96"/><path class="pt" d="M86 223H114" style="stroke-width:3"/>
+        <g class="rat"><ellipse cx="268" cy="205" rx="15" ry="7"/><circle cx="283" cy="202" r="5.5"/><circle cx="284" cy="196.5" r="2.6"/><path class="tail" d="M253 207c-10 3-16 0-22 4"/></g>
+        <g class="num"><circle cx="150" cy="236" r="11"/><text x="150" y="240.5">1</text><circle cx="52" cy="224" r="11"/><text x="52" y="228.5">2</text><circle cx="36" cy="242" r="11"/><text x="36" y="246.5">3</text><circle cx="110" cy="282" r="11"/><text x="110" y="286.5">4</text></g>
       </svg>
     </figure>
     <div>
-      <h3 style="font-size:clamp(26px,3vw,34px)">Knaagdierwering: eerst de oorzaak</h3>
-      <p style="margin-top:12px">Ratten en muizen komen ergens binnen. Ik zoek uit waar en waarom, en maak ruimtes zoals kelders, kruipruimtes en bergingen blijvend rat- en muisdicht. Zo verdwijnt de overlast bij de bron, zonder gif.</p>
-      <p>Dat past bij de IPM-aanpak (Integrated Pest Management) die in Nederland de norm is voor knaagdierbeheersing: eerst voorkomen en weren, dan mechanisch vangen, en pas als laatste middel chemisch bestrijden.</p>
-      <ol class="pestlist">
-        <li><b>Kieren onder deuren</b> dicht met een knaagbestendige borstel- of rubberstrip.</li>
-        <li><b>Ventilatieroosters</b> voorzien van fijnmazig rvs-gaas.</li>
-        <li><b>Leidingdoorvoeren</b> door de kelderwand afdichten met een knaagvaste manchet.</li>
-        <li><b>Naden en scheuren</b> bij vloer en wand dichtzetten.</li>
-      </ol>
+      <h3>Knaagdierwering: eerst de oorzaak</h3>
+      <p>Amsterdam heeft veel last van ratten en muizen: oude panden met gaten en kieren, een oud riool, afval op straat en zachte winters. Ik zoek uit waar ze binnenkomen en maak kelders, kruipruimtes en bergingen blijvend rat- en muisdicht, zonder gif. Dat is ook de volgorde die de IPM-regels voorschrijven: eerst de oorzaak, pas als laatste middel gif.</p>
+      <ol class="pestlist"><li>Kier onder de voordeur</li><li>Rooster van het souterrain</li><li>Leidingdoorvoer in de kelderwand</li><li>Naden bij vloer en wand</li></ol>
     </div>
   </div>
+</div>
 </div></section>
 
 <section class="band dark" id="rd"><div class="wrap">
@@ -552,30 +534,7 @@ rayLogo($('#heroLogo'),{cl:1,chord:3.2,web:1.4,nodes:2.3,bg:'var(--bg)',anim:1,t
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 /* ---------- hero: lamellen en telefoon-uitsnede ---------- */
-/* swingarm: J*th'' + ct*th' + kt*th = 0, na een stoot */
-{const P=[250,190],L=360,th0=Math.atan2(57.4,355.4),C=[470,70],sA=.62,J=2.43,kt=4374,ct=62,slow=6,TW=.5;
- const f=v=>v.toFixed(1),q=$('#draw');let d=0,w=0,t=0,run=false,tr=[],lt=0;
- const arm=(()=>{const hw0=17,hw1=11,ux=Math.cos(th0),uy=Math.sin(th0),nx=-uy,ny=ux,W=[P[0]+L*ux,P[1]+L*uy];
-  return `M${f(P[0]+nx*hw0)} ${f(P[1]+ny*hw0)}L${f(W[0]+nx*hw1)} ${f(W[1]+ny*hw1)}A${hw1} ${hw1} 0 0 0 ${f(W[0]-nx*hw1)} ${f(W[1]-ny*hw1)}L${f(P[0]-nx*hw0)} ${f(P[1]-ny*hw0)}A${hw0} ${hw0} 0 0 1 ${f(P[0]+nx*hw0)} ${f(P[1]+ny*hw0)}Z`})();
- $('#sArmBody').setAttribute('d',arm);$('#sArmFill').setAttribute('d',arm);
- function draw(){const th=th0+d,A=[P[0]+sA*L*Math.cos(th),P[1]+sA*L*Math.sin(th)];
-  $('#sArm').setAttribute('transform',`rotate(${f(d*180/Math.PI)} ${P[0]} ${P[1]})`);
-  const dx=A[0]-C[0],dy=A[1]-C[1],len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len,nx=-uy,ny=ux,pt=(s,o)=>[C[0]+ux*s+nx*o,C[1]+uy*s+ny*o];
-  const r=(s0,s1,hw)=>{const a=pt(s0,-hw),b=pt(s1,-hw),c=pt(s1,hw),e=pt(s0,hw);return`M${f(a[0])} ${f(a[1])}L${f(b[0])} ${f(b[1])}L${f(c[0])} ${f(c[1])}L${f(e[0])} ${f(e[1])}Z`};
-  $('#sDamp').setAttribute('d',r(14,82,10));$('#sRod').setAttribute('d',r(82,len-8,3));
-  let sp='',n=18;for(let i=0;i<=n;i++){const s=16+(len-30)*i/n,o=i===0||i===n?0:(i%2?19:-19),p=pt(s,o);sp+=(i?'L':'M')+f(p[0])+' '+f(p[1])}$('#sSpring').setAttribute('d',sp);
-  const R=70;$('#sAng').setAttribute('d',`M${P[0]+R} ${P[1]}A${R} ${R} 0 0 1 ${f(P[0]+R*Math.cos(th))} ${f(P[1]+R*Math.sin(th))}`);
-  $('#sTrace').setAttribute('d',tr.length?'M'+tr.map(([tt,dd])=>f(890+tt/TW*300)+' '+f(150+dd*600)).join('L'):'')}
- function step(ts){if(!run)return;const dt=lt?Math.min(.05,(ts-lt)/1000)/slow:0;lt=ts;let k=Math.ceil(dt/.0005);const h=dt/k||0;
-  while(k-->0){const a=-(kt*d+ct*w)/J;w+=a*h;d+=w*h;t+=h}tr.push([t,d]);draw();
-  if(t<TW)requestAnimationFrame(step);else run=false}
- const bump=()=>{d=0;w=-3.2;t=0;tr=[[0,0]];lt=0;if(!run){run=true;requestAnimationFrame(step)}};
- draw();q.addEventListener('click',bump);
- if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setTimeout(bump,2600);
- else{d=0;w=-3.2;t=0;tr=[[0,0]];const h=.0005;while(t<TW){const a=-(kt*d+ct*w)/J;w+=a*h;d+=w*h;t+=h;if(Math.round(t/h)%20==0)tr.push([t,d])}d=0;draw()}}
-const mq=matchMedia('(max-width:600px)');
-const setVB=()=>$('#draw').setAttribute('viewBox',mq.matches?'170 12 690 395':'0 0 1240 400');
-setVB();mq.addEventListener('change',setVB);
+
 
 /* ---------- projectkaarten ---------- */
 const PROJ=[
@@ -779,7 +738,7 @@ function Viewer(wrap,opt){
  const dl=new THREE.DirectionalLight(0xffffff,.65);dl.position.set(4,9,6);scene.add(dl);
  const grid=new THREE.GridHelper(24,48,0x8f99a3,0xbfc6cd);scene.add(grid);
  const cam=new THREE.PerspectiveCamera(30,1,.05,300),root=new THREE.Group();scene.add(root);
- const st={az:.72,el:.48,tgt:new THREE.Vector3(),dist:8},tip=wrap.querySelector('.tip'),tri=wrap.querySelector('.triad');
+ const st={az:opt.az??.72,el:opt.el??.48,tgt:new THREE.Vector3(),dist:8},tip=wrap.querySelector('.tip'),tri=wrap.querySelector('.triad');
  let raf=0,ex=0,hover=null,anim=null,lt=0,vis=!opt.tick;
  if(opt.tick){const vio=new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis)req()});vio.observe(wrap)}
  const place=()=>{const c=Math.cos(st.el);cam.position.set(st.tgt.x+st.dist*c*Math.sin(st.az),st.tgt.y+st.dist*Math.sin(st.el),st.tgt.z+st.dist*c*Math.cos(st.az));cam.lookAt(st.tgt)};
@@ -901,6 +860,66 @@ function hxUpdate(rebuild){const mh=+$('#inM').value,nb=+$('#inB').value;cur=hxC
  $('#hQ').textContent=Math.round(cur.Q/1000)+' kW';$('#hT').textContent=Math.round(cur.Tho)+' / '+Math.round(cur.Tco)+' °C';$('#hP').textContent='≈ '+Math.round(cur.dp)+' kPa';
  if(hxv){if(rebuild||!hx){hx=buildHX(nb);hxv.set([hx.g])}hxColor(hx,cur);hxv.req()}}
 $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListener('input',()=>hxUpdate(true));hxUpdate(true);
+/* swingarm 3D: wiel op vaste ophanging rijdt over een drempel (1 vrijheidsgraad + bandveer) */
+{const L=.45,a=.62*L,th0=.16,Rt=.225,py=Rt+L*Math.sin(th0),m=20,kT=120000,F0=2500,v=3,H=.05,Lb=.4,d0=.7,T=.75,slow=4,Xb=-.2;
+ const wx0=L*Math.cos(th0),gs=$('#sGraph');let sim=null,play=false,tA=0;
+ function simulate(){const K=+$('#inK').value*1000,C=+$('#inC').value*1000,r2=(a/L)**2,ke=K*r2,ce=C*r2,h=.0002;
+  let z=0,w=0,t=0;const out={t:[],z:[],y:[],f:[],x:[]},road=u=>u>0&&u<Lb?H*(1-Math.cos(2*Math.PI*u/Lb))/2:0;let lift=false,zmax=0,k=0;
+  while(t<=T){const x=d0+Lb-v*t,yr=road(Lb-(x-Lb>0?x-Lb:0)-(x<Lb?0:0)),u=v*t-d0,yy=road(u),dev=Math.max(-F0,kT*(yy-z));if(dev<=-F0)lift=true;
+   const acc=(-ke*z-ce*w+dev)/m;w+=acc*h;z+=w*h;t+=h;if(k++%25===0){out.t.push(t);out.z.push(z);out.y.push(yy);out.f.push(F0+dev);out.x.push(u)}zmax=Math.max(zmax,Math.abs(z))}
+  const zeta=ce/(2*Math.sqrt((ke+kT)*m)),fn=Math.sqrt((ke+kT)/m)/(2*Math.PI);
+  $('#oK').textContent=(K/1000)+' kN/m';$('#oC').textContent=(C/1000).toFixed(1).replace('.',',')+' kNs/m';
+  $('#rZ').textContent=zeta.toFixed(2).replace('.',',');$('#rF').textContent=fn.toFixed(1).replace('.',',')+' Hz';$('#rX').textContent=Math.round(zmax*1000)+' mm';
+  $('#rLift').textContent=lift?'Wiel komt los van de weg':'';sim=out;graph(-1)}
+ function graph(ti){if(!sim)return;const W=280,Hh=160,x0=30,x1=268,yc=92,sc=900,X=t=>x0+(t/T)*(x1-x0),Y=v=>yc-v*sc;
+  const pl=arr=>sim.t.map((t,i)=>X(t).toFixed(1)+','+Y(arr[i]).toFixed(1)).join(' ');
+  let g=`<text x="10" y="18">Veerweg wiel</text><line x1="${x0}" y1="${yc}" x2="${x1}" y2="${yc}" stroke="currentColor" stroke-opacity=".35"/><line x1="${x0}" y1="28" x2="${x0}" y2="150" stroke="currentColor" stroke-opacity=".35"/>`;
+  g+=`<polyline points="${pl(sim.y)}" fill="none" stroke="#9aa3ad" stroke-width="2" stroke-dasharray="5 4"/><polyline points="${pl(sim.z)}" fill="none" stroke="#1f8f9b" stroke-width="2.6" stroke-linejoin="round"/>`;
+  g+=`<text x="150" y="18" style="fill:#1f8f9b">wiel</text><text x="190" y="18" style="fill:#7b858f">drempel</text><text x="${x1-8}" y="${yc+16}">t</text>`;
+  if(ti>=0)g+=`<line x1="${X(sim.t[ti])}" y1="28" x2="${X(sim.t[ti])}" y2="150" stroke="#e5612b" stroke-width="1.5"/>`;gs.style.color='var(--pen)';gs.innerHTML=g}
+ $('#inK').addEventListener('input',simulate);$('#inC').addEventListener('input',simulate);simulate();
+ if(has3D){
+  const A=Asm('arm'),car=A.g,rd=Asm('road').g,mk=(geo,mat,name)=>{const o=new THREE.Mesh(geo,mat);o.userData.asm='arm';o.userData.part=name;return o};
+  const grey=new THREE.MeshStandardMaterial({color:0x56606a,roughness:.5,metalness:.4}),dark=new THREE.MeshStandardMaterial({color:0x1d2126,roughness:.8}),alu=new THREE.MeshStandardMaterial({color:0xc9d0d6,roughness:.35,metalness:.6}),lm=new THREE.LineBasicMaterial({color:0x22272d});
+  const edge=(o,th)=>{o.add(new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry,th||30),lm));return o};
+  /* arm: eigen profiel met lichtgaten, gekleurd naar buigspanning */
+  const sh=new THREE.Shape();sh.moveTo(0,.058);sh.bezierCurveTo(.1,.07,.19,.085,a,.08);sh.quadraticCurveTo(.37,.065,L,.042);sh.absarc(L,0,.042,Math.PI/2,-Math.PI/2,true);sh.quadraticCurveTo(.24,-.05,0,-.058);sh.absarc(0,0,.058,-Math.PI/2,-1.5*Math.PI,true);
+  [[.115,.006,.042,.024],[.345,.004,.036,.018]].forEach(([x,y,rx,ry])=>{const p=new THREE.Path();p.absellipse(x,y,rx,ry,0,Math.PI*2,true);sh.holes.push(p)});
+  [[0,.022],[L,.016]].forEach(([x,r])=>{const p=new THREE.Path();p.absarc(x,0,r,0,Math.PI*2,true);sh.holes.push(p)});
+  const ag=new THREE.ExtrudeGeometry(sh,{depth:.036,bevelEnabled:true,bevelThickness:.006,bevelSize:.005,bevelSegments:2,curveSegments:28});ag.translate(0,0,-.018);
+  const pa=ag.attributes.position,ca=new THREE.BufferAttribute(new Float32Array(pa.count*3),3);ag.setAttribute('color',ca);
+  const shp=x=>{const M=x<a?x/a:(L-x)/(L-a),hh=(.116-.034*x/L)/.116;return Math.max(0,M)/(hh*hh)};let smax=0;for(let x=0;x<=L;x+=.005)smax=Math.max(smax,shp(x));
+  const armM=edge(mk(ag,new THREE.MeshStandardMaterial({vertexColors:true,roughness:.45,metalness:.15}),'Swingarm, kleur = buigspanning'),35);
+  const color=lf=>{for(let i=0;i<pa.count;i++){const c=jet(Math.min(1,.62*lf*shp(Math.min(L,Math.max(0,pa.getX(i))))/smax));ca.setXYZ(i,c[0],c[1],c[2])}ca.needsUpdate=true};color(1);
+  const arm=new THREE.Group();arm.add(armM);
+  const bush=edge(mk(Cy(.03,.03,.09,24),alu,'Scharnierbus'));bush.rotation.x=Math.PI/2;arm.add(bush);
+  const axle=mk(Cy(.016,.016,.13,16),alu,'As');axle.rotation.x=Math.PI/2;axle.position.set(L,0,.065);arm.add(axle);
+  const wheel=new THREE.Group();wheel.position.set(L,0,.12);arm.add(wheel);
+  wheel.add(mk(new THREE.TorusGeometry(.17,.055,18,56),dark,'Band'));
+  const rim=edge(mk(Cy(.125,.125,.07,40,true),alu,'Velg'));rim.rotation.x=Math.PI/2;wheel.add(rim);
+  for(let i=0;i<5;i++){const sp=mk(Bx(.11,.02,.012),alu,'Velg');sp.position.set(Math.cos(i*1.2566)*.06,Math.sin(i*1.2566)*.06,.02);sp.rotation.z=i*1.2566;wheel.add(sp)}
+  const hub=mk(Cy(.03,.03,.05,20),alu,'Naaf');hub.rotation.x=Math.PI/2;hub.position.z=.02;wheel.add(hub);
+  arm.position.set(0,py,0);car.add(arm);
+  const blk=edge(mk(Bx(.14,.13,.2),grey,'Chassisbevestiging'));blk.position.set(-.02,py+.02,-.06);car.add(blk);
+  const U=new THREE.Vector3(a*Math.cos(th0)-.01,py+.34,0),top=edge(mk(Bx(.12,.04,.12),grey,'Bovenste veerpoot-steun'));top.position.copy(U).add(new THREE.Vector3(0,.02,0));car.add(top);
+  const hp=[];for(let i=0;i<=200;i++){const t=i/200,an=t*Math.PI*2*7;hp.push(new THREE.Vector3(Math.cos(an)*.042,t,Math.sin(an)*.042))}
+  const spring=mk(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(hp),400,.0065,6,false),new THREE.MeshStandardMaterial({color:0xe5612b,roughness:.4,metalness:.3}),'Veer (stijfheid k)');car.add(spring);
+  const body=mk(Cy(.024,.024,.17,20),grey,'Demper (demping c)'),rod=mk(Cy(.008,.008,1,12),alu,'Demperstang');car.add(body);car.add(rod);
+  /* weg met vaste drempel */
+  const road=edge(mk(Bx(2.6,.02,.5),new THREE.MeshStandardMaterial({color:0xb9bec4,roughness:.9}),'Weg'),60);road.position.set(.05,-.01,.12);rd.add(road);
+  const bs=new THREE.Shape();bs.moveTo(0,0);for(let i=0;i<=24;i++){const u=i/24*Lb;bs.lineTo(u,H*(1-Math.cos(2*Math.PI*u/Lb))/2)}bs.lineTo(Lb,0);
+  const bump=edge(mk(new THREE.ExtrudeGeometry(bs,{depth:.5,bevelEnabled:false}),new THREE.MeshStandardMaterial({color:0xf2c14e,roughness:.7}),'Drempel'),40);bump.position.set(Xb,0,-.13);rd.add(bump);
+  const startX=Xb+Lb+d0-wx0,Y=new THREE.Vector3(0,1,0);
+  function pose(z,u,lf){const th=Math.asin(Math.max(-1,Math.min(1,(L*Math.sin(th0)-z)/L)));arm.rotation.z=-th;car.position.x=startX-u-d0+d0;
+   wheel.rotation.z=(u)/(Rt);const lo=new THREE.Vector3(a*Math.cos(th),py-a*Math.sin(th)+.05,0),d=U.clone().sub(lo),len=d.length(),dir=d.clone().normalize(),q=new THREE.Quaternion().setFromUnitVectors(Y,dir);
+   spring.position.copy(lo);spring.quaternion.copy(q);spring.scale.set(1,len,1);body.quaternion.copy(q);body.position.copy(U).addScaledVector(dir,-.085);rod.quaternion.copy(q);rod.scale.set(1,len,1);rod.position.copy(lo).addScaledVector(dir,len/2);color(lf)}
+  pose(0,-d0+d0,1);car.position.x=startX;
+  const view=Viewer($('#vpArm'),{k:.5,kn:.8,az:2.45,el:.28,label:u=>u.part,click:()=>run(),tick:dt=>{if(!play||!sim)return;tA+=dt/slow;const n=sim.t.length-1,i=Math.min(n,Math.floor(tA/T*n));pose(sim.z[i],v*sim.t[i]-d0,sim.f[i]/F0);car.position.x=startX-v*sim.t[i];graph(i);if(tA>=T)play=false}});
+  view.set([car,rd]);
+  function run(){if(!sim)simulate();tA=0;play=true;view.req()}
+  $('#sRun').addEventListener('click',run);
+  let once=false;const sio=new IntersectionObserver(es=>{if(es[0].isIntersecting&&!once){once=true;setTimeout(run,900)}},{threshold:.5});sio.observe($('#vpArm'));
+ }else{$('#vpArm').insertAdjacentHTML('beforeend','<div class="msg">De 3D-weergave kan in deze browser niet starten.</div>');$('#sRun').addEventListener('click',()=>{})}}
 let wasDetail=false;
 function route(){const h=location.hash.slice(1),m=h.match(/^ontwerp-(\w+)$/);
  if(m&&D[m[1]]){showDetail(m[1]);wasDetail=true;return}
