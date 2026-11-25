@@ -91,6 +91,14 @@ nav .wrap{display:flex;align-items:center;gap:20px;padding:10px max(5vw,16px);fl
 .chips{display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px;border-top:2px solid var(--pen);background:var(--sheet)}
 .chips a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1.5px solid var(--pen);border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;color:var(--pen)}
 .chips a:hover,.chips a.on{background:var(--pen);color:var(--sheet)}
+.hcard{position:absolute;left:12px;top:12px;width:min(330px,calc(100% - 24px));background:var(--sheet);color:var(--ink);border:1.5px solid var(--pen);border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.45;box-shadow:0 6px 18px rgba(15,34,56,.15);cursor:default}
+.hcard b{display:block;font:700 17px Archivo,sans-serif;margin-bottom:4px;padding-right:24px}.hcard span{display:block;color:var(--mute)}
+.hcard table{margin:8px 0;font-size:13.5px}.hcard td{padding:3px 2px}.hcard td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.hcard a{display:inline-block;margin-top:6px;font-weight:700;color:var(--sel)}
+.hcard .hx{position:absolute;right:6px;top:4px;width:32px;height:32px;border:0;background:none;font-size:22px;color:var(--mute);cursor:pointer}
+.tbtn{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0}.tbtn span{display:inline;margin-right:2px}
+.tbtn button{min-height:30px;padding:0 10px;border:1.5px solid var(--pen);border-radius:999px;background:none;color:var(--pen);font:600 13px 'Source Sans 3',sans-serif;cursor:pointer}.tbtn button.on{background:var(--pen);color:var(--sheet)}
+@media(max-width:600px){.hcard{top:auto;bottom:10px;font-size:13px;max-height:60%;overflow:auto}}
 .sim3d .vp{height:clamp(320px,38vw,440px);background:linear-gradient(light-dark(#eef3f6,#16222d),var(--sheet))}
 .sim3d .sgraph{position:absolute;right:10px;top:10px;width:min(44%,300px);height:auto;background:color-mix(in srgb,var(--sheet) 90%,transparent);border:1px solid var(--line);border-radius:6px;pointer-events:none}
 .sim3d .sgraph text{fill:var(--pen);font:600 12px 'Source Sans 3',sans-serif}
@@ -241,7 +249,7 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
   <div class="htop">
     <div><h1><span class="sr">Ray Engineering</span><svg class="herologo" id="heroLogo" viewBox="48 0 708 300" aria-hidden="true"></svg></h1></div>
     <div>
-      <p class="lead">Meubels en interieurwerk op maat, onderhoud en installatie van gebouwen, en technische R&amp;D: van prototype tot FEM-analyse. Ontworpen door een werktuigbouwkundige, gebouwd met eigen handen.</p>
+      <p class="lead">Maatwerk in meubels, interieur en techniek. Van gebouwonderhoud en installaties tot prototypes en FEM-analyses. Ontworpen door een werktuigbouwkundige, gemaakt met eigen handen.</p>
       <div class="cta"><a class="btn fill" href="#projecten">Bekijk projecten</a><a class="btn" href="#rd">Naar R&amp;D</a></div>
     </div>
   </div>
@@ -642,10 +650,10 @@ if(!has3D){
  for(const v of ['#vpMain','#vpDetail'])$(v).insertAdjacentHTML('beforeend','<div class="msg">De 3D-weergave kan in deze browser niet starten. Kies een ontwerp in de modelbrowser.</div>');
 }
 
-const COL={oak:0xc9935a,oakd:0xa06a36,metal:0xaab3bb,dark:0x3b4148,white:0xe6e9ec,blue:0x2f6fd6,red:0xa8432c,green:0x5d8f63,screen:0x9fd0ff,sage:0x7f8b72,steel:0x56606a,grate:0x8b949c,concrete:0xb9b6b0,led:0xffe6b0,black:0x16191c,shell:0xdfe6ec,brick:0xa4573f,plaster:0xefe9df,roof:0x3d424a,insul:0xf2c14e,grass:0x86b862,water:0x3f93ad,tile:0xd8ecef,stone:0x8e9399,navy:0x1d4a6b,street:0xb3b0aa,leaf:0x5f9a4f};
+const COL={oak:0xc9935a,oakd:0xa06a36,metal:0xaab3bb,dark:0x3b4148,white:0xe6e9ec,blue:0x2f6fd6,red:0xa8432c,green:0x5d8f63,screen:0x9fd0ff,sage:0x7f8b72,steel:0x56606a,grate:0x8b949c,concrete:0xb9b6b0,led:0xffe6b0,black:0x16191c,shell:0xdfe6ec,brick:0xa4573f,plaster:0xefe9df,roof:0x3d424a,insul:0xf2c14e,grass:0x86b862,water:0x3f93ad,tile:0xd8ecef,stone:0x8e9399,navy:0x1d4a6b,street:0xb3b0aa,leaf:0x5f9a4f,copper:0xb87333,chrome:0xdfe4e8,glass:0xcfe8f0};
 function Asm(id){
  const g=new THREE.Group(),lm=new THREE.LineBasicMaterial({color:0x22272d}),M={},parts=[];
- const mat=k=>{if(!M[k]){M[k]=new THREE.MeshStandardMaterial({color:COL[k],roughness:.6,metalness:k==='metal'?.45:.05,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});if(k==='screen'){M[k].emissive.setHex(0x2f78c4);M[k].userData.e=0x2f78c4}if(k==='led'){M[k].emissive.setHex(0xffc46b);M[k].userData.e=0xffc46b}if(k==='shell'){M[k].transparent=true;M[k].opacity=.2;M[k].depthWrite=false}if(k==='water'){M[k].transparent=true;M[k].opacity=.5;M[k].depthWrite=false}}return M[k]};
+ const mat=k=>{if(!M[k]){M[k]=new THREE.MeshStandardMaterial({color:COL[k],roughness:.6,metalness:k==='metal'?.45:.05,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});if(k==='screen'){M[k].emissive.setHex(0x2f78c4);M[k].userData.e=0x2f78c4}if(k==='led'){M[k].emissive.setHex(0xffc46b);M[k].userData.e=0xffc46b}if(k==='shell'){M[k].transparent=true;M[k].opacity=.2;M[k].depthWrite=false}if(k==='water'||k==='glass'){M[k].transparent=true;M[k].opacity=k==='glass'?.25:.5;M[k].depthWrite=false}if(k==='chrome'||k==='copper'){M[k].metalness=.7;M[k].roughness=.3}}return M[k]};
  const mesh=(geo,k,th)=>{const o=new THREE.Mesh(geo,mat(k));o.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo,th||25),lm));o.userData.asm=id;return o};
  const at=(o,p)=>{o.position.set(p[0],p[1],p[2]);return o};
  const add=(name,o,p,ex)=>{at(o,p);o.traverse(c=>{c.userData.asm=id;c.userData.part=name});g.add(o);parts.push({name,obj:o,base:o.position.clone(),ex:new THREE.Vector3(...(ex||[0,0,0]))});return o};
@@ -764,7 +772,7 @@ const BUILD={
 function setHL(g,on){for(const k in g.userData.M){const m=g.userData.M[k];m.emissive.setHex(on?0x1b4fae:(m.userData.e||0))}g.userData.lm.color.setHex(on?0x1f6fe0:0x22272d)}
 
 function Viewer(wrap,opt){
- const r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio||1,2));wrap.prepend(r.domElement);
+ const r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio||1,1.5));wrap.prepend(r.domElement);
  const scene=new THREE.Scene();scene.add(new THREE.HemisphereLight(0xffffff,0x7d848c,.9));
  const dl=new THREE.DirectionalLight(0xffffff,.65);dl.position.set(4,9,6);scene.add(dl);
  const grid=new THREE.GridHelper(24,48,0x8f99a3,0xbfc6cd);if(opt.grid!==false)scene.add(grid);
@@ -775,7 +783,8 @@ function Viewer(wrap,opt){
  const place=()=>{const c=Math.cos(st.el);cam.position.set(st.tgt.x+st.dist*c*Math.sin(st.az),st.tgt.y+st.dist*Math.sin(st.el),st.tgt.z+st.dist*c*Math.cos(st.az));cam.lookAt(st.tgt)};
  const fit=()=>{const e=ex;explode(0);const s=new THREE.Box3().setFromObject(root).getBoundingSphere(new THREE.Sphere());explode(e);
   st.tgt.copy(s.center);st.tgt.y*=(opt.ty??.35);const f=THREE.MathUtils.degToRad(cam.fov),fh=2*Math.atan(Math.tan(f/2)*cam.aspect);st.dist=s.radius*(cam.aspect<1&&opt.kn?opt.kn:(opt.k||1))/Math.sin(Math.min(f,fh)/2)};
- const triad=()=>{const ax=[[1,0,0,'#e5484d','X'],[0,1,0,'#46a758','Y'],[0,0,1,'#3e7be0','Z']];tri.innerHTML=ax.map(([x,y,z,c,l])=>{const v=new THREE.Vector3(x,y,z).transformDirection(cam.matrixWorldInverse);const X=32+v.x*22,Y=32-v.y*22;return`<line x1="32" y1="32" x2="${X}" y2="${Y}" stroke="${c}" stroke-width="3" stroke-linecap="round"/><text x="${X+(v.x>=0?3:-11)}" y="${Y+4}" fill="${c}" font-size="13" font-weight="700" font-family="Archivo">${l}</text>`}).join('')};
+ const tx=[[1,0,0,'#e5484d','X'],[0,1,0,'#46a758','Y'],[0,0,1,'#3e7be0','Z']].map(([x,y,z,c,l])=>{const ln=document.createElementNS('http://www.w3.org/2000/svg','line'),t=document.createElementNS('http://www.w3.org/2000/svg','text');ln.setAttribute('x1',32);ln.setAttribute('y1',32);ln.setAttribute('stroke',c);ln.setAttribute('stroke-width',3);ln.setAttribute('stroke-linecap','round');t.setAttribute('fill',c);t.setAttribute('font-size',13);t.setAttribute('font-weight',700);t.textContent=l;tri.append(ln,t);return{v:new THREE.Vector3(x,y,z),ln,t}});
+ const triad=()=>{for(const a of tx){const v=a.v.clone().transformDirection(cam.matrixWorldInverse),X=32+v.x*22,Y=32-v.y*22;a.ln.setAttribute('x2',X);a.ln.setAttribute('y2',Y);a.t.setAttribute('x',X+(v.x>=0?3:-11));a.t.setAttribute('y',Y+4)}};
  const loop=t=>{raf=0;if(opt.tick){const dt=lt?Math.min(.05,(t-lt)/1000):0;lt=t;opt.tick(dt);if(vis)req();else lt=0}if(anim){const k=Math.min(1,(t-anim.t0)/anim.d),e=k<.5?2*k*k:1-(-2*k+2)**2/2;st.az=anim.a0+(anim.a1-anim.a0)*e;st.el=anim.e0+(anim.e1-anim.e0)*e;if(k<1)req();else anim=null}
   place();r.render(scene,cam);triad()};
  const req=()=>{if(!raf)raf=requestAnimationFrame(loop)};
@@ -784,20 +793,22 @@ function Viewer(wrap,opt){
  const vpRO=new ResizeObserver(size);vpRO.observe(wrap);
  const V={iso:[.72,.48],voor:[0,.06],boven:[0.0001,1.5],rechts:[Math.PI/2,.06]};
  const ray=new THREE.Raycaster(),nd=new THREE.Vector2();
- const pick=e=>{const b=r.domElement.getBoundingClientRect();nd.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1);ray.setFromCamera(nd,cam);const h=ray.intersectObjects(root.children,true).find(i=>i.object.isMesh);return h?h.object:null};
+ const pick=e=>{const b=r.domElement.getBoundingClientRect();nd.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1);ray.setFromCamera(nd,cam);const h=ray.intersectObjects(pl,false)[0];return h?h.object:null};let pl=[],hq=0,lastE=null;
  let down=null;
  wrap.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,az:st.az,el:st.el,m:false};anim=null;wrap.style.cursor='grabbing'});
  wrap.addEventListener('pointermove',e=>{
   if(down){const dx=e.clientX-down.x,dy=e.clientY-down.y;if(Math.abs(dx)+Math.abs(dy)>5){down.m=true;if(!wrap.hasPointerCapture(e.pointerId))wrap.setPointerCapture(e.pointerId)}
    if(down.m){st.az=down.az-dx*.008;if(e.pointerType==='mouse')st.el=Math.max(.04,Math.min(1.5,down.el+dy*.006));tip.hidden=true;req()}return}
+  lastE=e;if(hq)return;hq=requestAnimationFrame(()=>{hq=0;hov(lastE)})});
+ const hov=e=>{
   const o=pick(e),b=wrap.getBoundingClientRect();
   if(o){tip.hidden=false;tip.textContent=opt.label(o.userData);let x=e.clientX-b.left,y=e.clientY-b.top;if(x>b.width-200)x-=190;tip.style.left=x+'px';tip.style.top=y+'px';wrap.style.cursor=opt.click?'pointer':'grab'}else{tip.hidden=true;wrap.style.cursor='grab'}
-  const id=o?o.userData.asm:null;if(id!==hover){hover=id;opt.hover&&opt.hover(id);req()}});
+  const id=o?o.userData.asm:null;if(id!==hover){hover=id;opt.hover&&opt.hover(id);req()}};
  const up=e=>{if(down&&!down.m&&opt.click){const o=pick(e);if(o)opt.click(o.userData.asm)}down=null;wrap.style.cursor='grab'};
  wrap.addEventListener('pointerup',up);wrap.addEventListener('pointercancel',()=>{down=null});
  wrap.addEventListener('pointerleave',()=>{tip.hidden=true;if(!down&&hover){hover=null;opt.hover&&opt.hover(null);req()}});
  return{
-  set(groups){while(root.children.length)root.remove(root.children[0]);groups.forEach(g=>root.add(g));explode(ex);size()},
+  set(groups){while(root.children.length)root.remove(root.children[0]);groups.forEach(g=>root.add(g));pl=[];root.traverse(o=>{if(o.isMesh&&!o.userData.nopick)pl.push(o)});explode(ex);size()},
   view(n){const[a,e]=V[n];let a1=a;while(a1-st.az>Math.PI)a1-=2*Math.PI;while(st.az-a1>Math.PI)a1+=2*Math.PI;anim={t0:performance.now(),d:500,a0:st.az,a1,e0:st.el,e1:e};req()},
   intro(){anim={t0:performance.now(),d:1600,a0:st.az+1.4,a1:st.az,e0:.9,e1:st.el};req()},
   explode(t){explode(t);req()},
@@ -891,71 +902,113 @@ function hxUpdate(rebuild){const mh=+$('#inM').value,nb=+$('#inB').value;cur=hxC
  $('#hQ').textContent=Math.round(cur.Q/1000)+' kW';$('#hT').textContent=Math.round(cur.Tho)+' / '+Math.round(cur.Tco)+' °C';$('#hP').textContent='≈ '+Math.round(cur.dp)+' kPa';
  if(hxv){if(rebuild||!hx){hx=buildHX(nb);hxv.set([hx.g])}hxColor(hx,cur);hxv.req()}}
 $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListener('input',()=>hxUpdate(true));hxUpdate(true);
-/* hero: opengewerkt grachtenpand */
-{const SPOT={dak:['Dak en isolatie','onderhoud'],airco:['Airco en ventilatie','onderhoud'],cv:['Cv-ketel','onderhoud'],bad:['Badkamerrenovatie','onderhoud'],kast:['Kastenwand op maat','projecten'],kelder:['Kelder rat- en muisdicht','knaagdierwering'],schuur:['Werkplaats en R&D','rd'],lift:['RVS-bootlift op maat','diensten']};
- const chips=$('#chips');chips.innerHTML=Object.entries(SPOT).map(([id,[t,h]])=>`<a href="#${h}" data-id="${id}">${esc(t)}</a>`).join('');
+/* hero: opengewerkt grachtenpand met herkenbare producten */
+{const RC={gevel:[.4,1.4,4.7],vloer:[.3,2.6,3.7],dak:[.4,2.1,6.3]};
+ const SPOT={
+  dak:{t:'Dak en dakisolatie',d:'Hellend pannendak. Isoleren aan de binnenzijde tussen of op de sporen, plus inspectie en herstel van pannen en goten.',h:'onderhoud'},
+  gevel:{t:'Gevelisolatie',d:'Massief metselwerk zonder spouw. Bij grachtenpanden isoleer je meestal aan de binnenkant, met aandacht voor vocht en koudebruggen.',h:'onderhoud'},
+  vloer:{t:'Vloerisolatie',d:'Houten balklaag boven het souterrain. Isoleren vanuit de kelder, tussen of onder de balken.',h:'onderhoud'},
+  airco:{t:'Split-airco',d:'Binnenunit op de slaapkamer, buitenunit in de tuin, verbonden met koelleidingen langs de gevel. Plaatsing en onderhoud, F-gassen gecertificeerd.',h:'onderhoud'},
+  cv:{t:'Cv-ketel',d:'Hr-ketel op zolder met rookgasafvoer door het dak. Installatie en vervanging, CO-gecertificeerd.',h:'onderhoud'},
+  bad:{t:'Badkamerrenovatie',d:'Ligbad, inloopdouche, toilet en badmeubel. Van sloop en leidingwerk tot tegelwerk en afkitten.',h:'onderhoud'},
+  kast:{t:'Kastenwand op maat',d:'Eiken kastenwand van vloer tot plafond, met dichte kasten onder en open vakken boven. Ontworpen en gebouwd op de maat van de kamer.',h:'projecten'},
+  kelder:{t:'Kelder rat- en muisdicht',d:'Kierdichting langs vloer en wanden, rvs-gaas achter het rooster en een knaagvaste manchet om de leidingdoorvoer.',h:'knaagdierwering'},
+  schuur:{t:'Werkplaats',d:'Hier ontstaan prototypes en maatwerk: werkbank, gereedschapsbord, 3D-printer en lasapparaat.',h:'rd'},
+  lift:{t:'RVS-bootlift',d:'Een sloep op een rvs-bootlift die onder water ligt. Ontwerp en berekening in eigen beheer, laswerk door een vaste partner.',h:'diensten'}};
+ const ORD=['dak','gevel','vloer','airco','cv','bad','kast','kelder','schuur','lift'];
+ const chips=$('#chips');chips.innerHTML=ORD.map(id=>`<a href="#${SPOT[id].h}" data-id="${id}">${esc(SPOT[id].t)}</a>`).join('');
+ const card=document.createElement('div');card.className='hcard';$('#vpHouse').appendChild(card);
+ const nf=v=>String(v).replace('.',',');let sel=null,therm=null,house=null;const G={};
+ function show(id){sel=id;if(!RC[id]&&therm)thermal(null);const sp=SPOT[id];chips.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.id===id));
+  if(!sp){card.innerHTML='<b>Klik op een onderdeel van het huis</b><span>Dak, gevel, vloer, airco, cv-ketel, badkamer, kastenwand, kelder, werkplaats of bootlift.</span>';house&&house.hl(null);return}
+  let h=`<button class="hx" aria-label="Sluiten">×</button><b>${esc(sp.t)}</b><span>${esc(sp.d)}</span>`;
+  if(RC[id]){const[r0,r1,r2]=RC[id];h+=`<table><tr><td>Nu, ongeïsoleerd (schatting)</td><td>Rc ≈ ${nf(r0)}</td></tr><tr><td>Eis bij na-isoleren (Bbl)</td><td>Rc ≥ ${nf(r1)}</td></tr><tr><td>Nieuwbouwniveau</td><td>Rc ${nf(r2)}</td></tr><tr><td>Warmteverlies nu</td><td>U ≈ ${nf((1/r0).toFixed(1))} W/m²K</td></tr></table>
+   <div class="tbtn"><span>Warmteverlies tonen:</span><button data-t="nu" class="${therm==='nu'?'on':''}">Nu</button><button data-t="na" class="${therm==='na'?'on':''}">Na isolatie</button><button data-t="" class="${!therm?'on':''}">Uit</button></div>`}
+  h+=`<a href="#${sp.h}">Naar de dienst</a>`;card.innerHTML=h;house&&house.hl(id)}
+ card.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.classList.contains('hx')){show(null);return}thermal(b.dataset.t||null);show(sel)});
+ function thermal(m){therm=m;['gevel','vloer','dak'].forEach(id=>{const g=G[id];if(!g)return;for(const k in g.userData.M){const mt=g.userData.M[k];if(mt.userData.c0==null)mt.userData.c0=mt.color.getHex();
+   if(!m)mt.color.setHex(mt.userData.c0);else{const U=1/RC[id][m==='nu'?0:2],c=jet(Math.min(1,Math.max(0,(U-.1)/2.8)));mt.color.setRGB(c[0],c[1],c[2])}}});house&&house.req()}
+ chips.querySelectorAll('a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.id)});a.addEventListener('mouseenter',()=>house&&house.hl(a.dataset.id));a.addEventListener('mouseleave',()=>house&&house.hl(sel))});
+ show(null);
  if(!has3D){$('#vpHouse').insertAdjacentHTML('beforeend','<div class="msg">De 3D-weergave kan in deze browser niet starten.</div>')}
  else{
- const G=[];const grp=id=>{const a=Asm(id);G.push(a.g);return a};
+ const L=[];const grp=id=>{const a=Asm(id);L.push(a.g);G[id]=a.g;return a};const np=o=>{o.userData.nopick=true;return o};
  const lineM=new THREE.LineBasicMaterial({color:0x1d3a5f,transparent:true,opacity:.55});
+ const lines=(v,mat)=>{const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(v,3));return new THREE.LineSegments(g,mat||lineM)};
  const gable=(x0,ghost)=>{const P=[[-2,0],[-2,9],[-2,9.6],[-1.5,9.6],[-1.5,10.2],[-1,10.2],[-1,10.8],[-.5,10.8],[-.5,11.6],[.5,11.6],[.5,10.8],[1,10.8],[1,10.2],[1.5,10.2],[1.5,9.6],[2,9.6],[2,9],[2,0]],v=[];
   for(let i=0;i<P.length-1;i++)v.push(P[i][0]+x0,P[i][1],2,P[i+1][0]+x0,P[i+1][1],2);
-  if(!ghost)for(const y of [1,4,7])for(const x of [-1.3,0,1.3]){const a=x0+x-.4,b=x0+x+.4,c=y+.3,d=y+1.9;v.push(a,c,2,b,c,2,b,c,2,b,d,2,b,d,2,a,d,2,a,d,2,a,c,2)}
-  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(v,3));return new THREE.LineSegments(g,lineM)};
- /* huis-casco */
+  if(!ghost)for(const y of [1,4,7])for(const x of [-1.3,0,1.3]){const a=x0+x-.4,b=x0+x+.4,c=y+.3,d=y+1.9;v.push(a,c,2,b,c,2,b,c,2,b,d,2,b,d,2,a,d,2,a,d,2,a,c,2)}return lines(v)};
+ const tube=(pts,r,k,mesh)=>mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p)),false,'catmullrom',.1),48,r,8,false),k,80);
+ /* casco */
  {const{g,mesh,add}=grp('huis');
   add('Bouwmuur',mesh(Bx(.25,10.2,5.2),'brick'),[-2.125,3.9,-.5]);
-  {const w=mesh(Bx(.25,10.2,5.2),'brick');w.material=w.material.clone();w.material.transparent=true;w.material.opacity=.1;w.material.depthWrite=false;add('Bouwmuur (opengewerkt)',w,[2.125,3.9,-.5])}
-  add('Achtergevel',mesh(Bx(4.5,10.2,.25),'brick'),[0,3.9,-3.225]);
-  [0,3,6,9].forEach(y=>add('Vloer',mesh(Bx(4,.2,5),'oak'),[0,y-.1,-.5]));
+  {const w=mesh(Bx(.25,10.2,5.2),'brick');w.material=w.material.clone();w.material.transparent=true;w.material.opacity=.08;w.material.depthWrite=false;np(add('Bouwmuur',w,[2.125,3.9,-.5]))}
+  [3,6,9].forEach(y=>add('Vloer',mesh(Bx(4,.2,5),'oak'),[0,y-.1,-.5]));
   add('Keldervloer',mesh(Bx(4,.15,5),'concrete'),[0,-1.27,-.5]);
-  [1,4,7].forEach(y=>[-1,1].forEach(x=>add('Raam',mesh(Bx(.8,1.5,.06),'screen'),[x,y+1.1,-3.08])));
-  add('Bank',mesh(Bx(1.8,.45,.8),'dark'),[.3,.3,-.4]);add('Bed',mesh(Bx(1.6,.45,2),'white'),[-.6,6.25,-.8]);
-  g.add(gable(0,false));g.add(gable(-4.3,true));g.add(gable(4.3,true));
-}
- /* straat, kade, gracht */
+  [7].forEach(y=>[-1].forEach(x=>np(add('Raam',mesh(Bx(.8,1.5,.06),'screen'),[x,y+1.1,-3.08]))));
+  add('Bank',mesh(Bx(1.8,.45,.8),'dark'),[.5,.3,.2]);add('Bank',mesh(Bx(1.8,.45,.2),'dark'),[.5,.6,.55]);
+  add('Vloerkleed',mesh(Bx(2.2,.02,1.6),'blue'),[.4,.01,-1.2]);
+  add('Bed',mesh(Bx(1.6,.4,2),'white'),[-1,6.2,-.6]);add('Hoofdeinde',mesh(Bx(1.6,.7,.08),'oakd'),[-1,6.45,-1.62]);
+  g.add(gable(0,false));g.add(gable(-4.3,true));g.add(gable(4.3,true))}
+ {const{mesh,add}=grp('gevel');add('Achtergevel',mesh(Bx(4.5,10.2,.25),'brick'),[0,3.9,-3.225]);}
+ {const{mesh,add}=grp('vloer');add('Vloer begane grond',mesh(Bx(4,.2,5),'oak'),[0,-.1,-.5]);add('Balklaag',mesh(Bx(4,.18,4.9),'oakd'),[0,-.3,-.5]);}
+ /* straat, gracht, tuin */
  {const{mesh,add}=grp('gracht');
   add('Straat',mesh(Bx(14,.12,1),'street'),[0,-.06,2.5]);
-  add('Kademuur',mesh(Bx(14,1.9,.35),'stone'),[0,-.95,3.15]);add('Overkant',mesh(Bx(14,1.9,.35),'stone'),[0,-.95,7.4]);
-  add('Grachtbodem',mesh(Bx(14,.1,4.2),'dark'),[0,-2.2,5.3]);add('Water',mesh(Bx(14,.04,3.9),'water'),[0,-.55,5.27]);}
- /* tuin */
+  add('Kademuur',mesh(Bx(14,1.9,.35),'stone'),[0,-.95,3.15]);add('Kademuur',mesh(Bx(14,1.9,.35),'stone'),[0,-.95,7.4]);
+  add('Grachtbodem',mesh(Bx(14,.1,4.2),'dark'),[0,-2.2,5.3]);np(add('Water',mesh(Bx(14,.04,3.9),'water'),[0,-.55,5.27]));}
  {const{mesh,add,at}=grp('tuin');
   add('Tuin',mesh(Bx(4.5,.1,7.6),'grass'),[0,-.05,-7.2]);
-  [-1,1].forEach(sd=>add('Schutting',mesh(Bx(.06,1.4,7.6),'oakd'),[sd*2.2,.7,-7.2]));
-  [[-1.3,-4.6],[1.4,-5.2]].forEach(([x,z])=>{const t=new THREE.Group();t.add(at(mesh(Cy(.08,.1,1.2,8),'oakd'),[0,.6,0]));t.add(at(mesh(new THREE.IcosahedronGeometry(.75,0),'leaf'),[0,1.7,0]));add('Boom',t,[x,0,z])});}
+  add('Schutting',mesh(Bx(.06,1.4,7.6),'oakd'),[-2.2,.7,-7.2]);add('Schutting',mesh(Bx(.06,.45,7.6),'oakd'),[2.2,.225,-7.2]);
+  [[-1.3,-5],[.2,-6.4]].forEach(([x,z])=>{const t=new THREE.Group();t.add(at(mesh(Cy(.08,.1,1.2,8),'oakd'),[0,.6,0]));t.add(at(mesh(new THREE.IcosahedronGeometry(.7,0),'leaf'),[0,1.65,0]));add('Boom',t,[x,0,z])});}
  /* kelder */
  {const{mesh,add}=grp('kelder');
   [-1.95,1.95].forEach(x=>add('Kierdichting',mesh(Bx(.06,.06,5),'screen'),[x,-1.17,-.5]));
   add('Kierdichting',mesh(Bx(3.9,.06,.06),'screen'),[0,-1.17,-2.95]);
-  add('Ventilatierooster met rvs-gaas',mesh(Bx(.06,.35,.7),'metal'),[-1.98,-.45,-1.5]);
+  add('Rooster met rvs-gaas',mesh(Bx(.06,.35,.7),'chrome'),[-1.98,-.45,-1.5]);
   add('Stelling',mesh(Bx(1.4,1,.4),'oakd'),[1.1,-.7,-2.7]);
-  add('Leidingdoorvoer met manchet',mesh(Cy(.09,.09,.12,16),'screen'),[1.95,-.6,.6]).rotation.z=Math.PI/2;}
+  const mc=mesh(Cy(.09,.09,.12,16),'screen');mc.rotation.z=Math.PI/2;add('Leidingmanchet',mc,[1.95,-.6,.6]);}
  /* kastenwand */
  {const{mesh,add}=grp('kast');
-  add('Kastenwand',mesh(Bx(3.5,2.5,.42),'oak'),[0,1.25,-2.85]);
-  for(const x of [-1.15,0,1.15])for(const y of [1.6,2.2])add('Open vak',mesh(Bx(.9,.42,.05),'oakd'),[x,y,-2.62]);
-  for(const x of [-1.15,0,1.15])add('Deur',mesh(Bx(1.05,1.05,.04),'oak'),[x,.62,-2.62]);}
+  add('Achterwand',mesh(Bx(3.6,2.7,.05),'oakd'),[0,1.35,-3.07]);
+  [-1.8,-.9,0,.9,1.8].forEach(x=>add('Zijwand',mesh(Bx(.04,2.7,.42),'oak'),[x,1.35,-2.88]));
+  [.03,1.05,1.6,2.15,2.68].forEach(y=>add('Legplank',mesh(Bx(3.64,.04,.42),'oak'),[0,y,-2.88]));
+  [-1.35,-.45,.45,1.35].forEach(x=>{add('Deur',mesh(Bx(.85,.98,.03),'oak'),[x,.55,-2.65]);add('Greep',mesh(Bx(.02,.25,.03),'chrome'),[x+.36,.7,-2.62])});
+  add('Boeken',books(mesh,[[-1.76,-.95,1.07],[-.86,-.1,1.62],[.04,.86,1.07],[.94,1.76,2.17],[-1.76,-1.0,2.17]],9),[0,0,-2.85]);
+  const v=mesh(Cy(.08,.11,.32,16),'white');add('Vaas',v,[.4,1.78,-2.88]);}
  /* badkamer */
- {const{mesh,add}=grp('bad');
-  add('Tegelwand',mesh(Bx(3.6,2.5,.05),'tile'),[0,4.3,-3.07]);
-  add('Ligbad',mesh(Bx(1.7,.55,.78),'white'),[-.95,3.28,-2.6]);
-  add('Badmeubel',mesh(Bx(1,.55,.5),'oak'),[1.1,3.6,-2.8]);add('Wastafel',mesh(Bx(.8,.08,.45),'white'),[1.1,3.92,-2.78]);
-  add('Spiegel',mesh(Bx(.8,.7,.03),'screen'),[1.1,4.6,-3.03]);add('Toilet',mesh(Bx(.38,.42,.6),'white'),[.2,3.21,-2.7]);}
- /* airco */
+ {const{mesh,add,g}=grp('bad');
+  add('Vloertegels',mesh(Bx(3.95,.02,4.9),'tile'),[0,3.01,-.5]);
+  add('Wandtegels',mesh(Bx(3.9,2.6,.04),'tile'),[0,4.3,-3.08]);
+  {const v=[];for(let x=-1.95;x<=1.95;x+=.3)v.push(x,3,-3.055,x,5.6,-3.055);for(let y=3;y<=5.6;y+=.3)v.push(-1.95,y,-3.055,1.95,y,-3.055);g.add(lines(v,new THREE.LineBasicMaterial({color:0x9fb4ba})))}
+  add('Ligbad',mesh(Bx(1.7,.55,.78),'white'),[-1.05,3.29,-2.62]);add('Badwater',mesh(Bx(1.5,.03,.6),'glass'),[-1.05,3.5,-2.62]);
+  add('Badkraan',mesh(Cy(.025,.025,.25,10),'chrome'),[-1.05,3.68,-2.98]);add('Uitloop',mesh(Bx(.03,.03,.16),'chrome'),[-1.05,3.79,-2.9]);
+  add('Douchebak',mesh(Bx(.95,.06,.95),'white'),[1.45,3.04,-2.58]);add('Glazen douchewand',mesh(Bx(.02,2,.95),'glass'),[.96,4.02,-2.58]);
+  add('Douchestang',mesh(Cy(.015,.015,1.5,8),'chrome'),[1.75,4.25,-3.03]);const sh=mesh(Cy(.11,.11,.025,20),'chrome');sh.rotation.x=.5;add('Douchekop',sh,[1.75,5.0,-2.88]);add('Douchearm',mesh(Bx(.02,.02,.2),'chrome'),[1.75,5.02,-2.98]);
+  add('Toilet reservoir',mesh(Bx(.2,.4,.44),'white'),[-1.88,3.62,-.9]);const bw=mesh(Cy(.19,.14,.4,20),'white');add('Toiletpot',bw,[-1.66,3.21,-.9]);add('Toiletbril',mesh(Cy(.2,.2,.04,20),'white'),[-1.66,3.43,-.9]);
+  add('Badmeubel',mesh(Bx(.5,.5,1),'oak'),[-1.74,3.55,.6]);add('Wastafel',mesh(Bx(.46,.1,.62),'white'),[-1.72,3.86,.6]);add('Kraan',mesh(Cy(.02,.02,.18,8),'chrome'),[-1.9,4.0,.6]);
+  add('Spiegel',mesh(Bx(.03,.8,.9),'glass'),[-1.98,4.65,.6]);}
+ /* airco: binnenunit, koelleidingen, buitenunit */
  {const{mesh,add}=grp('airco');
-  add('Binnenunit airco',mesh(Bx(.95,.3,.24),'white'),[.7,8.35,-2.97]);
-  add('Buitenunit airco',mesh(Bx(.85,.6,.32),'metal'),[.9,6.55,-3.55]);
-  const f=mesh(Cy(.22,.22,.02,24),'dark');f.rotation.x=Math.PI/2;add('Ventilator',f,[.9,6.55,-3.72]);}
- /* cv-ketel */
+  add('Binnenunit',mesh(Bx(1,.32,.24),'white'),[.85,8.45,-2.97]);add('Uitblaasrooster',mesh(Bx(.9,.04,.03),'dark'),[.85,8.32,-2.84]);add('Statuslampje',mesh(Bx(.04,.02,.01),'screen'),[1.25,8.4,-2.845]);
+  [[0,1],[.06,.55]].forEach(([dx])=>add('Koelleiding',tube([[1.3+dx,8.4,-3.0],[1.36+dx,8.38,-3.52],[2.0+dx,8.36,-3.52],[2.12+dx,8.2,-3.52],[2.12+dx,1.0,-3.52],[2.05+dx,.8,-3.6],[1.98+dx,.74,-3.7]],.022,'copper',mesh),[0,0,0]));
+  add('Buitenunit',mesh(Bx(.34,.68,.85),'chrome'),[1.92,.39,-3.95]);
+  const ring=mesh(new THREE.TorusGeometry(.24,.02,8,32),'dark');ring.rotation.y=Math.PI/2;add('Ventilatorrooster',ring,[2.1,.4,-3.95]);
+  const fan=mesh(Cy(.21,.21,.02,24),'dark');fan.rotation.z=Math.PI/2;add('Ventilator',fan,[2.095,.4,-3.95]);
+  for(let i=0;i<3;i++){const b=mesh(Bx(.02,.4,.06),'chrome');b.rotation.x=i*Math.PI/3;add('Ventilatorblad',b,[2.11,.4,-3.95])}}
+ /* cv-ketel op zolder */
  {const{mesh,add}=grp('cv');
-  add('Cv-ketel',mesh(Bx(.46,.72,.34),'white'),[-.6,9.6,-2.8]);
-  [-.7,-.5].forEach(x=>add('Leiding',mesh(Cy(.025,.025,.5,8),'oakd'),[x,9.05,-2.85]));}
- /* dak + isolatie */
+  add('Cv-ketel',mesh(Bx(.46,.72,.34),'white'),[-.4,9.76,1.25]);add('Display',mesh(Bx(.2,.08,.01),'screen'),[-.4,9.95,1.425]);
+  add('Rookgasafvoer',mesh(Cy(.055,.055,1.5,16),'chrome'),[-.4,10.85,1.25]);
+  [-.52,-.4,-.28].forEach(x=>add('Leiding',mesh(Cy(.02,.02,.42,8),'copper'),[x,9.21,1.3]));}
+ /* dak + isolatie + goot */
  {const{mesh,add}=grp('dak');
-  [-1,1].forEach(sd=>{const r=mesh(Bx(3.2,.12,5.3),'roof');r.rotation.z=-sd*.852;add('Dakvlak',r,[sd*1.05,10.22,-.5]);
-   const i=mesh(Bx(2.9,.14,5),'insul');i.rotation.z=-sd*.852;add('Dakisolatie',i,[sd*.96,10.05,-.5])});}
+  [-1,1].forEach(sd=>{const r=mesh(Bx(3.2,.12,5.3),'roof');r.rotation.z=-sd*.852;add('Pannendak',r,[sd*1.05,10.22,-.5]);
+   for(let i=1;i<7;i++){const t=mesh(Bx(3.2,.03,.04),'dark');t.rotation.z=-sd*.852;add('Pannenrij',t,[sd*1.05+sd*.06,10.29,-3.1+i*.75])}
+   const ins=mesh(Bx(2.9,.14,5),'insul');ins.rotation.z=-sd*.852;add('Dakisolatie',ins,[sd*.96,10.05,-.5]);
+   const goot=mesh(Cy(.08,.08,5.3,12,true),'chrome');goot.rotation.x=Math.PI/2;add('Dakgoot',goot,[sd*2.2,9,-.5])});}
  /* schuur = werkplaats */
- {const{mesh,add,at}=grp('schuur');
+ {const{mesh,add}=grp('schuur');
   add('Schuurvloer',mesh(Bx(3.2,.1,2.8),'concrete'),[0,.05,-9.4]);
   add('Achterwand',mesh(Bx(3.2,2.3,.1),'oakd'),[0,1.15,-10.75]);add('Zijwand',mesh(Bx(.1,2.3,2.8),'oakd'),[-1.55,1.15,-9.4]);
   const r=mesh(Bx(3.3,.08,1.5),'roof');r.rotation.x=-.18;add('Dak (opengewerkt)',r,[0,2.45,-10.1]);
@@ -966,19 +1019,16 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
   add('3D-printer',mesh(Bx(.45,.5,.45),'dark'),[-.55,1.19,-10.3]);add('Bankschroef',mesh(Bx(.18,.14,.2),'steel'),[1,1.01,-10.1]);
   add('Lasapparaat',mesh(Bx(.4,.45,.6),'blue'),[-1.2,.28,-8.6]);}
  /* sloep op rvs-bootlift onder water */
- {const{mesh,add,at}=grp('lift');
+ {const{mesh,add}=grp('lift');
   const hs=new THREE.Shape();hs.moveTo(0,0);hs.lineTo(2.3,0);hs.quadraticCurveTo(2.9,.1,3.05,.5);hs.lineTo(-.05,.5);hs.lineTo(0,0);
-  const hull=mesh(new THREE.ExtrudeGeometry(hs,{depth:1.05,bevelEnabled:true,bevelThickness:.04,bevelSize:.04,bevelSegments:1}),'navy');add('Sloep',hull,[-1.6,-.78,4.4]);
+  add('Sloep',mesh(new THREE.ExtrudeGeometry(hs,{depth:1.05,bevelEnabled:true,bevelThickness:.04,bevelSize:.04,bevelSegments:1}),'navy'),[-1.6,-.78,4.4]);
   add('Dek',mesh(Bx(2.8,.06,.95),'oak'),[-.15,-.27,4.92]);add('Bank',mesh(Bx(.9,.3,.4),'oak'),[-.5,-.1,4.92]);add('Stuurconsole',mesh(Bx(.35,.45,.4),'white'),[.5,0,4.92]);
-  [-1.3,1.3].forEach(x=>[3.85,6].forEach(z=>add('RVS-paal',mesh(Cy(.06,.06,2.5,12),'metal'),[x,-.95,z])));
-  [-1.3,1.3].forEach(x=>add('RVS-ligger',mesh(Bx(.1,.1,2.15),'metal'),[x,-1.08,4.92]));
-  [4.55,5.3].forEach(z=>add('Draagbalk (bunk)',mesh(Bx(2.8,.08,.12),'metal'),[0,-.97,z]));
-  [-1.3,1.3].forEach(x=>add('Hydraulische cilinder',mesh(Cy(.05,.05,.8,10),'steel'),[x,-1.55,3.95]));}
- const house=Viewer($('#vpHouse'),{k:.6,kn:.9,ty:.95,az:.75,el:.26,grid:false,label:u=>SPOT[u.asm]?SPOT[u.asm][0]+', klik voor meer':u.part,
-  click:id=>{const sp=SPOT[id];if(sp)document.getElementById(sp[1]).scrollIntoView({behavior:'smooth'})},
-  hover:id=>{house&&house.hl(SPOT[id]?id:null);chips.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.id===id))}});
- house.set(G);
- chips.querySelectorAll('a').forEach(a=>{a.addEventListener('mouseenter',()=>house.hl(a.dataset.id));a.addEventListener('mouseleave',()=>house.hl(null))});
+  [-1.3,1.3].forEach(x=>[3.85,6].forEach(z=>add('RVS-paal',mesh(Cy(.06,.06,2.5,12),'chrome'),[x,-.95,z])));
+  [-1.3,1.3].forEach(x=>add('RVS-ligger',mesh(Bx(.1,.1,2.15),'chrome'),[x,-1.08,4.92]));
+  [4.55,5.3].forEach(z=>add('Draagbalk',mesh(Bx(2.8,.08,.12),'chrome'),[0,-.97,z]));}
+ house=Viewer($('#vpHouse'),{k:.6,kn:.9,ty:.95,az:.75,el:.26,grid:false,label:u=>SPOT[u.asm]?SPOT[u.asm].t:'',
+  click:id=>{if(SPOT[id])show(id)},hover:id=>{house&&house.hl(SPOT[id]?id:sel)}});
+ house.set(L);
  let hp=false;const hio=new IntersectionObserver(es=>{if(es[0].isIntersecting&&!hp&&!matchMedia('(prefers-reduced-motion:reduce)').matches){hp=true;house.intro()}},{threshold:.3});hio.observe($('#vpHouse'));
  }}
 /* modale analyse trapboom */
