@@ -591,13 +591,14 @@ const D={
  nudration:{t:'Nudration frisdrankmachine',k:'R&D-project',f:'Nudration.iam',i:'Een eigen frisdrankmachine, uitgewerkt als complete assembly met behuizing, bediening, uitgifte en de techniek erachter.',x:'Bij een machine als deze moet alles samenwerken: koeling, carbonatatie, dosering en een bediening die voor iedereen logisch is. Door de machine eerst als assembly op te bouwen, passen de onderdelen en zijn ze bereikbaar voor onderhoud voordat er iets gemaakt wordt.',w:['3D-ontwerp van de complete machine','Indeling van de techniek in de behuizing','Prototyping en testen']},
  bar:{t:'Ronde bar',k:'Maatwerk',f:'Ronde-bar.iam',i:'Een volledig ronde bar, eerst als assembly getekend en daarna gebouwd en geplaatst.',x:'Rond werk vraagt om precisie: het blad, de lamellen van de front en de voetsteun moeten exact op elkaar aansluiten. In het 3D-model zijn alle onderdelen los uitgewerkt, zodat maatvoering en productie vooraf kloppen.',w:['Ontwerp en 3D-assembly','Productie van blad en front','Plaatsing en afwerking']},
  tribune:{t:'Tribune basisschool',k:'Maatwerk',f:'Tribune-basisschool.iam',i:'Een zittribune voor een basisschool, ontworpen, gebouwd en geplaatst.',x:'Een tribune voor kinderen moet stevig, veilig en makkelijk schoon te houden zijn. De treden zijn als losse elementen opgebouwd, met zitkussens en opbergruimte in de onderste trede.',w:['Ontwerp afgestemd op de ruimte','Bouw van de trede-elementen','Plaatsing in de school']},
+ bootlift:{t:'RVS-bootlift',k:'R&D-project, in ontwikkeling',f:'Bootlift.iam',i:'Een bootlift met twee spindelkolommen op de kade, uitkragende draagarmen en twee bunks met tapijt. In de laagste stand ligt het frame onder water en vaart de sloep erboven.',x:'Twee kolommen op de kademuur dragen elk een slede met een uitkragende draagarm. Een zelfremmende wormwielaandrijving met spindel tilt het frame met de sloep uit het water, en blijft staan als de stroom uitvalt. Omdat de armen uitkragen, zit het grootste buigmoment bij de kolomvoet: de knieschoren, de voetplaat en de verankering in de kade zijn de kern van de sterkteberekening. Waar rvs en aluminium elkaar raken, voorkomen isolatieringen en opofferingsanodes galvanische corrosie.',w:['Ontwerp van kolommen, sleden, draagarmen en bunks','Sterkteberekening van de uitkragende armen en de kolomvoet','Laswerk door een vaste partner'],wl:'Uitgewerkt in het ontwerp'},
  tvwand:{t:'Wandmeubel met tv-nis',k:'Ontwerpvoorbeeld',f:'Tv-wand.iam',i:'Een ontwerp voor een wandvullend tv-meubel: zwevende onderkasten, twee hoge kolomkasten en open eiken nissen met verlichting.',x:'Zo’n wandmeubel ontwerp ik per wand. De gelakte kolom- en onderkasten geven rust, het eiken middendeel met de tv-nis en de verlichte nissen is de blikvanger. Kabelgoten, ventilatie voor de apparatuur en de plek van de verlichting liggen in het ontwerp al vast.',w:['Indeling en maatvoering op de wand','Kabelgoten en ventilatie achter de tv','LED-verlichting in de nissen'],wl:'Uitgewerkt in het ontwerp'},
  kastenwand:{t:'Eiken kastenwand met bureau',k:'Ontwerpvoorbeeld',f:'Kastenwand-bureau.iam',i:'Een ontwerp voor een eiken kastenwand van vloer tot plafond, met dichte kasten onder, open vakken boven en een werkplek in het midden.',x:'Een kastenwand met ingebouwd bureau maakt van een gewone wand een werkplek. De open vakken hebben verspringende tussenschotten voor een luchtig beeld, de dichte kasten onderin houden de spullen uit zicht. Plankdiktes en overspanningen zijn zo gekozen dat niets doorbuigt onder boeken.',w:['Modulaire opbouw in drie kolommen','Verspringende tussenschotten','Bureau met lade en kabeldoorvoer'],wl:'Uitgewerkt in het ontwerp'},
  bordestrap:{t:'Stalen bordestrap',k:'Staalconstructie',f:'Bordestrap.iam',i:'Een stalen trap met twee steekarmen en een tussenbordes, met roostertreden en leuningen aan de buitenzijde.',x:'Bij een stalen trap draait het om stijfheid, aansluitingen en de regels: optrede, aantrede, vrije hoogte en leuninghoogte volgen het Besluit bouwwerken leefomgeving (Bbl). Bomen en bordes worden op sterkte en doorbuiging gecontroleerd, de kolommen dragen het bordes af naar de vloer.',w:['Trapberekening: optrede, aantrede en vrije hoogte','Sterkte en doorbuiging van bomen en bordes','Werkplaatstekeningen voor de staalbouwer'],wl:'Uitgewerkt in het ontwerp'},
  steektrap:{t:'Steektrap met zaagtandboom',k:'Staalconstructie',f:'Steektrap-zaagtand.iam',i:'Een rechte trap met één centrale zaagtandboom in staal en eiken treden.',x:'Met één boom in het midden lijkt de trap te zweven. Juist daarom wordt hij gecontroleerd op torsie en trillingen: een trap die meeveert voelt onveilig, ook als hij sterk genoeg is. De eigenfrequentie moet ruim boven die van lopende mensen liggen.',w:['Ontwerp van boom en treden','Controle op torsie, doorbuiging en eigenfrequentie','Detaillering van voetplaat en muuranker'],wl:'Uitgewerkt in het ontwerp'},
  boekenkast:{t:'Boekenkast op maat',k:'Maatwerk',f:'Boekenkast.iam',i:'Boekenkasten ontworpen en gebouwd op de maat van de ruimte.',x:'Een kast op maat benut elke centimeter. Plankafstanden, materiaaldikte en doorbuiging van de legplanken worden in het ontwerp bepaald, zodat de kast ook vol boeken recht blijft.',w:['Inmeten en 3D-ontwerp','Controle doorbuiging legplanken','Bouw en plaatsing']}
 };
-const GROUPS=[['Maatwerk',['tribune','boekenkast','bar','tvwand','kastenwand']],['Staalconstructies',['bordestrap','steektrap']],['R&D',['nudration']]];
+const GROUPS=[['Maatwerk',['tribune','boekenkast','bar','tvwand','kastenwand']],['Staalconstructies',['bordestrap','steektrap']],['R&D',['nudration','bootlift']]];
 const ORDER=GROUPS.flatMap(x=>x[1]);
 
 const tree=$('#tree');
@@ -653,7 +654,7 @@ if(!has3D){
 const COL={oak:0xc9935a,oakd:0xa06a36,metal:0xaab3bb,dark:0x3b4148,white:0xe6e9ec,blue:0x2f6fd6,red:0xa8432c,green:0x5d8f63,screen:0x9fd0ff,sage:0x7f8b72,steel:0x56606a,grate:0x8b949c,concrete:0xb9b6b0,led:0xffe6b0,black:0x16191c,shell:0xdfe6ec,brick:0xa4573f,plaster:0xefe9df,roof:0x3d424a,insul:0xf2c14e,grass:0x86b862,water:0x3f93ad,tile:0xd8ecef,stone:0x8e9399,navy:0x1d4a6b,street:0xb3b0aa,leaf:0x5f9a4f,copper:0xb87333,chrome:0xdfe4e8,glass:0xcfe8f0};
 function Asm(id){
  const g=new THREE.Group(),lm=new THREE.LineBasicMaterial({color:0x22272d}),M={},parts=[];
- const mat=k=>{if(!M[k]){M[k]=new THREE.MeshStandardMaterial({color:COL[k],roughness:.6,metalness:k==='metal'?.45:.05,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});if(k==='screen'){M[k].emissive.setHex(0x2f78c4);M[k].userData.e=0x2f78c4}if(k==='led'){M[k].emissive.setHex(0xffc46b);M[k].userData.e=0xffc46b}if(k==='shell'){M[k].transparent=true;M[k].opacity=.2;M[k].depthWrite=false}if(k==='water'||k==='glass'){M[k].transparent=true;M[k].opacity=k==='glass'?.25:.5;M[k].depthWrite=false}if(k==='chrome'||k==='copper'){M[k].metalness=.7;M[k].roughness=.3}}return M[k]};
+ const mat=k=>{if(!M[k]){M[k]=new THREE.MeshStandardMaterial({color:COL[k],roughness:.6,metalness:k==='metal'?.45:.05,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});if(k==='screen'){M[k].emissive.setHex(0x2f78c4);M[k].userData.e=0x2f78c4}if(k==='led'){M[k].emissive.setHex(0xffc46b);M[k].userData.e=0xffc46b}if(k==='shell'){M[k].transparent=true;M[k].opacity=.2;M[k].depthWrite=false}if(k==='water'||k==='glass'){M[k].transparent=true;M[k].opacity=k==='glass'?.25:.5;M[k].depthWrite=false}if(k==='chrome'||k==='copper'){M[k].metalness=.3;M[k].roughness=.35}}return M[k]};
  const mesh=(geo,k,th)=>{const o=new THREE.Mesh(geo,mat(k));o.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo,th||25),lm));o.userData.asm=id;return o};
  const at=(o,p)=>{o.position.set(p[0],p[1],p[2]);return o};
  const add=(name,o,p,ex)=>{at(o,p);o.traverse(c=>{c.userData.asm=id;c.userData.part=name});g.add(o);parts.push({name,obj:o,base:o.position.clone(),ex:new THREE.Vector3(...(ex||[0,0,0]))});return o};
@@ -753,6 +754,24 @@ const BUILD={
   [0,3,6,9,12].forEach(i=>{const x=i*go+go/2,y=(i+1)*ri+.045;rod('Baluster',[x,y,.47],[x,y+.9,.47],.012,'steel',[0,.25,.3])});
   rod('Handregel',[go/2,ri+.945,.47],[12*go+go/2,13*ri+.945,.47],.02,'steel',[0,.25,.3]);
   add('Vloer (referentie)',mesh(Bx(1,.2,1.3),'concrete'),[X+s/2+.5,H-.1,0],[.3,0,0]);return g},
+ bootlift(h){h=h??.3;const{g,mesh,add}=Asm('bootlift'),{beam,rod}=steel(mesh,add);
+  [-1.5,1.5].forEach(x=>{const sx=Math.sign(x);
+   add('Kolom (rvs-koker)',mesh(Bx(.16,2.8,.16),'chrome'),[x,-.4,.12],[sx*.45,0,0]);
+   add('Ankerplaat kademuur',mesh(Bx(.36,.5,.03),'chrome'),[x,-.3,.025],[sx*.45,0,-.2]);
+   add('Voetplaat',mesh(Bx(.36,.03,.42),'chrome'),[x,.015,-.09],[sx*.45,0,0]);
+   beam('Knieschoor',[x,.62,.12],[x,.03,-.27],.1,.08,'chrome',[sx*.45,0,0]);
+   rod('Spindel',[x,-1.6,.23],[x,1.0,.23],.022,'steel',[sx*.45,.2,0]);
+   add('Wormwielkast',mesh(Bx(.24,.26,.24),'chrome'),[x,1.13,.12],[sx*.45,.55,0]);
+   const wm=mesh(Cy(.14,.14,.05,28),'chrome');wm.rotation.z=Math.PI/2;add('Wormwiel',wm,[x+sx*.15,1.3,.12],[sx*.6,.55,0]);
+   const mo=mesh(Cy(.08,.08,.32,20),'steel');mo.rotation.x=Math.PI/2;add('Elektromotor',mo,[x,1.16,.42],[sx*.45,.55,.2]);
+   rod('Geleidepaal',[x+sx*.2,0,.42],[x+sx*.2,1.9,.42],.03,'chrome',[sx*.6,0,0]);
+   add('Slede',mesh(Bx(.26,.46,.26),'chrome'),[x,h+.2,.12],[sx*.45,0,.25]);
+   add('Draagarm (kokerprofiel)',mesh(Bx(.14,.18,2.7),'chrome'),[x,h,1.5],[sx*.2,0,.55]);
+   beam('Schoor draagarm',[x,h-.02,.2],[x,h-.09,1.0],.08,.06,'chrome',[sx*.2,-.15,.55]);
+   [1,2].forEach(z=>add('Bunkdrager',mesh(Bx(.08,.22,.08),'chrome'),[x,h+.2,z],[sx*.2,.2,.55]));
+   add('Opofferingsanode',mesh(Bx(.1,.05,.2),'concrete'),[x,h-.115,2.4],[sx*.2,-.35,.55])});
+  [1,2].forEach(z=>add('Bunk met tapijt',mesh(Bx(3.9,.12,.16),'blue'),[0,h+.37,z],[0,.6,.55]));
+  return g},
  nudration(){const{g,mesh,add}=Asm('nudration');
   add('Behuizing',mesh(Bx(.6,1.75,.55),'white'),[0,.875,0]);
   add('Frontpaneel',mesh(Bx(.56,.86,.02),'dark'),[0,1.24,.285],[0,0,.45]);
@@ -830,7 +849,7 @@ const tb=[...tree.querySelectorAll('button')];
 const treeHL=id=>tb.forEach(b=>b.classList.toggle('hl',b.dataset.id===id));
 if(has3D){
  main=Viewer($('#vpMain'),{k:.52,kn:.92,label:u=>D[u.asm].t+' openen',click:go,hover:id=>{treeHL(id);main&&main.hl(id);$('#status').textContent=id?D[id].f+' geselecteerd. Klik om het ontwerp te openen.':'Klik op een assembly om het ontwerp te openen. Slepen draait het model.'}});
- const ROWS=[[-3.7,['bordestrap','steektrap','tvwand','kastenwand']],[1.7,['tribune','bar','boekenkast','nudration']]],ROT={bordestrap:Math.PI/2,steektrap:Math.PI/2},objs=[];
+ const ROWS=[[-3.7,['bordestrap','steektrap','tvwand','kastenwand']],[1.7,['tribune','bar','boekenkast','nudration','bootlift']]],ROT={bordestrap:Math.PI/2,steektrap:Math.PI/2},objs=[];
  ROWS.forEach(([z,ids])=>{const it=ids.map(id=>{const g=BUILD[id]();if(ROT[id])g.rotation.y=ROT[id];return{g,b:new THREE.Box3().setFromObject(g)}});
   const gap=.9,tot=it.reduce((a,i)=>a+i.b.max.x-i.b.min.x,0)+gap*(it.length-1);let x=-tot/2;
   it.forEach(({g,b})=>{g.position.x=x-b.min.x;g.position.z=z-(b.min.z+b.max.z)/2;x+=b.max.x-b.min.x+gap;objs.push(g)})});
@@ -914,17 +933,17 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
   kast:{t:'Kastenwand op maat',d:'Eiken kastenwand van vloer tot plafond, met dichte kasten onder en open vakken boven. Ontworpen en gebouwd op de maat van de kamer.',h:'projecten'},
   kelder:{t:'Kelder rat- en muisdicht',d:'Kierdichting langs vloer en wanden, rvs-gaas achter het rooster en een knaagvaste manchet om de leidingdoorvoer.',h:'knaagdierwering'},
   schuur:{t:'Werkplaats',d:'Hier ontstaan prototypes en maatwerk: werkbank, gereedschapsbord, 3D-printer en lasapparaat.',h:'rd'},
-  lift:{t:'RVS-bootlift',d:'Een sloep op een rvs-bootlift die onder water ligt. Ontwerp en berekening in eigen beheer, laswerk door een vaste partner.',h:'diensten'}};
- const ORD=['dak','gevel','vloer','airco','cv','bad','kast','kelder','schuur','lift'];
+  bootlift:{t:'RVS-bootlift',d:'Een sloep boven een rvs-bootlift: twee spindelkolommen op de kade, het frame ligt onder water. Ontwerp en berekening in eigen beheer, laswerk door een vaste partner.',h:'ontwerp-bootlift',l:'Bekijk het 3D-ontwerp'}};
+ const ORD=['dak','gevel','vloer','airco','cv','bad','kast','kelder','schuur','bootlift'];
  const chips=$('#chips');chips.innerHTML=ORD.map(id=>`<a href="#${SPOT[id].h}" data-id="${id}">${esc(SPOT[id].t)}</a>`).join('');
  const card=document.createElement('div');card.className='hcard';$('#vpHouse').appendChild(card);
  const nf=v=>String(v).replace('.',',');let sel=null,therm=null,house=null;const G={};
  function show(id){sel=id;if(!RC[id]&&therm)thermal(null);const sp=SPOT[id];chips.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.id===id));
-  if(!sp){card.innerHTML='<b>Klik op een onderdeel van het huis</b><span>Dak, gevel, vloer, airco, cv-ketel, badkamer, kastenwand, kelder, werkplaats of bootlift.</span>';house&&house.hl(null);return}
+  if(!sp){card.innerHTML='<b>Klik op een onderdeel van het huis</b><span>Dak, gevel, vloer, airco, cv-ketel, badkamer, kastenwand, kelder, werkplaats of de bootlift in de gracht.</span>';house&&house.hl(null);return}
   let h=`<button class="hx" aria-label="Sluiten">×</button><b>${esc(sp.t)}</b><span>${esc(sp.d)}</span>`;
   if(RC[id]){const[r0,r1,r2]=RC[id];h+=`<table><tr><td>Nu, ongeïsoleerd (schatting)</td><td>Rc ≈ ${nf(r0)}</td></tr><tr><td>Eis bij na-isoleren (Bbl)</td><td>Rc ≥ ${nf(r1)}</td></tr><tr><td>Nieuwbouwniveau</td><td>Rc ${nf(r2)}</td></tr><tr><td>Warmteverlies nu</td><td>U ≈ ${nf((1/r0).toFixed(1))} W/m²K</td></tr></table>
    <div class="tbtn"><span>Warmteverlies tonen:</span><button data-t="nu" class="${therm==='nu'?'on':''}">Nu</button><button data-t="na" class="${therm==='na'?'on':''}">Na isolatie</button><button data-t="" class="${!therm?'on':''}">Uit</button></div>`}
-  h+=`<a href="#${sp.h}">Naar de dienst</a>`;card.innerHTML=h;house&&house.hl(id)}
+  h+=`<a href="#${sp.h}">${sp.l||'Naar de dienst'}</a>`;card.innerHTML=h;house&&house.hl(id)}
  card.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.classList.contains('hx')){show(null);return}thermal(b.dataset.t||null);show(sel)});
  function thermal(m){therm=m;['gevel','vloer','dak'].forEach(id=>{const g=G[id];if(!g)return;for(const k in g.userData.M){const mt=g.userData.M[k];if(mt.userData.c0==null)mt.userData.c0=mt.color.getHex();
    if(!m)mt.color.setHex(mt.userData.c0);else{const U=1/RC[id][m==='nu'?0:2],c=jet(Math.min(1,Math.max(0,(U-.1)/2.8)));mt.color.setRGB(c[0],c[1],c[2])}}});house&&house.req()}
@@ -1018,14 +1037,12 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
   [[-.5,1.7,.06,.5],[-.2,1.62,.05,.36],[.2,1.72,.4,.06],[.6,1.6,.05,.5],[.85,1.66,.08,.3]].forEach(([x,y,w,h])=>add('Gereedschap',mesh(Bx(w,h,.03),'navy'),[x,y,-10.65]));
   add('3D-printer',mesh(Bx(.45,.5,.45),'dark'),[-.55,1.19,-10.3]);add('Bankschroef',mesh(Bx(.18,.14,.2),'steel'),[1,1.01,-10.1]);
   add('Lasapparaat',mesh(Bx(.4,.45,.6),'blue'),[-1.2,.28,-8.6]);}
- /* sloep op rvs-bootlift onder water */
- {const{mesh,add}=grp('lift');
+ /* sloep op de rvs-bootlift (eigen ontwerp), frame onder water */
+ {const bl=BUILD.bootlift(-1.25);bl.position.set(0,0,3.33);L.push(bl);
+  const{mesh,add}=grp('bootlift');
   const hs=new THREE.Shape();hs.moveTo(0,0);hs.lineTo(2.3,0);hs.quadraticCurveTo(2.9,.1,3.05,.5);hs.lineTo(-.05,.5);hs.lineTo(0,0);
-  add('Sloep',mesh(new THREE.ExtrudeGeometry(hs,{depth:1.05,bevelEnabled:true,bevelThickness:.04,bevelSize:.04,bevelSegments:1}),'navy'),[-1.6,-.78,4.4]);
-  add('Dek',mesh(Bx(2.8,.06,.95),'oak'),[-.15,-.27,4.92]);add('Bank',mesh(Bx(.9,.3,.4),'oak'),[-.5,-.1,4.92]);add('Stuurconsole',mesh(Bx(.35,.45,.4),'white'),[.5,0,4.92]);
-  [-1.3,1.3].forEach(x=>[3.85,6].forEach(z=>add('RVS-paal',mesh(Cy(.06,.06,2.5,12),'chrome'),[x,-.95,z])));
-  [-1.3,1.3].forEach(x=>add('RVS-ligger',mesh(Bx(.1,.1,2.15),'chrome'),[x,-1.08,4.92]));
-  [4.55,5.3].forEach(z=>add('Draagbalk',mesh(Bx(2.8,.08,.12),'chrome'),[0,-.97,z]));}
+  add('Sloep',mesh(new THREE.ExtrudeGeometry(hs,{depth:1.05,bevelEnabled:true,bevelThickness:.04,bevelSize:.04,bevelSegments:1}),'navy'),[-1.6,-.78,4.32]);
+  add('Dek',mesh(Bx(2.8,.06,.95),'oak'),[-.15,-.27,4.84]);add('Bank',mesh(Bx(.9,.3,.4),'oak'),[-.5,-.1,4.84]);add('Stuurconsole',mesh(Bx(.35,.45,.4),'white'),[.5,0,4.84]);}
  house=Viewer($('#vpHouse'),{k:.6,kn:.9,ty:.95,az:.75,el:.26,grid:false,label:u=>SPOT[u.asm]?SPOT[u.asm].t:'',
   click:id=>{if(SPOT[id])show(id)},hover:id=>{house&&house.hl(SPOT[id]?id:sel)}});
  house.set(L);
