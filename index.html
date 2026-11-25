@@ -398,6 +398,21 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
         <div class="read"><div><small>1e eigenfrequentie</small><b id="mF1"></b></div><div><small>2e / 3e</small><b id="mF23"></b></div><div><small>Oordeel</small><b id="mOk"></b></div></div>
         <p class="note">Euler-Bernoulli-balk, staal, met 40 kg/m voor treden. Demping 2%. Lopen geeft krachten rond 1,6–2,4 Hz en een tweede harmonische tot ongeveer 4,8 Hz.</p>
       </div>
+      <div class="fem modalb" id="armfem">
+        <h3>Draagarm van de bootlift: sterkte</h3>
+        <p class="note" style="margin:6px 0 12px">Elke draagarm draagt de helft van de sloep, via twee bunks. Zonder knieschoor zit het hele buigmoment in de voet van de arm. Met een knieschoor wordt het moment veel kleiner.</p>
+        <div class="mgrid"><svg class="modes" id="armSvg" viewBox="0 0 520 300" aria-label="Draagarm met belastingen en momentenlijn"></svg>
+        <div>
+          <div class="ctrls" style="margin-top:0">
+            <label>Gewicht sloep <output id="oW"></output><input id="inW" type="range" min="300" max="2000" step="50" value="800"></label>
+            <label>Lengte arm <output id="oA2"></output><input id="inA2" type="range" min="2" max="3.4" step="0.1" value="2.7"></label>
+            <label>Profiel <output id="oP2"></output><select id="inP2"><option value="0">Rvs-koker 80×80×4</option><option value="1" selected>Rvs-koker 100×100×5</option><option value="2">Rvs-koker 120×120×6</option></select></label>
+            <label>Knieschoor <output id="oB"></output><select id="inB2"><option value="1" selected>Met knieschoor</option><option value="0">Zonder knieschoor</option></select></label>
+          </div>
+          <div class="read"><div><small>Max. moment</small><b id="aM"></b></div><div><small>Max. spanning</small><b id="aS"></b></div><div><small>Veiligheid t.o.v. vloei</small><b id="aF"></b></div></div>
+          <p class="note">Rvs 316L, vloeigrens ≈ 200 MPa. Stootfactor 1,25 voor het optillen. Koker als benadering zonder afgeronde hoeken. Een echte berekening neemt ook de lassen, de kolomvoet en vermoeiing mee.</p>
+        </div></div>
+      </div>
       <div class="fem armsim">
         <h3>Wielophanging over een drempel</h3>
         <p class="note" style="margin:6px 0 12px">Een multibody-model van een swingarm. Stel veer en demper in en kijk hoe de veerweg van het wiel verandert.</p>
@@ -591,7 +606,7 @@ const D={
  nudration:{t:'Nudration frisdrankmachine',k:'R&D-project',f:'Nudration.iam',i:'Een eigen frisdrankmachine, uitgewerkt als complete assembly met behuizing, bediening, uitgifte en de techniek erachter.',x:'Bij een machine als deze moet alles samenwerken: koeling, carbonatatie, dosering en een bediening die voor iedereen logisch is. Door de machine eerst als assembly op te bouwen, passen de onderdelen en zijn ze bereikbaar voor onderhoud voordat er iets gemaakt wordt.',w:['3D-ontwerp van de complete machine','Indeling van de techniek in de behuizing','Prototyping en testen']},
  bar:{t:'Ronde bar',k:'Maatwerk',f:'Ronde-bar.iam',i:'Een volledig ronde bar, eerst als assembly getekend en daarna gebouwd en geplaatst.',x:'Rond werk vraagt om precisie: het blad, de lamellen van de front en de voetsteun moeten exact op elkaar aansluiten. In het 3D-model zijn alle onderdelen los uitgewerkt, zodat maatvoering en productie vooraf kloppen.',w:['Ontwerp en 3D-assembly','Productie van blad en front','Plaatsing en afwerking']},
  tribune:{t:'Tribune basisschool',k:'Maatwerk',f:'Tribune-basisschool.iam',i:'Een zittribune voor een basisschool, ontworpen, gebouwd en geplaatst.',x:'Een tribune voor kinderen moet stevig, veilig en makkelijk schoon te houden zijn. De treden zijn als losse elementen opgebouwd, met zitkussens en opbergruimte in de onderste trede.',w:['Ontwerp afgestemd op de ruimte','Bouw van de trede-elementen','Plaatsing in de school']},
- bootlift:{t:'RVS-bootlift',k:'R&D-project, in ontwikkeling',f:'Bootlift.iam',i:'Een bootlift met twee spindelkolommen op de kade, uitkragende draagarmen en twee bunks met tapijt. In de laagste stand ligt het frame onder water en vaart de sloep erboven.',x:'Twee kolommen op de kademuur dragen elk een slede met een uitkragende draagarm. Een zelfremmende wormwielaandrijving met spindel tilt het frame met de sloep uit het water, en blijft staan als de stroom uitvalt. Omdat de armen uitkragen, zit het grootste buigmoment bij de kolomvoet: de knieschoren, de voetplaat en de verankering in de kade zijn de kern van de sterkteberekening. Waar rvs en aluminium elkaar raken, voorkomen isolatieringen en opofferingsanodes galvanische corrosie.',w:['Ontwerp van kolommen, sleden, draagarmen en bunks','Sterkteberekening van de uitkragende armen en de kolomvoet','Laswerk door een vaste partner'],wl:'Uitgewerkt in het ontwerp'},
+ bootlift:{t:'RVS-bootlift',k:'R&D-project, in ontwikkeling',f:'Bootlift.iam',i:'Een bootlift met twee spindelkolommen op de kade, uitkragende draagarmen en twee bunks met tapijt. In de laagste stand ligt het frame onder water en vaart de sloep erboven.',x:'Twee kolommen op de kademuur dragen elk een slede met een uitkragende draagarm. Een zelfremmende wormwielaandrijving met spindel tilt het frame met de sloep uit het water, en blijft staan als de stroom uitvalt. Omdat de armen uitkragen, zit het grootste buigmoment bij de kolomvoet: de knieschoren, de voetplaat en de verankering in de kade zijn de kern van de sterkteberekening. Alles is rvs 316, geschikt voor grachtwater; door één materiaal te gebruiken is er geen galvanische corrosie tussen verschillende metalen.',w:['Ontwerp van kolommen, sleden, draagarmen en bunks','Sterkteberekening van de uitkragende armen en de kolomvoet','Laswerk door een vaste partner'],wl:'Uitgewerkt in het ontwerp'},
  tvwand:{t:'Wandmeubel met tv-nis',k:'Ontwerpvoorbeeld',f:'Tv-wand.iam',i:'Een ontwerp voor een wandvullend tv-meubel: zwevende onderkasten, twee hoge kolomkasten en open eiken nissen met verlichting.',x:'Zo’n wandmeubel ontwerp ik per wand. De gelakte kolom- en onderkasten geven rust, het eiken middendeel met de tv-nis en de verlichte nissen is de blikvanger. Kabelgoten, ventilatie voor de apparatuur en de plek van de verlichting liggen in het ontwerp al vast.',w:['Indeling en maatvoering op de wand','Kabelgoten en ventilatie achter de tv','LED-verlichting in de nissen'],wl:'Uitgewerkt in het ontwerp'},
  kastenwand:{t:'Eiken kastenwand met bureau',k:'Ontwerpvoorbeeld',f:'Kastenwand-bureau.iam',i:'Een ontwerp voor een eiken kastenwand van vloer tot plafond, met dichte kasten onder, open vakken boven en een werkplek in het midden.',x:'Een kastenwand met ingebouwd bureau maakt van een gewone wand een werkplek. De open vakken hebben verspringende tussenschotten voor een luchtig beeld, de dichte kasten onderin houden de spullen uit zicht. Plankdiktes en overspanningen zijn zo gekozen dat niets doorbuigt onder boeken.',w:['Modulaire opbouw in drie kolommen','Verspringende tussenschotten','Bureau met lade en kabeldoorvoer'],wl:'Uitgewerkt in het ontwerp'},
  bordestrap:{t:'Stalen bordestrap',k:'Staalconstructie',f:'Bordestrap.iam',i:'Een stalen trap met twee steekarmen en een tussenbordes, met roostertreden en leuningen aan de buitenzijde.',x:'Bij een stalen trap draait het om stijfheid, aansluitingen en de regels: optrede, aantrede, vrije hoogte en leuninghoogte volgen het Besluit bouwwerken leefomgeving (Bbl). Bomen en bordes worden op sterkte en doorbuiging gecontroleerd, de kolommen dragen het bordes af naar de vloer.',w:['Trapberekening: optrede, aantrede en vrije hoogte','Sterkte en doorbuiging van bomen en bordes','Werkplaatstekeningen voor de staalbouwer'],wl:'Uitgewerkt in het ontwerp'},
@@ -769,7 +784,7 @@ const BUILD={
    add('Draagarm (kokerprofiel)',mesh(Bx(.14,.18,2.7),'chrome'),[x,h,1.5],[sx*.2,0,.55]);
    beam('Schoor draagarm',[x,h-.02,.2],[x,h-.09,1.0],.08,.06,'chrome',[sx*.2,-.15,.55]);
    [1,2].forEach(z=>add('Bunkdrager',mesh(Bx(.08,.22,.08),'chrome'),[x,h+.2,z],[sx*.2,.2,.55]));
-   add('Opofferingsanode',mesh(Bx(.1,.05,.2),'concrete'),[x,h-.115,2.4],[sx*.2,-.35,.55])});
+  });
   [1,2].forEach(z=>add('Bunk met tapijt',mesh(Bx(3.9,.12,.16),'blue'),[0,h+.37,z],[0,.6,.55]));
   return g},
  nudration(){const{g,mesh,add}=Asm('nudration');
@@ -924,9 +939,9 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
 /* hero: opengewerkt grachtenpand met herkenbare producten */
 {const RC={gevel:[.4,1.4,4.7],vloer:[.3,2.6,3.7],dak:[.4,2.1,6.3]};
  const SPOT={
-  dak:{t:'Dak en dakisolatie',d:'Hellend pannendak. Isoleren aan de binnenzijde tussen of op de sporen, plus inspectie en herstel van pannen en goten.',h:'onderhoud'},
-  gevel:{t:'Gevelisolatie',d:'Massief metselwerk zonder spouw. Bij grachtenpanden isoleer je meestal aan de binnenkant, met aandacht voor vocht en koudebruggen.',h:'onderhoud'},
-  vloer:{t:'Vloerisolatie',d:'Houten balklaag boven het souterrain. Isoleren vanuit de kelder, tussen of onder de balken.',h:'onderhoud'},
+  dak:{t:'Dakisolatie en dakonderhoud',d:'Het dak isoleren aan de binnenzijde, en pannen, goten en lood inspecteren en herstellen.',h:'onderhoud'},
+  gevel:{t:'Gevelisolatie',d:'Gevels van grachtenpanden isoleren, meestal aan de binnenkant, met aandacht voor vocht en koudebruggen.',h:'onderhoud'},
+  vloer:{t:'Vloerisolatie',d:'De vloer boven kelder of kruipruimte isoleren, vanaf de onderkant tussen of onder de balken.',h:'onderhoud'},
   airco:{t:'Split-airco',d:'Binnenunit op de slaapkamer, buitenunit in de tuin, verbonden met koelleidingen langs de gevel. Plaatsing en onderhoud, F-gassen gecertificeerd.',h:'onderhoud'},
   cv:{t:'Cv-ketel',d:'Hr-ketel op zolder met rookgasafvoer door het dak. Installatie en vervanging, CO-gecertificeerd.',h:'onderhoud'},
   bad:{t:'Badkamerrenovatie',d:'Ligbad, inloopdouche, toilet en badmeubel. Van sloop en leidingwerk tot tegelwerk en afkitten.',h:'onderhoud'},
@@ -937,16 +952,12 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
  const ORD=['dak','gevel','vloer','airco','cv','bad','kast','kelder','schuur','bootlift'];
  const chips=$('#chips');chips.innerHTML=ORD.map(id=>`<a href="#${SPOT[id].h}" data-id="${id}">${esc(SPOT[id].t)}</a>`).join('');
  const card=document.createElement('div');card.className='hcard';$('#vpHouse').appendChild(card);
- const nf=v=>String(v).replace('.',',');let sel=null,therm=null,house=null;const G={};
- function show(id){sel=id;if(!RC[id]&&therm)thermal(null);const sp=SPOT[id];chips.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.id===id));
+ const nf=v=>String(v).replace('.',',');let sel=null,house=null;const G={};
+ function show(id){sel=id;const sp=SPOT[id];chips.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.id===id));
   if(!sp){card.innerHTML='<b>Klik op een onderdeel van het huis</b><span>Dak, gevel, vloer, airco, cv-ketel, badkamer, kastenwand, kelder, werkplaats of de bootlift in de gracht.</span>';house&&house.hl(null);return}
   let h=`<button class="hx" aria-label="Sluiten">×</button><b>${esc(sp.t)}</b><span>${esc(sp.d)}</span>`;
-  if(RC[id]){const[r0,r1,r2]=RC[id];h+=`<table><tr><td>Nu, ongeïsoleerd (schatting)</td><td>Rc ≈ ${nf(r0)}</td></tr><tr><td>Eis bij na-isoleren (Bbl)</td><td>Rc ≥ ${nf(r1)}</td></tr><tr><td>Nieuwbouwniveau</td><td>Rc ${nf(r2)}</td></tr><tr><td>Warmteverlies nu</td><td>U ≈ ${nf((1/r0).toFixed(1))} W/m²K</td></tr></table>
-   <div class="tbtn"><span>Warmteverlies tonen:</span><button data-t="nu" class="${therm==='nu'?'on':''}">Nu</button><button data-t="na" class="${therm==='na'?'on':''}">Na isolatie</button><button data-t="" class="${!therm?'on':''}">Uit</button></div>`}
   h+=`<a href="#${sp.h}">${sp.l||'Naar de dienst'}</a>`;card.innerHTML=h;house&&house.hl(id)}
- card.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.classList.contains('hx')){show(null);return}thermal(b.dataset.t||null);show(sel)});
- function thermal(m){therm=m;['gevel','vloer','dak'].forEach(id=>{const g=G[id];if(!g)return;for(const k in g.userData.M){const mt=g.userData.M[k];if(mt.userData.c0==null)mt.userData.c0=mt.color.getHex();
-   if(!m)mt.color.setHex(mt.userData.c0);else{const U=1/RC[id][m==='nu'?0:2],c=jet(Math.min(1,Math.max(0,(U-.1)/2.8)));mt.color.setRGB(c[0],c[1],c[2])}}});house&&house.req()}
+ card.addEventListener('click',e=>{const b=e.target.closest('button.hx');if(b)show(null)});
  chips.querySelectorAll('a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.id)});a.addEventListener('mouseenter',()=>house&&house.hl(a.dataset.id));a.addEventListener('mouseleave',()=>house&&house.hl(sel))});
  show(null);
  if(!has3D){$('#vpHouse').insertAdjacentHTML('beforeend','<div class="msg">De 3D-weergave kan in deze browser niet starten.</div>')}
@@ -1068,6 +1079,26 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
   mv.innerHTML=g;requestAnimationFrame(anim)}
  $('#inL').addEventListener('input',calc);$('#inP').addEventListener('change',calc);calc();
  if(matchMedia('(prefers-reduced-motion: reduce)').matches){t0=performance.now();anim(t0+0);}else requestAnimationFrame(anim);}
+/* draagarm bootlift: buigmoment met en zonder knieschoor */
+{const Wz=[29.35e3,57.3e3,99.0e3],sv=$('#armSvg');
+ function arm(){const W=+$('#inW').value,L=+$('#inA2').value,pi=+$('#inP2').value,br=$('#inB2').value==='1',P=W/4*9.81*1.25,a=[.37*L,.74*L],b=.3*L;
+  const M=x=>{if(!br){let m=0;a.forEach(ai=>{if(ai>x)m+=P*(ai-x)});return m}
+   const Rb=P*(a[0]+a[1])/b,R0=2*P-Rb;let m=R0*x;if(x>b)m+=Rb*(x-b);a.forEach(ai=>{if(x>ai)m-=P*(x-ai)});return -m};
+  let mmax=0,xm=0;for(let i=0;i<=200;i++){const x=i/200*L,v=Math.abs(M(x));if(v>mmax){mmax=v;xm=x}}
+  const sig=mmax*1e3/Wz[pi],sf=200/sig;
+  $('#oW').textContent=W+' kg';$('#oA2').textContent=L.toFixed(1).replace('.',',')+' m';$('#oP2').textContent='';$('#oB').textContent='';
+  $('#aM').textContent=(mmax/1000).toFixed(2).replace('.',',')+' kNm';$('#aS').textContent=Math.round(sig)+' MPa';
+  const fb=$('#aF');fb.textContent=sf.toFixed(1).replace('.',',');fb.style.color=sf>=2?'#7fe0a0':sf>=1.3?'#ffb04a':'#ff6b5b';
+  const x0=60,x1=480,X=x=>x0+x/L*(x1-x0),ya=100,ym=196,sc=78/Math.max(1,mmax);
+  let g=`<rect x="${x0-34}" y="40" width="34" height="140" fill="#3a4148"/><text x="${x0-30}" y="34">kolom</text>`;
+  g+=`<rect x="${x0}" y="${ya-9}" width="${x1-x0}" height="18" fill="#9aa3ad"/>`;
+  if(br)g+=`<line x1="${x0}" y1="${ya+70}" x2="${X(b)}" y2="${ya+9}" stroke="#c5ccd3" stroke-width="8" stroke-linecap="round"/><text x="${X(b)+10}" y="${ya+40}">knieschoor</text>`;
+  a.forEach((ai,i)=>{g+=`<line x1="${X(ai)}" y1="${ya-60}" x2="${X(ai)}" y2="${ya-14}" stroke="#ff8a3d" stroke-width="3"/><path d="M${X(ai)-7} ${ya-24}L${X(ai)} ${ya-10}L${X(ai)+7} ${ya-24}Z" fill="#ff8a3d"/><text x="${X(ai)-22}" y="${ya-66}">${(P/1000).toFixed(1).replace('.',',')} kN</text>`});
+  let d=`M${x0} ${ym}`;for(let i=0;i<=120;i++){const x=i/120*L;d+=` L${X(x).toFixed(1)} ${(ym+Math.abs(M(x))*sc).toFixed(1)}`}d+=` L${x1} ${ym}Z`;
+  g+=`<line x1="${x0}" y1="${ym}" x2="${x1}" y2="${ym}" stroke="#5c656e"/><path d="${d}" fill="#4fc3d0" opacity=".35" stroke="#4fc3d0" stroke-width="2"/><text x="${x0}" y="${ym-10}">Buigmoment</text>`;
+  g+=`<text x="${Math.min(X(xm)+6,x1-90)}" y="${ym+mmax*sc+16}" style="fill:#4fc3d0">${(mmax/1000).toFixed(2).replace('.',',')} kNm</text>`;
+  sv.innerHTML=g}
+ ['inW','inA2'].forEach(i=>$('#'+i).addEventListener('input',arm));['inP2','inB2'].forEach(i=>$('#'+i).addEventListener('change',arm));arm()}
 /* swingarm 3D: wiel op vaste ophanging rijdt over een drempel (1 vrijheidsgraad + bandveer) */
 {const L=.45,a=.62*L,th0=.16,Rt=.225,py=Rt+L*Math.sin(th0),m=20,kT=120000,F0=2500,v=3,H=.05,Lb=.4,d0=.7,T=.75,slow=4,Xb=-.2;
  const wx0=L*Math.cos(th0),gs=$('#sGraph');let sim=null,play=false,tA=0;
