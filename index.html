@@ -242,6 +242,15 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
 .cnote{font-size:15px;margin:-4px 0 14px;opacity:.85}
 .prods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
 .prods article{border-top:3px solid var(--ink);padding-top:16px}
+.ptile{display:block;color:inherit;text-decoration:none;border-radius:8px;padding:6px 8px 12px;margin:-6px -8px 0;transition:background .15s}
+.ptile:hover{background:light-dark(#f1f5f8,#1b2530)}.ptile:focus-visible{outline:2px solid var(--sel);outline-offset:2px}
+.ptile.on{background:light-dark(#eef7f8,#132a3d)}
+.pgo{display:inline-block;margin-top:12px;font-weight:600;color:var(--sel);border-bottom:1.5px solid currentColor}
+.ptile.on .pgo{color:var(--ink)}
+.sform label.wide{grid-column:1/-1}.sres.two{grid-template-columns:repeat(2,minmax(0,1fr))}.sres .full{grid-column:1/-1}.sres b.sm{font-size:clamp(15px,1.6vw,18px);white-space:normal;line-height:1.3}
+.solar figcaption .k3{background:var(--sel)}
+.pl2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 40px;margin:26px 0 28px;max-width:960px}.pl2 p{color:var(--mute);margin:0}.pl2 h3{margin-bottom:8px}
+@media (max-width:760px){.pl2{grid-template-columns:1fr}}
 .prods svg{width:96px;height:48px;fill:none;stroke:var(--oakd);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round;display:block;margin-bottom:10px}
 .prods h3{margin-bottom:8px}
 .prods p{color:var(--mute);margin:0}
@@ -311,9 +320,40 @@ footer a{color:inherit}
   <h2>Geleverd en geplaatst</h2>
   <p class="lead" style="margin-top:14px">Ik lever het product en regel de installatie. U krijgt advies over wat bij uw woning past, geen standaardpakket.</p>
   <div class="prods">
-    <article><svg viewBox="0 0 120 60" aria-hidden="true"><rect x="10" y="12" width="100" height="30" rx="5"/><path d="M18 34h84M22 48c6 4 12 4 18 0M52 50c6 4 12 4 18 0M82 48c6 4 12 4 18 0"/></svg><h3>Airco</h3><p>Koelen in de zomer, zuinig bijverwarmen in de winter. Binnen- en buitenunit, netjes weggewerkte leidingen.</p></article>
-    <article><svg viewBox="0 0 120 60" aria-hidden="true"><rect x="38" y="4" width="44" height="52" rx="4"/><rect x="48" y="12" width="24" height="9"/><path d="M50 56v4M60 56v4M70 56v4"/></svg><h3>Cv-ketel</h3><p>Een nieuwe ketel die past bij de woning en het warmwatergebruik, inclusief het afvoeren van de oude.</p></article>
-    <article><svg viewBox="0 0 120 60" aria-hidden="true"><path d="M4 52 22 14H68L82 52Z"/><path d="M45 14 43 52M13 33h60M33 14 25 52M57 14 61 52"/><rect x="92" y="18" width="22" height="34" rx="3"/><path d="M99 14h8M98 30h10M98 37h10M98 44h10"/></svg><h3>Zonnepanelen en thuisaccu</h3><p>Panelen, omvormer en accu als één set, aangesloten op de meterkast. Reken hieronder uit wat uw dak opbrengt.</p></article>
+    <article><a class="ptile" href="#tool-airco" data-t="airco" aria-controls="tool-airco"><svg viewBox="0 0 120 60" aria-hidden="true"><rect x="10" y="12" width="100" height="30" rx="5"/><path d="M18 34h84M22 48c6 4 12 4 18 0M52 50c6 4 12 4 18 0M82 48c6 4 12 4 18 0"/></svg><h3>Airco</h3><p>Koelen in de zomer, zuinig bijverwarmen in de winter. Binnen- en buitenunit, netjes weggewerkte leidingen.</p><span class="pgo">Welk vermogen past bij uw kamer?</span></a></article>
+    <article><a class="ptile" href="#tool-cv" data-t="cv" aria-controls="tool-cv"><svg viewBox="0 0 120 60" aria-hidden="true"><rect x="38" y="4" width="44" height="52" rx="4"/><rect x="48" y="12" width="24" height="9"/><path d="M50 56v4M60 56v4M70 56v4"/></svg><h3>Cv-ketel</h3><p>Een nieuwe ketel die past bij de woning en het warmwatergebruik, inclusief het afvoeren van de oude.</p><span class="pgo">Welke ketel past bij uw huishouden?</span></a></article>
+    <article><a class="ptile on" href="#zonnepanelen" data-t="zon" aria-controls="zonnepanelen" aria-current="true"><svg viewBox="0 0 120 60" aria-hidden="true"><path d="M4 52 22 14H68L82 52Z"/><path d="M45 14 43 52M13 33h60M33 14 25 52M57 14 61 52"/><rect x="92" y="18" width="22" height="34" rx="3"/><path d="M99 14h8M98 30h10M98 37h10M98 44h10"/></svg><h3>Zonnepanelen en thuisaccu</h3><p>Panelen, omvormer en accu als één set, aangesloten op de meterkast.</p><span class="pgo">Wat levert uw dak op?</span></a></article>
+  </div>
+  <div class="solar tool2" id="tool-airco" hidden>
+    <div>
+      <h3>Welke airco past bij uw kamer?</h3>
+      <div class="sform">
+        <label>Oppervlakte van de kamer <output id="aA"></output><input id="aIA" type="range" min="8" max="60" step="1" value="20"></label>
+        <label>Plafondhoogte <select id="aIH"><option value="2.4">2,40 m</option><option value="2.6" selected>2,60 m</option><option value="2.8">2,80 m</option><option value="3.1">3,10 m (oud pand)</option><option value="3.5">3,50 m of hoger</option></select></label>
+        <label>Isolatie <select id="aII"><option value="30">Goed, zoals nieuwbouw</option><option value="40" selected>Gemiddeld</option><option value="50">Matig of geen</option></select></label>
+        <label>Zon en ligging <select id="aIZ"><option value="1">Weinig directe zon</option><option value="1.15" selected>Grote ramen op de zon</option><option value="1.3">Zolder, direct onder het dak</option></select></label>
+      </div>
+      <div class="sres"><div><small>Inhoud</small><b id="aV"></b></div><div><small>Koelvermogen nodig</small><b id="aP"></b></div><div><small>Advies</small><b id="aK"></b></div></div>
+    </div>
+    <figure><svg id="aChart" viewBox="0 0 420 230" aria-label="Benodigd vermogen naast gangbare airco-maten"></svg>
+      <figcaption><span class="k1"></span>Gangbare maten <span class="k3"></span>Uw kamer</figcaption></figure>
+    <p class="snote">Een indicatie met de vuistregel van 30 tot 50 watt per m³, afhankelijk van de isolatie. Bij een bezoek kijk ik ook naar ramen, zonwering en de plek van de buitenunit.</p>
+  </div>
+  <div class="solar tool2" id="tool-cv" hidden>
+    <div>
+      <h3>Welke cv-ketel past bij u?</h3>
+      <div class="sform">
+        <label>Personen in huis <select id="cIP"><option value="1">1 of 2</option><option value="3" selected>3 of 4</option><option value="5">5 of meer</option></select></label>
+        <label>Badkamers <select id="cIB"><option value="1" selected>1</option><option value="2">2 of meer</option></select></label>
+        <label>Ligbad <select id="cIL"><option value="0" selected>Nee</option><option value="1">Ja</option></select></label>
+        <label>Regendouche <select id="cIR"><option value="0" selected>Nee</option><option value="1">Ja</option></select></label>
+        <label class="wide">Douche en keukenkraan tegelijk <select id="cIT"><option value="0">Zelden</option><option value="1" selected>Regelmatig</option></select></label>
+      </div>
+      <div class="sres two"><div><small>Advies</small><b id="cK"></b></div><div><small>Warm water van 40 °C</small><b id="cL"></b></div><div class="full"><small>Geschikt voor</small><b id="cG" class="sm"></b></div></div>
+    </div>
+    <figure><svg id="cChart" viewBox="0 0 420 230" aria-label="Warm water per minuut per CW-klasse"></svg>
+      <figcaption><span class="k1"></span>Liter warm water per minuut, 40 °C <span class="k3"></span>Uw advies</figcaption></figure>
+    <p class="snote">De CW-klasse zegt hoeveel warm water een combiketel per minuut levert. Een hogere klasse is niet altijd beter: u betaalt dan voor capaciteit die u niet gebruikt. Bij een bezoek kijk ik ook naar leidingen, afvoer en de plek van de ketel.</p>
   </div>
   <div class="solar" id="zonnepanelen">
     <div>
@@ -330,6 +370,14 @@ footer a{color:inherit}
       <figcaption><span class="k1"></span>Opbrengst <span class="k2"></span>Verbruik</figcaption></figure>
     <p class="snote">Een indicatie voor Amsterdam, met panelen van 430 Wp. Na een bezoek reken ik het precies uit voor uw dak.</p>
   </div>
+</div></section>
+<section class="band" id="prijs"><div class="wrap">
+  <h2>Prijs en levertijd</h2>
+  <div class="pl2">
+    <div><h3>Wat kost het?</h3><p>Op de site staan geen prijzen, omdat geen woning hetzelfde is. Na een kort gesprek, een paar foto's of een bezoek krijgt u een offerte op maat. Daarin staat wat ik doe, met welk materiaal, en wat het kost.</p></div>
+    <div><h3>Wanneer is het klaar?</h3><p>Dat hangt af van het product en de planning. Een airco of cv-ketel kan meestal sneller dan maatwerk, dat eerst ontworpen en gemaakt wordt. In de offerte staat wanneer ik kom en wanneer het klaar is.</p></div>
+  </div>
+  <a class="btn fill" href="#contact">Vraag een offerte aan</a>
 </div></section>
 <section class="band" id="projecten"><div class="wrap">
   <h2>Projecten</h2>
@@ -603,7 +651,7 @@ const D={
  trapkast:{t:'Kast onder de trap',k:'Maatwerk, eigen ontwerp',f:'Trapkast.iam',i:'Een kast onder de trap in eikenfineer: greeploze fronten in één vlak, een verdiepte zwarte plint, een open nis met led-verlichting en laden op volledig uittrekbare geleiders met push-to-open.',x:'De kast is parametrisch ontworpen: met de lengte onder de trap, de hoogte aan beide kanten en de diepte rekent het model alle delen, boorgaten, de zaaglijst en de montagehandleiding uit. De deuren zijn recht, met een vast schuin paneel erboven, zodat ze altijd netjes hangen. Passtroken sluiten de kast naadloos aan op trap en muur.',w:[]},
  vide:{t:'Lamellenwerk vide en balie',k:'Maatwerk, opgeleverd',f:'Vide-lamellen.iam',i:'Een band van gebogen houten lamellen om de rand van de vide, een gebogen balie met lamellen eronder en een lamellenwand van vloer tot vide langs de trap.',x:'De lamellen volgen niet alleen een radius, ze staan ook schuin: de band om de vide is een kegelvlak, boven op de rand en onder naar binnen. Elke lamel staat daardoor onder een hoek ten opzichte van de radius. Dat vraagt om een onderconstructie met gebogen regels op twee verschillende stralen, zodat elke lamel op gelijke afstand en onder dezelfde hoek staat. De balie volgt een kleinere radius met een lichtere helling, en de wand langs de trap loopt in hetzelfde ritme door. Het model is een vereenvoudigde weergave.',w:['Lamellenband om de gebogen rand van de vide','Gebogen balie met lamellen','Lamellenwand langs de trap'],wl:'Wat ik deed'},
  tvwand:{t:'Wandmeubel met tv-nis',k:'Ontwerpvoorbeeld',f:'Tv-wand.iam',i:'Een ontwerp voor een wandvullend tv-meubel: zwevende onderkasten, twee hoge kolomkasten en open eiken nissen met verlichting.',x:'Zo’n wandmeubel ontwerp ik per wand. De gelakte kolom- en onderkasten geven rust, het eiken middendeel met de tv-nis en de verlichte nissen is de blikvanger. Kabelgoten, ventilatie voor de apparatuur en de plek van de verlichting liggen in het ontwerp al vast.',w:['Indeling en maatvoering op de wand','Kabelgoten en ventilatie achter de tv','LED-verlichting in de nissen'],wl:'Uitgewerkt in het ontwerp'},
- kastenwand:{t:'Eiken kastenwand met bureau',k:'Ontwerpvoorbeeld',f:'Kastenwand-bureau.iam',i:'Een ontwerp voor een eiken kastenwand van vloer tot plafond, met dichte kasten onder, open vakken boven en een werkplek in het midden.',x:'Een kastenwand met ingebouwd bureau maakt van een gewone wand een werkplek. De open vakken hebben verspringende tussenschotten voor een luchtig beeld, de dichte kasten onderin houden de spullen uit zicht. Plankdiktes en overspanningen zijn zo gekozen dat niets doorbuigt onder boeken.',w:['Modulaire opbouw in drie kolommen','Verspringende tussenschotten','Bureau met lade en kabeldoorvoer'],wl:'Uitgewerkt in het ontwerp'},
+ kastenwand:{t:'Eiken kastenwand met bureau',k:'Ontwerpvoorbeeld',f:'Kastenwand-bureau.iam',i:'Een ontwerp voor een eiken kastenwand van vloer tot plafond, met dichte kasten onder, open vakken boven en een werkplek in het midden.',x:'Een kastenwand met ingebouwd bureau maakt van een gewone wand een werkplek. De open vakken hebben verspringende tussenschotten voor een luchtig beeld, de dichte kasten onderin houden de spullen uit zicht.',w:['Modulaire opbouw in drie kolommen','Verspringende tussenschotten','Bureau met lade en kabeldoorvoer'],wl:'Uitgewerkt in het ontwerp'},
  bordestrap:{t:'Stalen bordestrap',k:'Staalconstructie',f:'Bordestrap.iam',i:'Een stalen trap met twee steekarmen en een tussenbordes, met roostertreden en leuningen aan de buitenzijde.',x:'Een stalen trap met roostertreden en een tussenbordes. Optrede, aantrede, vrije hoogte en leuning volgen het Besluit bouwwerken leefomgeving (Bbl). Vier kolommen dragen het bordes af naar de vloer.',w:['Optrede, aantrede en vrije hoogte volgens het Bbl','Bomen, bordes en kolommen in staal','Spijlen en leuning volgens het Bbl'],wl:'Uitgewerkt in het ontwerp'},
  steektrap:{t:'Steektrap met zaagtandboom',k:'Staalconstructie',f:'Steektrap-zaagtand.iam',i:'Een rechte trap met één centrale zaagtandboom in staal en eiken treden.',x:'Met één boom in het midden lijkt de trap te zweven. De eiken treden liggen op de zaagtand, de boom staat op een voetplaat en hangt boven aan een muuranker.',w:['Eén centrale boom met eiken treden','Voetplaat en muuranker','Leuning met spijlen'],wl:'Uitgewerkt in het ontwerp'},
  boekenkast:{t:'Boekenkast op maat',k:'Maatwerk',f:'Boekenkast.iam',i:'Boekenkasten ontworpen en gebouwd op de maat van de ruimte.',x:'Een kast op maat benut elke centimeter, van vloer tot plafond en van wand tot wand. De plankafstanden en de indeling worden afgestemd op wat erin moet.',w:['Inmeten en 3D-ontwerp','Bouw en plaatsing']}
@@ -1023,23 +1071,23 @@ const OPEN=[[.05,0,1.35,2.3],[-1.55,4.35,-.55,5.6],[-1.5,6.8,-.5,8.45]];/* openi
 {const RC={gevel:[.4,1.4,4.7],vloer:[.3,2.6,3.7],dak:[.4,2.1,6.3]};
  const SPOT={
   zon:{t:'Zonnepanelen en thuisaccu',d:'Panelen op het dak, omvormer en thuisaccu op zolder. Compleet geleverd en aangesloten.',h:'zonnepanelen',l:'Reken uw opbrengst uit'},
-  airco:{t:'Airco',d:'Binnenunit op de slaapkamer, buitenunit in de tuin, verbonden met koelleidingen langs de gevel. Geleverd en geplaatst door een gecertificeerde monteur.',h:'producten',l:'Naar de producten'},
-  cv:{t:'Cv-ketel',d:'Hr-ketel op zolder met rookgasafvoer door het dak. Geleverd en geplaatst door een gecertificeerde monteur.',h:'producten',l:'Naar de producten'},
+  airco:{t:'Airco',d:'Binnenunit op de slaapkamer, buitenunit in de tuin, verbonden met koelleidingen langs de gevel. Geleverd en geplaatst door een gecertificeerde monteur.',h:'tool-airco',l:'Welk vermogen past bij uw kamer?'},
+  cv:{t:'Cv-ketel',d:'Hr-ketel op zolder met rookgasafvoer door het dak. Geleverd en geplaatst door een gecertificeerde monteur.',h:'tool-cv',l:'Welke ketel past bij u?'},
   dak:{t:'Dakonderhoud',d:'Pannen, goten en lood inspecteren en herstellen.',h:'diensten'},
   bad:{t:'Badkamerrenovatie',d:'Ligbad, inloopdouche, toilet en badmeubel. Van sloop en leidingwerk tot tegelwerk en afkitten.',h:'diensten'},
   vloer:{t:'Vloeren',d:'Nieuwe vloeren leggen en vervangen, van hout en marmoleum tot droogloopmatten op maat.',h:'diensten'},
   kast:{t:'Inbouwkast',d:'Een greeploze inbouwkast in de slaapkamer, ontworpen en gebouwd op de maat van de kamer.',h:'diensten'},
-  trapkast:{t:'Kast onder de trap',d:'Een eiken kast op maat onder de trap, met laden, een open nis met led en een garderobe. Greeploos, met push-to-open. U meet zelf in; wij leveren en monteren.',h:'ontwerp-trapkast',l:'Bekijk het ontwerp'},
+  trapkast:{t:'Kast onder de trap',d:'Een eiken kast op maat van uw trap, met laden, een open nis met led en een garderobe. Greeploos, met push-to-open. Geleverd als bouwpakket met handleiding, of door mij gemonteerd.',h:'ontwerp-trapkast',l:'Bekijk het ontwerp'},
   kozijn:{t:'Kozijnen en glas',d:'Houten kozijnen en tuindeuren vervangen of herstellen, rot houtwerk repareren en isolatieglas zetten.',h:'diensten'},
-  sloep:{t:'Elektrische sloep',hv:'In ontwikkeling. Neem contact op voor de status.',d:'In ontwikkeling: een sloep elektrificeren, met een accupakket en een elektromotor. Neem contact op voor de status.',h:'contact',l:'Neem contact op'},
+  sloep:{t:'Elektrisch varen',hv:'in ontwikkeling',d:'In ontwikkeling. Benieuwd? Neem gerust contact op.',h:'contact',l:'Neem contact op'},
   kelder:{t:'Muis- en ratdicht',d:'Kieren, roosters en leidingdoorvoeren dichtmaken, zodat muizen en ratten niet meer binnenkomen.',h:'diensten'},
   schuur:{t:'De werkplaats',d:'Hier ontstaan prototypes en ontwerpen. Kijk binnen bij mijn 3D-modellen, simulaties en eigen projecten.',h:'werkplaats',l:'Naar de werkplaats'}};
- const ORD=['zon','airco','cv','dak','kozijn','bad','vloer','trapkast','kast','kelder','sloep','schuur'];
+ const ORD=['zon','airco','cv','dak','kozijn','bad','vloer','trapkast','kast','kelder','schuur'];
  const chips=$('#chips');chips.innerHTML=ORD.map(id=>`<a href="#${SPOT[id].h}" data-id="${id}">${esc(SPOT[id].t)}</a>`).join('');
  const card=document.createElement('div');card.className='hcard';$('#vpHouse').appendChild(card);
  const nf=v=>String(v).replace('.',',');let sel=null,house=null;const G={};
  function show(id){sel=id;const sp=SPOT[id];chips.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.id===id));
-  if(!sp){card.innerHTML='<b>Klik op een onderdeel van het huis</b><span>Zonnepanelen, kozijnen, de badkamer, de kast onder de trap, de sloep in de gracht of de werkplaats in de tuin.</span>';house&&house.hl(null);return}
+  if(!sp){card.innerHTML='<b>Klik op een onderdeel van het huis</b><span>Zonnepanelen, kozijnen, de badkamer, de kast onder de trap of de werkplaats in de tuin.</span>';house&&house.hl(null);return}
   let h=`<button class="hx" aria-label="Sluiten">×</button><b>${esc(sp.t)}</b><span>${esc(sp.d)}</span>`;
   h+=`<a href="#${sp.h}">${sp.l||'Naar de diensten'}</a>`;card.innerHTML=h;house&&house.hl(id)}
  card.addEventListener('click',e=>{const b=e.target.closest('button.hx');if(b)show(null)});
@@ -1299,6 +1347,31 @@ addEventListener('hashchange',route);route();
   g+=`<text x="${x0}" y="${top-2}" font-size="11" fill="currentColor" opacity=".6">kWh per maand</text>`;
   $('#zChart').innerHTML=g}
  ['zIA','zIV'].forEach(i=>$('#'+i).addEventListener('input',calc));['zIO','zIB'].forEach(i=>$('#'+i).addEventListener('change',calc));calc();
+ /* staafgrafiek met gemarkeerde balk: gebruikt door de airco- en cv-tool */
+ function bars(svg,lab,val,on,unit,mark){const x0=40,x1=410,y0=196,top=18,mx=Math.max(...val,mark||0)*1.15,Y=v=>y0-(v/mx)*(y0-top),bw=(x1-x0)/val.length;let g='';
+  const step=mx>40?10:mx>16?5:2;for(let v=0;v<=mx;v+=step)g+=`<line x1="${x0}" x2="${x1}" y1="${Y(v)}" y2="${Y(v)}" stroke="currentColor" opacity=".12"/><text x="${x0-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="currentColor" opacity=".6">${v}</text>`;
+  val.forEach((v,i)=>{g+=`<rect x="${x0+i*bw+bw*.2}" y="${Y(v)}" width="${bw*.6}" height="${y0-Y(v)}" rx="2" fill="${i===on?'var(--sel)':'var(--oak)'}"/><text x="${x0+i*bw+bw/2}" y="${y0+17}" text-anchor="middle" font-size="12" fill="currentColor" opacity="${i===on?1:.7}" font-weight="${i===on?700:400}">${lab[i]}</text><text x="${x0+i*bw+bw/2}" y="${Y(v)-6}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">${nf(v,1)}</text>`});
+  if(mark){g+=`<line x1="${x0}" x2="${x1}" y1="${Y(mark)}" y2="${Y(mark)}" stroke="var(--ink)" stroke-width="2" stroke-dasharray="6 4"/><text x="${x1}" y="${Y(mark)-6}" text-anchor="end" font-size="11" font-weight="700" fill="currentColor">Nodig: ${nf(mark,1)} ${unit}</text>`}
+  g+=`<text x="${x0}" y="${top-4}" font-size="11" fill="currentColor" opacity=".6">${unit}</text>`;svg.innerHTML=g}
+ /* airco: inhoud x 30-50 W/m3, keer een factor voor zon */
+ const AK=[2,2.5,3.5,5,7];
+ function airco(){const A=+$('#aIA').value,h=+$('#aIH').value,w=+$('#aII').value,z=+$('#aIZ').value,V=A*h,P=V*w*z/1000;
+  const i=AK.findIndex(k=>k>=P);$('#aA').textContent=A+' m²';$('#aV').textContent=nf(Math.round(V))+' m³';$('#aP').textContent=nf(P,1)+' kW';
+  $('#aK').textContent=i<0?'Twee binnenunits':nf(AK[i],1)+' kW';bars($('#aChart'),AK.map(k=>nf(k,1)+' kW'),AK,i,'kW',P)}
+ ['aIA'].forEach(i=>$('#'+i).addEventListener('input',airco));['aIH','aII','aIZ'].forEach(i=>$('#'+i).addEventListener('change',airco));airco();
+ /* cv: CW-klasse uit tappunten, bad en regendouche */
+ const CW=['CW3','CW4','CW5','CW6'],CL=[10,13,17,20],CG=['Eén douche of de keuken, een kleiner huishouden','Douchen of een bad vullen, twee tot drie personen','Een regendouche of twee tappunten tegelijk','Meerdere badkamers tegelijk, een groot huishouden'];
+ function cv(){const p=+$('#cIP').value,b=+$('#cIB').value,l=+$('#cIL').value,r=+$('#cIR').value,t=+$('#cIT').value;
+  let k=0;if(l||t||p>=3)k=1;if(r||(l&&t)||b>1||p>=5)k=2;if(b>1&&(r||(l&&t)))k=3;
+  $('#cK').textContent=CW[k];$('#cL').textContent='±'+CL[k]+' l/min';$('#cG').textContent=CG[k];bars($('#cChart'),CW,CL,k,'liter per minuut')}
+ ['cIP','cIB','cIL','cIR','cIT'].forEach(i=>$('#'+i).addEventListener('change',cv));cv();
+ /* tegels kiezen welke rekentool zichtbaar is */
+ const TOOL={airco:'#tool-airco',cv:'#tool-cv',zon:'#zonnepanelen'};
+ function kies(t,scroll){document.querySelectorAll('.ptile').forEach(a=>{const on=a.dataset.t===t;a.classList.toggle('on',on);on?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current')});
+  for(const k in TOOL)$(TOOL[k]).hidden=k!==t;if(scroll){const el=$(TOOL[t]),r=el.getBoundingClientRect();if(r.top<0||r.top>innerHeight*.6)el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}}
+ document.querySelectorAll('.ptile').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();kies(a.dataset.t,true);history.replaceState(null,'','#'+$(TOOL[a.dataset.t]).id)}));
+ const vanHash=sc=>{const h=location.hash.slice(1);for(const k in TOOL)if($(TOOL[k]).id===h){kies(k,false);if(sc)requestAnimationFrame(()=>$(TOOL[k]).scrollIntoView())}};
+ vanHash(false);addEventListener('hashchange',()=>vanHash(true));
  $('#cform').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);
   const body=`Soort klus: ${f.get('soort')}\nNaam: ${f.get('naam')}\nContact: ${f.get('contact')}\nAdres: ${f.get('adres')}\n\n${f.get('vraag')}`;
   location.href='mailto:info@rayengineering.nl?subject='+encodeURIComponent('Aanvraag: '+f.get('soort'))+'&body='+encodeURIComponent(body);
