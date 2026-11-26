@@ -368,7 +368,7 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
       <div class="lticks" id="lt"></div>
       <div class="ctrls">
         <label>Trekspanning S <output id="oS"></output><input id="inS" type="range" min="20" max="160" step="5" value="90"></label>
-        <label>Gatdiameter <output id="oA"></output><input id="inA" type="range" min="0.15" max="0.55" step="0.01" value="0.32"></label>
+        <label>Gatdiameter <output id="oA"></output><input id="inA" type="range" min="0.06" max="0.2" step="0.01" value="0.16"></label>
       </div>
       <div class="read"><div><small>Piekspanning</small><b id="rMax"></b></div><div><small>Op cursor</small><b id="rHere">–</b></div><div><small>Staal S235</small><b id="rOk"></b></div></div>
       <p class="note">Analytische oplossing van Kirsch voor een brede plaat (Kt = 3). Bij echte producten reken ik dit met FEM op de werkelijke geometrie.</p>
@@ -400,17 +400,17 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
       </div>
       <div class="fem modalb" id="armfem">
         <h3>Draagarm van de bootlift: sterkte</h3>
-        <p class="note" style="margin:6px 0 12px">Elke draagarm draagt de helft van de sloep, via twee bunks. Zonder knieschoor zit het hele buigmoment in de voet van de arm. Met een knieschoor wordt het moment veel kleiner.</p>
+        <p class="note" style="margin:6px 0 12px">Elke draagarm draagt de helft van de sloep via twee bunks. Een schoor onder de arm verkleint het moment in de arm. De schoor zelf krijgt dan een flinke drukkracht.</p>
         <div class="mgrid"><svg class="modes" id="armSvg" viewBox="0 0 520 300" aria-label="Draagarm met belastingen en momentenlijn"></svg>
         <div>
           <div class="ctrls" style="margin-top:0">
             <label>Gewicht sloep <output id="oW"></output><input id="inW" type="range" min="300" max="2000" step="50" value="800"></label>
             <label>Lengte arm <output id="oA2"></output><input id="inA2" type="range" min="2" max="3.4" step="0.1" value="2.7"></label>
             <label>Profiel <output id="oP2"></output><select id="inP2"><option value="0">Rvs-koker 80×80×4</option><option value="1" selected>Rvs-koker 100×100×5</option><option value="2">Rvs-koker 120×120×6</option></select></label>
-            <label>Knieschoor <output id="oB"></output><select id="inB2"><option value="1" selected>Met knieschoor</option><option value="0">Zonder knieschoor</option></select></label>
+            <label>Schoor <output id="oB"></output><select id="inB2"><option value="1" selected>Met schoor</option><option value="0">Zonder schoor</option></select></label>
           </div>
-          <div class="read"><div><small>Max. moment</small><b id="aM"></b></div><div><small>Max. spanning</small><b id="aS"></b></div><div><small>Veiligheid t.o.v. vloei</small><b id="aF"></b></div></div>
-          <p class="note">Rvs 316L, vloeigrens ≈ 200 MPa. Stootfactor 1,25 voor het optillen. Koker als benadering zonder afgeronde hoeken. Een echte berekening neemt ook de lassen, de kolomvoet en vermoeiing mee.</p>
+          <div class="read"><div><small>Max. moment</small><b id="aM"></b></div><div><small>Max. spanning</small><b id="aS"></b></div><div><small>Kracht in schoor</small><b id="aF"></b></div></div>
+          <p class="note">Rvs 316L, vloeigrens ongeveer 200 MPa. Stootfactor 1,25 voor het optillen.</p>
         </div></div>
       </div>
       <div class="fem armsim">
@@ -638,11 +638,6 @@ function femDraw(){
  for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const x=px+(i+.5)*cell-cx,y=cy-(py+(j+.5)*cell);const v=vm(x,y,a,S);const k=(j*nx+i)*4;
   if(v<0){d[k+3]=0;continue}const[r,g,b]=jet(Math.min(v/(3*S),1));d[k]=r*255;d[k+1]=g*255;d[k+2]=b*255;d[k+3]=255}
  ox.putImageData(img,0,0);fx.imageSmoothingEnabled=true;fx.drawImage(off,px,py,pw,ph);
- // mesh
- fx.save();fx.beginPath();fx.rect(px,py,pw,ph);fx.clip();fx.strokeStyle='rgba(0,0,0,.16)';fx.lineWidth=1;fx.beginPath();
- const m=W<420?18:24;for(let x=px;x<=px+pw;x+=m){fx.moveTo(x,py);fx.lineTo(x,py+ph)}for(let y=py;y<=py+ph;y+=m){fx.moveTo(px,y);fx.lineTo(px+pw,y)}
- for(let x=px-ph;x<=px+pw;x+=m){fx.moveTo(x,py+ph);fx.lineTo(x+ph,py)}fx.stroke();
- fx.globalCompositeOperation='destination-out';fx.beginPath();fx.arc(cx,cy,a,0,Math.PI*2);fx.fill();fx.restore();
  fx.strokeStyle='#e8ebee';fx.lineWidth=1.5;fx.strokeRect(px,py,pw,ph);fx.beginPath();fx.arc(cx,cy,a,0,Math.PI*2);fx.stroke();
  // belastingpijlen
  fx.strokeStyle=fx.fillStyle='#ff8a3d';fx.lineWidth=2;const L=mx-12;
@@ -750,16 +745,16 @@ const BUILD={
    for(let i=0;i<n;i++){const x=f?run-(i+.5)*go:(i+.5)*go;add('Roostertrede',mesh(Bx(go*.92,.03,w-.04),'grate'),[x,y0+(i+1)*ri-.015,zc],[0,.25,0])}
    const zo=zc+so*(w/2+.03);
    rod('Handregel',[xa,y0+1,zo],[xb,y0+h+1,zo],.022,'steel',[0,.3,so*.3]);
-   rod('Knieregel',[xa,y0+.5,zo],[xb,y0+h+.5,zo],.014,'steel',[0,.3,so*.3]);
+   for(let k=1;k<24;k++){const t=k/24,x=xa+(xb-xa)*t,y=y0+h*t+.04;rod('Spijl',[x,y,zo],[x,y+.94,zo],.007,'steel',[0,.3,so*.3])}
    [0,.5,1].forEach(t=>{const x=xa+(xb-xa)*t,y=y0+h*t;rod('Baluster',[x,y,zo],[x,y+1,zo],.016,'steel',[0,.3,so*.3])})});
   add('Bordes',mesh(Bx(1,.04,1.9),'grate'),[run+.5,h-.02,0],[.45,0,0]);
   [[run,-.95],[run,.95],[run+1,-.95],[run+1,.95]].forEach(([x,z])=>beam('Kolom',[x,0,z],[x,h-.04,z],.1,.1,'steel',[.45,0,0]));
   [run,run+1].forEach(x=>beam('Bordesligger',[x,h-.1,-.95],[x,h-.1,.95],.1,.16,'steel',[.45,0,0]));
   rod('Handregel',[run+1.03,h+1,-.98],[run+1.03,h+1,.98],.022,'steel',[.7,.3,0]);
-  rod('Knieregel',[run+1.03,h+.5,-.98],[run+1.03,h+.5,.98],.014,'steel',[.7,.3,0]);
+  for(let k=1;k<20;k++){const z=-.95+1.9*k/20;rod('Spijl',[run+1.03,h,z],[run+1.03,h+1,z],.007,'steel',[.7,.3,0])}
   [-.95,0,.95].forEach(z=>rod('Baluster',[run+1.03,h,z],[run+1.03,h+1,z],.016,'steel',[.7,.3,0]));
   add('Vloer (referentie)',mesh(Bx(.9,.2,1.9),'concrete'),[-.45,2*h-.1,0],[-.3,0,0]);return g},
- steektrap(){const{g,mesh,add}=Asm('steektrap'),{rod}=steel(mesh,add);const n=14,ri=.2,go=.26,H=n*ri,s=.1,X=(n-1)*go;
+ steektrap(){const{g,mesh,add}=Asm('steektrap'),{rod}=steel(mesh,add);const n=15,ri=2.8/15,go=.26,H=n*ri,s=.1,X=(n-1)*go;
   const zt=new THREE.Group();
   for(let i=0;i<n-1;i++){const v=mesh(Bx(s,ri,s),'steel');v.position.set(i*go,i*ri+ri/2,0);zt.add(v);const hz=mesh(Bx(go+s,s,s),'steel');hz.position.set(i*go+go/2,(i+1)*ri-s/2,0);zt.add(hz)}
   const lv=mesh(Bx(s,ri,s),'steel');lv.position.set(X,(n-1)*ri+ri/2,0);zt.add(lv);
@@ -767,8 +762,10 @@ const BUILD={
   for(let i=0;i<n-1;i++)add('Trede (eiken)',mesh(Bx(go+.04,.045,1),'oak'),[i*go+go/2,(i+1)*ri+.0225,0],[0,.3,0]);
   add('Voetplaat',mesh(Bx(.25,.02,.25),'steel'),[0,.01,0],[0,-.15,0]);
   add('Muuranker',mesh(Bx(.02,.25,.25),'steel'),[X+s/2+.01,H-.12,0],[.3,0,0]);
-  [0,3,6,9,12].forEach(i=>{const x=i*go+go/2,y=(i+1)*ri+.045;rod('Baluster',[x,y,.47],[x,y+.9,.47],.012,'steel',[0,.25,.3])});
-  rod('Handregel',[go/2,ri+.945,.47],[12*go+go/2,13*ri+.945,.47],.02,'steel',[0,.25,.3]);
+  const hr=x=>ri+.945+(x-go/2)*ri/go;
+  [0,4,8,13].forEach(i=>{const x=i*go+go/2,y=(i+1)*ri+.045;rod('Baluster',[x,y,.47],[x,hr(x),.47],.012,'steel',[0,.25,.3])});
+  for(let x=go/2+.09;x<(n-2)*go+go/2-.02;x+=.09){const i=Math.min(n-2,Math.floor(x/go)),y=(i+1)*ri+.045;rod('Spijl',[x,y,.47],[x,hr(x),.47],.006,'steel',[0,.25,.3])}
+  rod('Handregel',[go/2,ri+.945,.47],[(n-2)*go+go/2,(n-1)*ri+.945,.47],.02,'steel',[0,.25,.3]);
   add('Vloer (referentie)',mesh(Bx(1,.2,1.3),'concrete'),[X+s/2+.5,H-.1,0],[.3,0,0]);return g},
  gustav(){const{g,mesh,add}=Asm('gustav'),{beam}=steel(mesh,add);
   const sec=(r,h,a0,a1)=>new THREE.CylinderGeometry(r,r,h,48,1,false,a0,a1-a0);
@@ -1101,19 +1098,19 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
  $('#inL').addEventListener('input',calc);$('#inP').addEventListener('change',calc);calc();
  if(matchMedia('(prefers-reduced-motion: reduce)').matches){t0=performance.now();anim(t0+0);}else requestAnimationFrame(anim);}
 /* draagarm bootlift: buigmoment met en zonder knieschoor */
-{const Wz=[29.35e3,57.3e3,99.0e3],sv=$('#armSvg');
+{const Wz=[27.6e3,53.9e3,93.1e3],sv=$('#armSvg');
  function arm(){const W=+$('#inW').value,L=+$('#inA2').value,pi=+$('#inP2').value,br=$('#inB2').value==='1',P=W/4*9.81*1.25,a=[.37*L,.74*L],b=.3*L;
   const M=x=>{if(!br){let m=0;a.forEach(ai=>{if(ai>x)m+=P*(ai-x)});return m}
    const Rb=P*(a[0]+a[1])/b,R0=2*P-Rb;let m=R0*x;if(x>b)m+=Rb*(x-b);a.forEach(ai=>{if(x>ai)m-=P*(x-ai)});return -m};
   let mmax=0,xm=0;for(let i=0;i<=200;i++){const x=i/200*L,v=Math.abs(M(x));if(v>mmax){mmax=v;xm=x}}
-  const sig=mmax*1e3/Wz[pi],sf=200/sig;
+  const sig=mmax*1e3/Wz[pi],sf=200/sig,Fb=br?P*(a[0]+a[1])/b:0;
   $('#oW').textContent=W+' kg';$('#oA2').textContent=L.toFixed(1).replace('.',',')+' m';$('#oP2').textContent='';$('#oB').textContent='';
   $('#aM').textContent=(mmax/1000).toFixed(2).replace('.',',')+' kNm';$('#aS').textContent=Math.round(sig)+' MPa';
-  const fb=$('#aF');fb.textContent=sf.toFixed(1).replace('.',',');fb.style.color=sf>=2?'#7fe0a0':sf>=1.3?'#ffb04a':'#ff6b5b';
+  const sb=$('#aS');sb.style.color=sf>=2?'#7fe0a0':sf>=1.3?'#ffb04a':'#ff6b5b';$('#aF').textContent=br?(Fb/1000).toFixed(1).replace('.',',')+' kN':'–';
   const x0=60,x1=480,X=x=>x0+x/L*(x1-x0),ya=100,ym=196,sc=78/Math.max(1,mmax);
   let g=`<rect x="${x0-34}" y="40" width="34" height="140" fill="#3a4148"/><text x="${x0-30}" y="34">kolom</text>`;
   g+=`<rect x="${x0}" y="${ya-9}" width="${x1-x0}" height="18" fill="#9aa3ad"/>`;
-  if(br)g+=`<line x1="${x0}" y1="${ya+70}" x2="${X(b)}" y2="${ya+9}" stroke="#c5ccd3" stroke-width="8" stroke-linecap="round"/><text x="${X(b)+10}" y="${ya+40}">knieschoor</text>`;
+  if(br)g+=`<line x1="${x0}" y1="${ya+70}" x2="${X(b)}" y2="${ya+9}" stroke="#c5ccd3" stroke-width="8" stroke-linecap="round"/><text x="${X(b)+10}" y="${ya+40}">schoor</text>`;
   a.forEach((ai,i)=>{g+=`<line x1="${X(ai)}" y1="${ya-60}" x2="${X(ai)}" y2="${ya-14}" stroke="#ff8a3d" stroke-width="3"/><path d="M${X(ai)-7} ${ya-24}L${X(ai)} ${ya-10}L${X(ai)+7} ${ya-24}Z" fill="#ff8a3d"/><text x="${X(ai)-22}" y="${ya-66}">${(P/1000).toFixed(1).replace('.',',')} kN</text>`});
   let d=`M${x0} ${ym}`;for(let i=0;i<=120;i++){const x=i/120*L;d+=` L${X(x).toFixed(1)} ${(ym+Math.abs(M(x))*sc).toFixed(1)}`}d+=` L${x1} ${ym}Z`;
   g+=`<line x1="${x0}" y1="${ym}" x2="${x1}" y2="${ym}" stroke="#5c656e"/><path d="${d}" fill="#4fc3d0" opacity=".35" stroke="#4fc3d0" stroke-width="2"/><text x="${x0}" y="${ym-10}">Buigmoment</text>`;
