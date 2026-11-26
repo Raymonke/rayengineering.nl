@@ -234,7 +234,7 @@ th,td{text-align:left;padding:7px 4px;border-bottom:1px solid var(--line)}
 td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
 .kind{display:inline-block;background:var(--oak);color:#13304f;font-weight:600;font-size:14px;padding:2px 10px;border-radius:4px;margin-bottom:12px}
 @media(max-width:900px){.cols,.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.simgrid,.dgrid{grid-template-columns:minmax(0,1fr)}.skills{grid-template-columns:repeat(2,minmax(0,1fr))}.cad-b{grid-template-columns:180px minmax(0,1fr)}}
-@media(max-width:600px){.trust{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 16px}.trust dt{font-size:15px}.overg,.htop,.split,.contact,.cols,.grid3,.vak{grid-template-columns:minmax(0,1fr)}.links{width:100%;margin-left:0}.tb{position:static;border-left:0}.cad-b{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);height:440px}.tree{display:flex;gap:4px;overflow-x:auto;border-right:0;border-bottom:1px solid #3a4148;padding:6px}.tree .h,.tree .grp{display:none}.skills{grid-template-columns:minmax(0,1fr)}.tree button{flex:none;width:auto}.rib label{margin-left:0;width:100%}.rib input[type=range]{flex:1}.read{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.read div:last-child{grid-column:1/-1}.ctrls{grid-template-columns:minmax(0,1fr)}.dgrid .cad-b{height:380px}}
+@media(max-width:600px){.trust{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 16px}.trust dt{font-size:15px}.overg,.htop,.split,.contact,.cols,.grid3,.vak{grid-template-columns:minmax(0,1fr)}.links{width:100%;margin-left:0}.tb{position:static;border-left:0}.cad-b{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);height:440px}.tree{display:flex;gap:4px;overflow-x:auto;border-right:0;border-bottom:1px solid #3a4148;padding:6px}.tree .h,.tree .grp{display:none}.skills{grid-template-columns:minmax(0,1fr)}.tree button{flex:none;width:auto}.rib label{margin-left:0;width:100%}.rib input[type=range]{flex:1}.read{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.read div:last-child{grid-column:1/-1}.ctrls{grid-template-columns:minmax(0,1fr)}.dgrid .cad-b{height:380px;grid-template-rows:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.sheet .ln{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
 
 /* schets: nieuwe hoofdpagina */
@@ -481,7 +481,7 @@ footer a{color:inherit}
         <label>Uitgeklapt <input type="range" min="0" max="1" step="0.01" value="0" data-explode aria-label="Uitgeklapte weergave"></label>
       </div>
       <div class="cad-b"><div class="vp" id="vpDetail"><div class="tip" hidden></div><svg class="triad" viewBox="0 0 64 64"></svg></div></div>
-      <div class="cad-s"><span id="dStatus">Sleep om te draaien. Beweeg over een onderdeel om de naam te zien.</span><span>mm</span></div>
+      <div class="cad-s"><span id="dStatus">Sleep om te draaien. Beweeg over een onderdeel om de naam te zien.</span><script>if(matchMedia("(pointer:coarse)").matches)document.getElementById("dStatus").textContent="Veeg opzij om te draaien. Tik op een onderdeel voor de naam."</script><span>mm</span></div>
     </div>
     <div class="info">
       <h3 style="margin-top:0">Over dit ontwerp</h3>
@@ -649,7 +649,7 @@ fc.addEventListener('pointermove',e=>{if(!geo)return;const b=fc.getBoundingClien
 fc.addEventListener('pointerleave',()=>{$('#rHere').textContent='–'});
 
 /* ---------- 3D ---------- */
-const has3D=typeof THREE!=='undefined'&&(()=>{try{return !!document.createElement('canvas').getContext('webgl')}catch(e){return false}})();
+const has3D=typeof THREE!=='undefined'&&(()=>{try{const g=document.createElement('canvas').getContext('webgl');const ok=!!g;g&&g.getExtension('WEBGL_lose_context')&&g.getExtension('WEBGL_lose_context').loseContext();return ok}catch(e){return false}})();
 const go=id=>{location.hash='ontwerp-'+id};
 
 if(!has3D){
@@ -863,7 +863,13 @@ const BUILD={
 function setHL(g,on){for(const k in g.userData.M){const m=g.userData.M[k];m.emissive.setHex(on?0x1b4fae:(m.userData.e||0))}g.userData.lm.color.setHex(on?0x1f6fe0:0x22272d)}
 
 function Viewer(wrap,opt){
- const r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio||1,1.5));wrap.prepend(r.domElement);
+ /* renderer pas aanmaken als het venster in beeld komt en weer opruimen als het ver uit beeld is:
+    telefoons (zeker iOS) houden maar een paar WebGL-contexten tegelijk in leven */
+ let r=null;const coarse=matchMedia('(pointer:coarse)').matches;
+ const mk=()=>{if(r)return;r=new THREE.WebGLRenderer({antialias:!coarse,alpha:true,powerPreference:'low-power'});r.setPixelRatio(Math.min(devicePixelRatio||1,coarse?1.25:1.5));
+  wrap.prepend(r.domElement);r.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();kill()});size()};
+ const kill=()=>{if(!r)return;const c=r.domElement;try{r.dispose();r.forceContextLoss()}catch(e){}c.remove();r=null};
+ new IntersectionObserver(es=>{es[0].isIntersecting?mk():kill()},{rootMargin:'250px 0px'}).observe(wrap);
  const scene=new THREE.Scene();scene.add(new THREE.HemisphereLight(0xffffff,0x7d848c,.9));
  const dl=new THREE.DirectionalLight(0xffffff,.65);dl.position.set(4,9,6);scene.add(dl);
  const grid=new THREE.GridHelper(24,48,0x8f99a3,0xbfc6cd);if(opt.grid!==false)scene.add(grid);
@@ -877,14 +883,14 @@ function Viewer(wrap,opt){
  const tx=[[1,0,0,'#e5484d','X'],[0,1,0,'#46a758','Y'],[0,0,1,'#3e7be0','Z']].map(([x,y,z,c,l])=>{const ln=document.createElementNS('http://www.w3.org/2000/svg','line'),t=document.createElementNS('http://www.w3.org/2000/svg','text');ln.setAttribute('x1',32);ln.setAttribute('y1',32);ln.setAttribute('stroke',c);ln.setAttribute('stroke-width',3);ln.setAttribute('stroke-linecap','round');t.setAttribute('fill',c);t.setAttribute('font-size',13);t.setAttribute('font-weight',700);t.textContent=l;tri.append(ln,t);return{v:new THREE.Vector3(x,y,z),ln,t}});
  const triad=()=>{for(const a of tx){const v=a.v.clone().transformDirection(cam.matrixWorldInverse),X=32+v.x*22,Y=32-v.y*22;a.ln.setAttribute('x2',X);a.ln.setAttribute('y2',Y);a.t.setAttribute('x',X+(v.x>=0?3:-11));a.t.setAttribute('y',Y+4)}};
  const loop=t=>{raf=0;if(opt.tick){const dt=lt?Math.min(.05,(t-lt)/1000):0;lt=t;opt.tick(dt);if(vis)req();else lt=0}if(anim){const k=Math.min(1,(t-anim.t0)/anim.d),e=k<.5?2*k*k:1-(-2*k+2)**2/2;st.az=anim.a0+(anim.a1-anim.a0)*e;st.el=anim.e0+(anim.e1-anim.e0)*e;if(k<1)req();else anim=null}
-  place();r.render(scene,cam);triad()};
+  place();if(r)r.render(scene,cam);triad()};
  const req=()=>{if(!raf)raf=requestAnimationFrame(loop)};
  const explode=t=>{ex=t;for(const g of root.children)for(const p of g.userData.parts)p.obj.position.copy(p.base).addScaledVector(p.ex,t)};
- const size=()=>{const w=wrap.clientWidth,h=wrap.clientHeight;if(!w||!h)return;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();fit();req()};
+ const size=()=>{const w=wrap.clientWidth,h=wrap.clientHeight;if(!w||!h||!r)return;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();fit();req()};
  const vpRO=new ResizeObserver(size);vpRO.observe(wrap);
  const V={iso:[.72,.48],voor:[0,.06],boven:[0.0001,1.5],rechts:[Math.PI/2,.06]};
  const ray=new THREE.Raycaster(),nd=new THREE.Vector2();
- const pick=e=>{const b=r.domElement.getBoundingClientRect();nd.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1);ray.setFromCamera(nd,cam);const h=ray.intersectObjects(pl,false)[0];return h?h.object:null};let pl=[],hq=0,lastE=null;
+ const pick=e=>{if(!r)return null;const b=r.domElement.getBoundingClientRect();nd.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1);ray.setFromCamera(nd,cam);const h=ray.intersectObjects(pl,false)[0];return h?h.object:null};let pl=[],hq=0,lastE=null;
  let down=null;
  wrap.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,az:st.az,el:st.el,m:false};anim=null;wrap.style.cursor='grabbing'});
  wrap.addEventListener('pointermove',e=>{
