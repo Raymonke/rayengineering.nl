@@ -600,7 +600,7 @@ const D={
  nudration:{t:'Nudration frisdrankmachine',k:'R&D-project, opgeleverd',f:'Nudration.iam',i:'Een eigen frisdrankmachine, uitgewerkt als complete assembly met behuizing, bediening, uitgifte en de techniek erachter.',x:'Bij een machine als deze moet alles samenwerken: koeling, carbonatatie, dosering en een bediening die voor iedereen logisch is. Door de machine eerst als assembly op te bouwen, passen de onderdelen en zijn ze bereikbaar voor onderhoud voordat er iets gemaakt wordt.',w:['3D-ontwerp van de complete machine','Eigen mengsysteem en eigen firmware','Prototyping en testen']},
  bar:{t:'Ronde bar',k:'Maatwerk',f:'Ronde-bar.iam',i:'Een volledig ronde bar, eerst als assembly getekend en daarna gebouwd en geplaatst.',x:'Rond werk vraagt om precisie: het blad, de lamellen van de front en de voetsteun moeten exact op elkaar aansluiten. In het 3D-model zijn alle onderdelen los uitgewerkt, zodat maatvoering en productie vooraf kloppen.',w:['Ontwerp en 3D-assembly','Productie van blad en front','Plaatsing en afwerking']},
  tribune:{t:'Tribune basisschool',k:'Maatwerk',f:'Tribune-basisschool.iam',i:'Een zittribune voor een basisschool, ontworpen, gebouwd en geplaatst.',x:'Een tribune voor kinderen moet stevig, veilig en makkelijk schoon te houden zijn. De treden zijn als losse elementen opgebouwd, met zitkussens en opbergruimte in de onderste trede.',w:['Ontwerp afgestemd op de ruimte','Bouw van de trede-elementen','Plaatsing in de school']},
- trapkast:{t:'Kast onder de trap',k:'Maatwerk, eigen ontwerp',f:'Trapkast.iam',i:'Een kast onder de trap in eikenfineer, met laden op volledig uittrekbare geleiders en push-to-open, zonder grepen.',x:'De kast is parametrisch ontworpen: met de lengte onder de trap, de hoogte aan beide kanten en de diepte rekent het model alle delen, boorgaten, de zaaglijst en de montagehandleiding uit. De deuren zijn recht, met een vast schuin paneel erboven, zodat ze altijd netjes hangen. Passtroken sluiten de kast naadloos aan op trap en muur.',w:[]},
+ trapkast:{t:'Kast onder de trap',k:'Maatwerk, eigen ontwerp',f:'Trapkast.iam',i:'Een kast onder de trap in eikenfineer: greeploze fronten in één vlak, een verdiepte zwarte plint, een open nis met led-verlichting en laden op volledig uittrekbare geleiders met push-to-open.',x:'De kast is parametrisch ontworpen: met de lengte onder de trap, de hoogte aan beide kanten en de diepte rekent het model alle delen, boorgaten, de zaaglijst en de montagehandleiding uit. De deuren zijn recht, met een vast schuin paneel erboven, zodat ze altijd netjes hangen. Passtroken sluiten de kast naadloos aan op trap en muur.',w:[]},
  vide:{t:'Lamellenwerk vide en balie',k:'Maatwerk, opgeleverd',f:'Vide-lamellen.iam',i:'Een band van gebogen houten lamellen om de rand van de vide, een gebogen balie met lamellen eronder en een lamellenwand van vloer tot vide langs de trap.',x:'De lamellen volgen niet alleen een radius, ze staan ook schuin: de band om de vide is een kegelvlak, boven op de rand en onder naar binnen. Elke lamel staat daardoor onder een hoek ten opzichte van de radius. Dat vraagt om een onderconstructie met gebogen regels op twee verschillende stralen, zodat elke lamel op gelijke afstand en onder dezelfde hoek staat. De balie volgt een kleinere radius met een lichtere helling, en de wand langs de trap loopt in hetzelfde ritme door. Het model is een vereenvoudigde weergave.',w:['Lamellenband om de gebogen rand van de vide','Gebogen balie met lamellen','Lamellenwand langs de trap'],wl:'Wat ik deed'},
  tvwand:{t:'Wandmeubel met tv-nis',k:'Ontwerpvoorbeeld',f:'Tv-wand.iam',i:'Een ontwerp voor een wandvullend tv-meubel: zwevende onderkasten, twee hoge kolomkasten en open eiken nissen met verlichting.',x:'Zo’n wandmeubel ontwerp ik per wand. De gelakte kolom- en onderkasten geven rust, het eiken middendeel met de tv-nis en de verlichte nissen is de blikvanger. Kabelgoten, ventilatie voor de apparatuur en de plek van de verlichting liggen in het ontwerp al vast.',w:['Indeling en maatvoering op de wand','Kabelgoten en ventilatie achter de tv','LED-verlichting in de nissen'],wl:'Uitgewerkt in het ontwerp'},
  kastenwand:{t:'Eiken kastenwand met bureau',k:'Ontwerpvoorbeeld',f:'Kastenwand-bureau.iam',i:'Een ontwerp voor een eiken kastenwand van vloer tot plafond, met dichte kasten onder, open vakken boven en een werkplek in het midden.',x:'Een kastenwand met ingebouwd bureau maakt van een gewone wand een werkplek. De open vakken hebben verspringende tussenschotten voor een luchtig beeld, de dichte kasten onderin houden de spullen uit zicht. Plankdiktes en overspanningen zijn zo gekozen dat niets doorbuigt onder boeken.',w:['Modulaire opbouw in drie kolommen','Verspringende tussenschotten','Bureau met lade en kabeldoorvoer'],wl:'Uitgewerkt in het ontwerp'},
@@ -761,24 +761,34 @@ const BUILD={
   for(let x=go/2+.09;x<(n-2)*go+go/2-.02;x+=.09){const i=Math.min(n-2,Math.floor(x/go)),y=(i+1)*ri+.045;rod('Spijl',[x,y,.47],[x,hr(x),.47],.006,'steel',[0,.25,.3])}
   rod('Handregel',[go/2,ri+.945,.47],[(n-2)*go+go/2,(n-1)*ri+.945,.47],.02,'steel',[0,.25,.3]);
   add('Vloer (referentie)',mesh(Bx(1,.2,1.3),'concrete'),[X+s/2+.5,H-.1,0],[.3,0,0]);return g},
- trapkast(){const{g,mesh,add}=Asm('trapkast'),{beam}=steel(mesh,add);
-  /* kast onder een trap: rechte deuren met een vast schuin paneel erboven, laden onderin, push-to-open */
-  const B=2.4,h1=.5,h2=2.2,D=.8,t=.019,k=4,pl=.08,s=.003,top=x=>h1+(h2-h1)*x/B,an=Math.atan2(h2-h1,B);
-  const vak=(B-2*t-(k-1)*t)/k,bf=(B-(k+1)*s)/k;
+ trapkast(){const{g,mesh,add}=Asm('trapkast');
+  /* luxe trapkast: greeploze fronten in één vlak met schaduwnaden, verdiepte donkere plint, open nis met led in het lage vak,
+     ladenblokken in het midden en een hoge garderobedeur; erboven een dichte eiken trap */
+  const B=2.4,h1=.5,h2=2.2,D=.62,t=.019,pl=.06,s=.003,top=x=>h1+(h2-h1)*x/B,an=Math.atan2(h2-h1,B);
+  const xs=[0,.62,1.22,1.82,B];
   const plane=(pts,kl)=>{const sh=new THREE.Shape();sh.moveTo(pts[0][0],pts[0][1]);pts.slice(1).forEach(p=>sh.lineTo(p[0],p[1]));return mesh(new THREE.ExtrudeGeometry(sh,{depth:t,bevelEnabled:false}),kl)};
   add('Zijwand laag',mesh(Bx(t,top(t),D),'oak'),[t/2,top(t)/2,-D/2],[-.4,0,0]);
   add('Zijwand hoog',mesh(Bx(t,h2,D),'oak'),[B-t/2,h2/2,-D/2],[.4,0,0]);
   {const L=(B-2*t)/Math.cos(an),m=mesh(Bx(L,t,D),'oak');m.rotation.z=an;add('Schuin bovenblad',m,[B/2,(top(t)+top(B-t))/2-t/2,-D/2],[0,.45,0])}
-  add('Bodem',mesh(Bx(B-2*t,t,D),'oak'),[B/2,pl+t/2,-D/2]);add('Plint',mesh(Bx(B-2*t,pl,t),'oakd'),[B/2,pl/2,-.03]);
+  add('Bodem',mesh(Bx(B-2*t,t,D),'oak'),[B/2,pl+t/2,-D/2]);
+  add('Plint (verdiept, zwart)',mesh(Bx(B-2*t,pl,t),'black'),[B/2,pl/2,-.05]);
   add('Achterwand',plane([[t,pl],[B-t,pl],[B-t,top(B-t)-.02],[t,top(t)-.02]],'oakd'),[0,0,-D],[0,0,-.4]);
-  for(let i=1;i<k;i++){const x=t+i*vak+(i-1)*t+t/2,h=top(x)-pl-t-.03;add('Tussenwand',mesh(Bx(t,h,D-.02),'oak'),[x,pl+t+h/2,-D/2-.01],[0,0,-.2])}
-  for(let i=0;i<k;i++){const fx=s+i*(bf+s),fr=fx+bf,lo=Math.min(top(fx),top(fr))-s;let z=pl+s;
-   const nl=lo-pl>1.1?2:0;for(let j=0;j<nl;j++){add('Ladefront',mesh(Bx(bf,.177,t),'oak'),[fx+bf/2,z+.0885,t/2],[0,0,.45+j*.12]);z+=.18}
-   const hd=lo-z-s;if(hd>.12)add('Deur',mesh(Bx(bf,hd,t),'oak'),[fx+bf/2,z+hd/2,t/2],[0,0,.6]);
-   const zp=z+hd+s;add('Vast schuin paneel',plane([[fx,zp],[fr,zp],[fr,top(fr)-s],[fx,top(fx)-s]],'oak'),[0,0,0],[0,.15,.5])}
-  /* trap erboven (referentie) */
-  [-.02,-D+.02].forEach(z=>beam('Trapboom (referentie)',[0,h1+.1,z],[B,h2+.1,z],.04,.18,'white',[0,.8,0]));
-  for(let i=0;i<9;i++){const x=.12+i*B/9,y=top(x)+.16;add('Trede (referentie)',mesh(Bx(.27,.04,D+.04),'white'),[x+.1,y,-D/2],[0,.8,0])}
+  for(let i=1;i<xs.length-1;i++){const x=xs[i],h=top(x)-pl-t-.03;add('Tussenwand',mesh(Bx(t,h,D-.02),'oak'),[x,pl+t+h/2,-D/2-.01],[0,0,-.2])}
+  /* vak 1: open nis met led onder het schuine blad */
+  {const x0=xs[0]+t,x1=xs[1]-t/2;add('Ledstrip',mesh(Bx(x1-x0-.04,.012,.02),'led'),[(x0+x1)/2,top(x0)-.05,-.06],[0,.3,0]);
+   add('Nisbodem eiken',mesh(Bx(x1-x0,.03,D-.04),'oakd'),[(x0+x1)/2,pl+t+.015,-D/2],[0,.2,0])}
+  /* vak 2 en 3: laden, vak 3 met een deur erboven; vak 4: hoge deur */
+  const front=(x0,x1,z0,z1,nm,ex)=>add(nm,mesh(Bx(x1-x0-s,z1-z0-s,t),'oak'),[(x0+x1)/2,(z0+z1)/2,t/2],ex);
+  const paneel=(x0,x1,z0)=>add('Vast schuin paneel',plane([[x0+s/2,z0],[x1-s/2,z0],[x1-s/2,top(x1)-s],[x0+s/2,top(x0)-s]],'oak'),[0,0,0],[0,.15,.5]);
+  [[1,3],[2,3]].forEach(([v,n])=>{const x0=xs[v],x1=xs[v+1];let z=pl;for(let j=0;j<n;j++){front(x0,x1,z,z+.24,'Ladefront',[0,0,.4+.1*j]);z+=.24}
+   const lo=top(x0);if(lo-z>.25){front(x0,x1,z,lo-.02,'Deur',[0,0,.6]);paneel(x0,x1,lo-.02)}else paneel(x0,x1,z)});
+  {const x0=xs[3],x1=xs[4],lo=top(x0);front(x0,x1,pl,lo-.02,'Deur (garderobe)',[0,0,.6]);paneel(x0,x1,lo-.02)}
+  /* dichte eiken trap erboven (referentie): treden met overstek, witte stootborden, dichte witte trapboom */
+  const n=9,rh=(h2-h1)/n,rg=B/n;
+  for(let i=0;i<n;i++){const x=i*rg,y=top(x)+rh+.02;
+   add('Trede eiken (referentie)',mesh(Bx(rg+.03,.04,D+.02),'oak'),[x+rg/2-.015,y,-D/2],[0,.8,0]);
+   add('Stootbord (referentie)',mesh(Bx(.018,rh,D),'white'),[x+.009,y-rh/2,-D/2],[0,.8,0])}
+  {const L=Math.hypot(B,h2-h1),m=mesh(Bx(L,.26,.04),'white');m.rotation.z=an;add('Trapboom dicht (referentie)',m,[B/2,(h1+h2)/2+rh/2+.06,.03],[0,.8,.3])}
   return g},
  vide(){const{g,mesh,add}=Asm('vide'),{beam,rod}=steel(mesh,add);
   /* vide met gebogen rand, lamellenband om de rand, glazen balustrade erboven; balie eronder; lamellenwand langs de trap */
