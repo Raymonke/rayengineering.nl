@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ray Engineering</title>
-<meta name="description" content="Ray Engineering, Amsterdam: maatwerk in hout, planmatig en dagelijks onderhoud, installatie en technische R&D (FEM, Matlab/Simulink, COMSOL, prototyping).">
+<meta name="description" content="Ray Engineering, Amsterdam: onderhoud, installatie (airco, cv-ketel, zonnepanelen met thuisaccu) en maatwerk. Eén vast aanspreekpunt.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
@@ -236,12 +236,52 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
 @media(max-width:900px){.cols,.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.simgrid,.dgrid{grid-template-columns:minmax(0,1fr)}.skills{grid-template-columns:repeat(2,minmax(0,1fr))}.cad-b{grid-template-columns:180px minmax(0,1fr)}}
 @media(max-width:600px){.trust{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 16px}.trust dt{font-size:15px}.overg,.htop,.split,.contact,.cols,.grid3,.vak{grid-template-columns:minmax(0,1fr)}.links{width:100%;margin-left:0}.tb{position:static;border-left:0}.cad-b{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);height:440px}.tree{display:flex;gap:4px;overflow-x:auto;border-right:0;border-bottom:1px solid #3a4148;padding:6px}.tree .h,.tree .grp{display:none}.skills{grid-template-columns:minmax(0,1fr)}.tree button{flex:none;width:auto}.rib label{margin-left:0;width:100%}.rib input[type=range]{flex:1}.read{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.read div:last-child{grid-column:1/-1}.ctrls{grid-template-columns:minmax(0,1fr)}.dgrid .cad-b{height:380px}}
 @media(prefers-reduced-motion:reduce){.sheet .ln{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+
+/* schets: nieuwe hoofdpagina */
+.links a.wp{border:1.5px solid var(--line)}
+.cnote{font-size:15px;margin:-4px 0 14px;opacity:.85}
+.prods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
+.prods article{border-top:3px solid var(--ink);padding-top:16px}
+.prods svg{width:96px;height:48px;fill:none;stroke:var(--oakd);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round;display:block;margin-bottom:10px}
+.prods h3{margin-bottom:8px}
+.prods p{color:var(--mute);margin:0}
+.solar{margin-top:44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,4vw,56px);align-items:start;background:light-dark(#eef7f8,#132a3d);border-radius:10px;padding:clamp(18px,3vw,36px)}
+.solar h3{font-size:26px;margin-bottom:18px}
+.sform{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px}
+.sform label{display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--mute)}
+.sform output{font-weight:600;color:var(--ink)}
+.sform input{accent-color:var(--sel);height:30px}
+.sform select,.cform input,.cform select,.cform textarea{font:inherit;font-size:16px;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.sres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.sres div{background:var(--bg);border-radius:8px;padding:12px 14px}
+.sres small{display:block;color:var(--mute);font-size:14px}
+.sres b{font:700 clamp(20px,2.4vw,28px) Archivo,sans-serif;white-space:nowrap}
+.solar figure{margin:0}
+.solar svg{width:100%;height:auto;display:block}
+.solar figcaption{display:flex;gap:8px 16px;align-items:center;font-size:14px;color:var(--mute);margin-top:4px}
+.solar figcaption span{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:-10px;vertical-align:middle}
+.k1{background:var(--oak)}.k2{background:none;border-top:3px solid var(--ink);height:0!important}
+.snote{grid-column:1/-1;font-size:14px;color:var(--mute);margin:0}
+.cform{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;background:#fff;color:#13304f;border-radius:10px;padding:clamp(16px,2.5vw,28px);align-self:start}
+.cform label{display:flex;flex-direction:column;gap:5px;font-weight:600;font-size:15px}
+.cform input,.cform select,.cform textarea{background:#fff;color:#13304f;border-color:#c9d3da;font-weight:400}
+.cform .full{grid-column:1/-1}
+.cform .btn{justify-self:start;border-color:#13304f;background:#13304f;color:#fff}
+.fmsg{grid-column:1/-1;margin:0;font-size:15px}
+.contact{align-items:start}
+.contact dl{margin-top:28px}
+#werkplaats{background:var(--gr)}.wphead{padding-bottom:0;background:var(--gr);color:#e6eef4}
+.wphead .lead{color:#a3b4c2}
+.back{display:inline-block;margin-bottom:18px;color:#a3b4c2;font-weight:600}
+footer a{color:inherit}
+@media(max-width:860px){.prods,.solar,.cform{grid-template-columns:1fr}.sform{grid-template-columns:1fr}}
+.card.next{border:2px dashed var(--oakd)}
 </style>
 </head>
 <body>
 <nav><div class="wrap">
   <a class="logo" href="#top" aria-label="Ray Engineering, naar boven"><svg id="navLogo" viewBox="96 26 614 266" aria-hidden="true"></svg></a>
-  <div class="links"><a href="#diensten">Diensten</a><a href="#projecten">Projecten</a><a href="#onderhoud">Onderhoud</a><a href="#rd">R&amp;D</a><a href="#simulatie">FEM</a><a href="#werkwijze">Werkwijze</a><a href="#contact">Contact</a></div>
+  <div class="links"><a href="#diensten">Diensten</a><a href="#producten">Producten</a><a href="#projecten">Projecten</a><a href="#over">Over mij</a><a href="#contact">Contact</a><a class="wp" href="#werkplaats">Werkplaats</a></div>
 </div></nav>
 
 <main id="home">
@@ -249,8 +289,8 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
   <div class="htop">
     <div><h1><span class="sr">Ray Engineering</span><svg class="herologo" id="heroLogo" viewBox="48 0 708 300" aria-hidden="true"></svg></h1></div>
     <div>
-      <p class="lead">Maatwerk in meubels, interieur en techniek. Van gebouwonderhoud en installaties tot prototypes en FEM-analyses. Ontworpen door een werktuigbouwkundige, gemaakt met eigen handen.</p>
-      <div class="cta"><a class="btn fill" href="#projecten">Bekijk projecten</a><a class="btn" href="#rd">Naar R&amp;D</a></div>
+      <p class="lead">Onderhoud, installatie en maatwerk in Amsterdam. U heeft één vast aanspreekpunt, van de eerste vraag tot de oplevering.</p>
+      <div class="cta"><a class="btn fill" href="https://wa.me/31627418242">WhatsApp mij</a><a class="btn" href="mailto:info@rayengineering.nl">Stuur een mail</a></div>
     </div>
   </div>
   <div class="sheet house3d">
@@ -259,89 +299,83 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
   </div>
 </div></header>
 
+<section class="band oak" id="diensten"><div class="wrap">
+  <h2>Wat ik voor u doe</h2>
+  <div class="cols">
+    <div class="col"><h3>Onderhoud en herstel</h3><ul><li>Badkamerrenovatie</li><li>Dakonderhoud: pannen, goten en lood</li><li>Vloeren, van marmoleum tot droogloopmatten op maat</li><li>Timmerwerk: deuren, kozijnen en afwerking</li><li>Kieren, gaten en doorvoeren dichtmaken tegen muizen en ratten, binnen en buiten.</li></ul></div>
+    <div class="col"><h3>Installatie</h3><ul><li>Airco: levering, plaatsing en onderhoud</li><li>Cv-ketel: levering en vervanging</li><li>Zonnepanelen met thuisaccu, compleet aangesloten</li></ul><p class="cnote">Geplaatst door gecertificeerde monteurs.</p><a href="#producten">Naar de producten</a></div>
+    <div class="col"><h3>Maatwerk</h3><ul><li>Kasten en wandmeubels</li><li>Tribunes en zitmeubels</li><li>Bars, balies en lamellenwerk</li><li>RVS-bootlift, in ontwikkeling</li></ul><a href="#projecten">Naar de projecten</a></div>
+  </div>
+</div></section>
+<section class="band" id="producten"><div class="wrap">
+  <h2>Geleverd en geplaatst</h2>
+  <p class="lead" style="margin-top:14px">Ik lever het product en regel de installatie. U krijgt advies over wat bij uw woning past, geen standaardpakket.</p>
+  <div class="prods">
+    <article><svg viewBox="0 0 120 60" aria-hidden="true"><rect x="10" y="12" width="100" height="30" rx="5"/><path d="M18 34h84M22 48c6 4 12 4 18 0M52 50c6 4 12 4 18 0M82 48c6 4 12 4 18 0"/></svg><h3>Airco</h3><p>Koelen in de zomer, zuinig bijverwarmen in de winter. Binnen- en buitenunit, netjes weggewerkte leidingen.</p></article>
+    <article><svg viewBox="0 0 120 60" aria-hidden="true"><rect x="38" y="4" width="44" height="52" rx="4"/><rect x="48" y="12" width="24" height="9"/><path d="M50 56v4M60 56v4M70 56v4"/></svg><h3>Cv-ketel</h3><p>Een nieuwe ketel die past bij de woning en het warmwatergebruik, inclusief het afvoeren van de oude.</p></article>
+    <article><svg viewBox="0 0 120 60" aria-hidden="true"><path d="M4 52 22 14H68L82 52Z"/><path d="M45 14 43 52M13 33h60M33 14 25 52M57 14 61 52"/><rect x="92" y="18" width="22" height="34" rx="3"/><path d="M99 14h8M98 30h10M98 37h10M98 44h10"/></svg><h3>Zonnepanelen en thuisaccu</h3><p>Panelen, omvormer en accu als één set, aangesloten op de meterkast. Reken hieronder uit wat uw dak opbrengt.</p></article>
+  </div>
+  <div class="solar" id="zonnepanelen">
+    <div>
+      <h3>Wat levert uw dak op?</h3>
+      <div class="sform">
+        <label>Bruikbaar dakoppervlak <output id="zA"></output><input id="zIA" type="range" min="6" max="60" step="1" value="20"></label>
+        <label>Ligging van het dak <select id="zIO"><option value="1">Zuid</option><option value=".95">Zuidoost of zuidwest</option><option value=".82" selected>Oost of west</option><option value=".62">Noord</option><option value=".86">Plat dak</option></select></label>
+        <label>Stroomverbruik per jaar <output id="zV"></output><input id="zIV" type="range" min="1500" max="7000" step="100" value="2800"></label>
+        <label>Thuisaccu <select id="zIB"><option value="0">Geen accu</option><option value="5" selected>5 kWh</option><option value="10">10 kWh</option></select></label>
+      </div>
+      <div class="sres"><div><small id="zPl">Panelen</small><b id="zP"></b></div><div><small>Opbrengst per jaar</small><b id="zE"></b></div><div><small>Zelf gebruikt</small><b id="zS"></b></div></div>
+    </div>
+    <figure><svg id="zChart" viewBox="0 0 420 230" aria-label="Opbrengst en verbruik per maand"></svg>
+      <figcaption><span class="k1"></span>Opbrengst <span class="k2"></span>Verbruik</figcaption></figure>
+    <p class="snote">Een indicatie voor Amsterdam, met panelen van 430 Wp. Na een bezoek reken ik het precies uit voor uw dak.</p>
+  </div>
+</div></section>
+<section class="band" id="projecten"><div class="wrap">
+  <h2>Projecten</h2>
+  <p class="lead" style="margin-top:14px">Een selectie van werk in scholen, horeca en woningen.</p>
+  <div class="grid3" id="cards"></div>
+</div></section>
+
 <section class="band over" id="over"><div class="wrap overg">
   <div>
-    <h2 class="overh">Eén vakman. Van tekening tot oplevering.</h2>
-    <p class="lead" style="margin-top:20px">Ik ben Raymon Keereweer, werktuigbouwkundige en oprichter van Ray Engineering. Sinds 2020 werk ik in en rond Amsterdam, onder meer voor scholen en bedrijven. U spreekt met één persoon die meedenkt over het ontwerp, rekent waar dat nodig is en het werk zelf uitvoert. Geen doorgeefluik, wel heldere afspraken die worden nagekomen.</p>
+    <h2 class="overh">U spreekt mij, van begin tot eind.</h2>
+    <p class="lead" style="margin-top:20px">Ik ben Raymon Keereweer. Sinds 2020 doe ik onderhoud, installaties en maatwerk in Amsterdam, vooral voor scholen, bedrijven en particulieren. Ik kom kijken, denk mee en voer het werk uit. Voor grotere klussen werk ik met een vast team van ervaren vakmensen.</p>
     <dl class="trust"><div><dd>6+</dd><dt>Jaar actief</dt></div><div><dd>600+</dd><dt>Klussen afgerond</dt></div><div><dd>1</dd><dt>Vast aanspreekpunt</dt></div></dl>
-    <p class="note2">Een groeiend netwerk van opdrachtgevers die terugkomen.</p>
+    <p class="note2">Werktuigbouwkundig ingenieur, TU Delft.</p>
     <a class="btn fill" href="#contact">Neem contact op</a>
   </div>
   <figure class="me">
     <div class="mef"><img src="raymon.jpg" alt="Raymon Keereweer in werkoverall, oprichter van Ray Engineering" width="640" height="640"></div>
-    <figcaption><b>Raymon Keereweer</b><span>Oprichter en werktuigbouwkundige</span></figcaption>
+    <figcaption><b>Raymon Keereweer</b><span>Oprichter van Ray Engineering</span></figcaption>
   </figure>
 </div></section>
 
-<section class="band oak" id="diensten"><div class="wrap">
-  <h2>Drie vakgebieden, één aanspreekpunt</h2>
-  <p class="lead" style="margin-top:14px">Van een boekenkast tot een meerjarig onderhoudsplan tot een simulatie van een machine. U heeft één contactpersoon die het ontwerp, de berekening en de uitvoering kent.</p>
-  <div class="cols">
-    <div class="col"><h3>Maatwerk en interieur</h3><ul><li>Boekenkasten en kasten op maat</li><li>Tribunes en zitmeubels</li><li>Bars en balies</li><li>Wandmeubels en kastenwanden</li><li>Stalen trappen en constructies</li><li>RVS-bootliften en staalwerk, gelast door een vaste partner</li></ul><a href="#projecten">Afgeronde projecten</a></div>
-    <div class="col"><h3>Onderhoud en installatie</h3><ul><li>Planmatig, groot en klein onderhoud</li><li>Badkamer, dak en vloeren</li><li>Airco, ventilatie en cv-ketel (F-gassen en CO gecertificeerd)</li><li>Glazen puien, isolatie en knaagdierwering</li></ul><a href="#onderhoud">Alle onderhoudsdiensten</a></div>
-    <div class="col"><h3>R&amp;D en engineering</h3><ul><li>Prototyping en productontwikkeling</li><li>Constructieberekeningen en FEM</li><li>Matlab, Simulink, COMSOL en Python</li><li>Simulaties in C++ met Unreal Engine</li></ul><a href="#simulatie">Bekijk FEM en simulatie</a></div>
+<section class="band oak" id="contact"><div class="wrap contact">
+  <div>
+    <h2>Vertel wat u nodig heeft</h2>
+    <p class="lead" style="margin-top:14px">Stuur een bericht via WhatsApp of het formulier. Een foto van de situatie helpt.</p>
+    <dl>
+      <dt>WhatsApp en telefoon</dt><dd><a href="https://wa.me/31627418242">06 27 41 82 42</a></dd>
+      <dt>E-mail</dt><dd><a href="mailto:info@rayengineering.nl">info@rayengineering.nl</a></dd>
+    </dl>
   </div>
+  <form class="cform" id="cform">
+    <label>Soort klus<select name="soort"><option>Onderhoud of herstel</option><option>Airco</option><option>Cv-ketel</option><option>Zonnepanelen en accu</option><option>Maatwerk</option><option>Iets anders</option></select></label>
+    <label>Naam<input name="naam" autocomplete="name" required></label>
+    <label>Telefoon of e-mail<input name="contact" autocomplete="email" required></label>
+    <label>Adres of postcode<input name="adres" autocomplete="postal-code"></label>
+    <label class="full">Uw vraag<textarea name="vraag" rows="4" required></textarea></label>
+    <label class="full">Foto's<input name="foto" type="file" accept="image/*" multiple></label>
+    <button class="btn fill" type="submit">Verstuur</button>
+    <p class="fmsg" id="fmsg" role="status"></p>
+  </form>
 </div></section>
+</main>
 
-<section class="band" id="projecten"><div class="wrap">
-  <h2>Afgeronde klussen</h2>
-  <p class="lead" style="margin-top:14px">Een selectie van werk dat is ontworpen, gemaakt en opgeleverd.</p>
-  <div class="grid3" id="cards"></div>
-</div></section>
-
-<section class="band" id="onderhoud" style="padding-top:0"><div class="wrap">
-  <h2>Onderhoud en installatie</h2>
-  <div class="split">
-    <div>
-      <p class="lead">Voor scholen, verenigingen, VvE's en bedrijven. Onderhoud dat vooraf gepland is, kost minder dan onderhoud dat moet omdat er iets kapot is.</p>
-      <p class="certs"><span>F-gassen gecertificeerd</span><span>CO-gecertificeerd</span></p>
-      <dl class="terms">
-        <dt>Planmatig onderhoud</dt><dd>Terugkerend onderhoud volgens een meerjarenonderhoudsplan (MJOP): schilderwerk, dak, installaties en vloeren op vaste momenten. Een goed moment om ook de isolatie van dak, vloer en gevel mee te nemen, zodat het gebouw er na elke ronde zuiniger en comfortabeler uitkomt.</dd>
-        <dt>Groot onderhoud</dt><dd>Grotere ingrepen die eens in de zoveel jaar terugkomen, zoals een dak vernieuwen, een vloer vervangen of puien plaatsen.</dd>
-        <dt>Klein en dagelijks onderhoud</dt><dd>Reparaties en kleine klussen die tussendoor ontstaan, snel opgepakt zodat het gebouw blijft werken.</dd>
-      </dl>
-    </div>
-    <ul class="vak">
-      <li>Badkamerrenovatie<small>Sloop tot oplevering</small></li>
-      <li>Dakonderhoud<small>Inspectie, reparatie en vernieuwing</small></li>
-      <li>Airco en ventilatie<small>Plaatsing en onderhoud, F-gassen gecertificeerd</small></li>
-      <li>Cv-ketel<small>Installatie en vervanging, CO-gecertificeerd</small></li>
-      <li>Glazen puien<small>Inmeten en plaatsen</small></li>
-      <li>Vloeren<small>Onder meer marmoleum en droogloopmatten</small></li>
-      <li>Knaagdierwering<small>Oorzaak opsporen en ruimtes rat- en muisdicht maken</small></li>
-      <li>Isolatie<small>Dak, vloer, gevel en kierdichting</small></li>
-      <li>Timmerwerk<small>Deuren, kozijnen en afwerking</small></li>
-    </ul>
-  </div>
-  <div class="pest" id="knaagdierwering">
-    <figure class="pestfig">
-      <svg viewBox="0 0 400 320" role="img" aria-labelledby="pestT"><title id="pestT">Amsterdams grachtenpand met souterrain, met genummerd de plekken waar knaagdieren binnenkomen</title>
-        <rect class="pz" x="0" y="212" width="300" height="108"/><rect class="pwat" x="300" y="226" width="100" height="94"/>
-        <path class="pl" d="M0 212H300V320M312 240h24M346 252h30M318 268h22M352 284h26" style="stroke-width:1.6"/>
-        <path class="pw" d="M70 212V80H86V66H102V52H118V38H182V52H198V66H214V80H230V212Z"/>
-        <path class="pl" d="M70 212V80H86V66H102V52H118V38H182V52H198V66H214V80H230V212M150 38V28M150 28h16M166 28v8"/>
-        <g class="pl" style="stroke-width:1.6"><rect x="86" y="90" width="24" height="26"/><rect x="138" y="90" width="24" height="26"/><rect x="190" y="90" width="24" height="26"/><rect x="86" y="128" width="24" height="26"/><rect x="138" y="128" width="24" height="26"/><rect x="190" y="128" width="24" height="26"/><rect x="86" y="166" width="24" height="26"/><rect x="190" y="166" width="24" height="26"/><path d="M98 90v26M150 90v26M202 90v26M98 128v26M150 128v26M202 128v26M98 166v26M202 166v26"/></g>
-        <path class="pl" d="M138 212V170H162V212"/>
-        <rect class="pw" x="70" y="212" width="160" height="88"/><path class="pl" d="M70 212V300H230V212"/>
-        <path class="pl" d="M86 214H114V232H86ZM93 214V232M100 214V232M107 214V232" style="stroke-width:1.4"/>
-        <path class="pl" d="M24 258H72M24 268H72" style="stroke-width:1.6"/>
-        <path class="pt" d="M139 211H161"/><rect class="pt2" x="64" y="252" width="10" height="22"/><path class="pt" d="M73 298H96"/><path class="pt" d="M86 223H114" style="stroke-width:3"/>
-        <g class="rat"><ellipse cx="268" cy="205" rx="15" ry="7"/><circle cx="283" cy="202" r="5.5"/><circle cx="284" cy="196.5" r="2.6"/><path class="tail" d="M253 207c-10 3-16 0-22 4"/></g>
-        <g class="num"><circle cx="150" cy="236" r="11"/><text x="150" y="240.5">1</text><circle cx="52" cy="224" r="11"/><text x="52" y="228.5">2</text><circle cx="36" cy="242" r="11"/><text x="36" y="246.5">3</text><circle cx="110" cy="282" r="11"/><text x="110" y="286.5">4</text></g>
-      </svg>
-    </figure>
-    <div>
-      <h3>Knaagdierwering: eerst de oorzaak</h3>
-      <p>Amsterdam heeft veel last van ratten en muizen: oude panden met gaten en kieren, een oud riool, afval op straat en zachte winters. Ik zoek uit waar ze binnenkomen en maak kelders, kruipruimtes en bergingen blijvend rat- en muisdicht, zonder gif. Dat is ook de volgorde die de IPM-regels voorschrijven: eerst de oorzaak, pas als laatste middel gif.</p>
-      <ol class="pestlist"><li>Kier onder de voordeur</li><li>Rooster van het souterrain</li><li>Leidingdoorvoer in de kelderwand</li><li>Naden bij vloer en wand</li></ol>
-    </div>
-  </div>
-</div>
-</div></section>
-
+<main id="werkplaats" hidden>
+<section class="band wphead"><div class="wrap"><a class="back" href="#top">Terug naar de hoofdpagina</a><h2>De werkplaats</h2><p class="lead" style="margin-top:14px">Hier laat ik zien waar ik plezier in heb: 3D-ontwerpen, berekeningen en simulaties. Klik op een model om het ontwerp te openen.</p></div></section>
 <section class="band dark" id="rd"><div class="wrap">
-  <h2>R&amp;D en engineering</h2>
-  <p class="lead" style="margin-top:14px">Elk ontwerp begint als assembly: maatwerk, staalconstructies en machines. Draai het model, klap het uit en klik op een ontwerp om de pagina daarover te openen.</p>
   <div class="cad" id="cadMain">
     <div class="cad-t"><span class="fn">R&amp;D-ontwerpen.iam</span><i>–</i><i>□</i><i>×</i></div>
     <div class="rib">
@@ -447,20 +481,10 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
   </div>
 </div></section>
 
-<section class="band" id="werkwijze"><div class="wrap">
-  <h2>Zo pak ik een klus aan</h2>
-  <ol class="steps">
-    <li><h3>Kennismaken en inmeten</h3><p>Ter plekke kijken wat er nodig is en alles opmeten.</p></li>
-    <li><h3>Ontwerp en berekening</h3><p>Een 3D-ontwerp en waar nodig een berekening, zodat het vooraf klopt.</p></li>
-    <li><h3>Offerte</h3><p>Een duidelijke prijs en planning op basis van het ontwerp.</p></li>
-    <li><h3>Uitvoering</h3><p>Maken en plaatsen, met één aanspreekpunt van begin tot eind.</p></li>
-    <li><h3>Oplevering</h3><p>Samen controleren en desgewenst een onderhoudsafspraak.</p></li>
-  </ol>
-</div></section>
 </main>
 
 <main id="detail" class="band" hidden><div class="wrap">
-  <div class="crumb"><a href="#rd">R&amp;D</a><span>/</span><span id="dCrumb"></span></div>
+  <div class="crumb"><a href="#werkplaats">Werkplaats</a><span>/</span><span id="dCrumb"></span></div>
   <span class="kind" id="dKind"></span>
   <h2 id="dTitle" style="font-size:clamp(36px,5vw,56px)"></h2>
   <p class="lead" id="dIntro" style="margin-top:14px"></p>
@@ -482,24 +506,12 @@ td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
       <h3>Onderdelenlijst</h3>
       <table><thead><tr><th>Onderdeel</th><th>Aantal</th></tr></thead><tbody id="dBom"></tbody></table>
       <p class="note" style="color:var(--mute)">Het 3D-model is een vereenvoudigde weergave van het ontwerp.</p>
-      <p style="margin-top:20px"><a class="btn" href="#rd">Terug naar alle ontwerpen</a></p>
+      <p style="margin-top:20px"><a class="btn" href="#werkplaats">Terug naar de werkplaats</a></p>
     </div>
   </div>
 </div></main>
 
-<section class="band oak" id="contact"><div class="wrap contact">
-  <div>
-    <h2>Een klus, een vraag of een ontwerp?</h2>
-    <p class="lead" style="margin-top:14px">Stuur een bericht met wat u in gedachten heeft. Een foto of schets helpt; ik reageer binnen twee werkdagen.</p>
-  </div>
-  <dl>
-    <dt>Naam</dt><dd>Raymon Keereweer</dd>
-    <dt>Telefoon</dt><dd><a href="tel:+31627418242">06 27 41 82 42</a></dd>
-    <dt>E-mail</dt><dd><a href="mailto:raymonkeereweer@gmail.com">raymonkeereweer@gmail.com</a></dd>
-    <dt>Adres</dt><dd>Tolstraat 67A<br>1073 RX Amsterdam</dd>
-  </dl>
-</div></section>
-<footer><div class="wrap"><span>© 2026 Ray Engineering, Tolstraat 67A, 1073 RX Amsterdam</span><span>KvK 77927710</span><span>Btw NL003259708B60</span></div></footer>
+<footer><div class="wrap"><span>© 2026 Ray Engineering, Tolstraat 67A, 1073 RX Amsterdam</span><span>KvK 77927710</span><span>Btw NL003259708B60</span><a href="#werkplaats">De werkplaats</a><span>NL · EN</span></div></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -596,23 +608,22 @@ const PROJ=[
  {t:'Tribune voor een basisschool',p:'Een zittribune voor de kinderen, ontworpen, gebouwd en geplaatst.',d:'tribune',s:'<path d="M40 136V108H110V80H180V52H250V136Z"/><path d="M44 104h62M114 76h62M184 48h62"/>'},
  {t:'Ronde bar',p:'Van eerste schets tot een geplaatste, volledig ronde bar.',d:'bar',s:'<ellipse cx="150" cy="50" rx="95" ry="24"/><ellipse cx="150" cy="50" rx="60" ry="14"/><path d="M58 56v66a92 24 0 0 0 184 0V56"/><path d="M90 70v60M120 74v62M150 75v62M180 74v62M210 70v60"/>'},
  {t:'Houtwerk ex-sportschool Gustav',p:'Gebogen lamellen op de vide, de ronde balie en de lamellenwand langs de trap.',d:'gustav',s:'<path d="M50 20V136H250V20"/><path d="M70 20v116M90 20v116M110 20v116M130 20v116M150 20v116M170 20v116M190 20v116M210 20v116M230 20v116"/>'},
- {t:'Marmoleumvloer in een school',p:'Een nieuwe marmoleumvloer gelegd in een school.',s:'<path d="M20 136 90 40H210L280 136Z"/><path d="M130 40 110 136M170 40 190 136M60 96h180"/><path d="M110 70c20-10 30 10 50 0s30 10 40 4"/>'},
- {t:'Droogloopmat op maat',p:'Een grote droogloopmat op maat voor de entree van een school.',s:'<path d="M110 16h80v52h-80z M150 16v52"/><path d="M60 136 90 80H210L240 136Z"/><path d="M84 92h132M78 104h144M72 116h156M66 128h168"/>'}
+ {t:'Marmoleum en droogloopmat',p:'Voor een school: een nieuwe marmoleumvloer en een droogloopmat op maat bij de entree.',s:'<path d="M20 136 80 44H220L280 136Z"/><path d="M130 44 116 136M170 44 184 136M52 92h196"/><path d="M110 16h80v28h-80zM150 16v28"/>'}
 ];
-$('#cards').innerHTML=PROJ.map(c=>`<article class="card"><svg viewBox="0 0 300 156" aria-hidden="true">${c.s}</svg><div><h3>${esc(c.t)}</h3><p>${esc(c.p)}</p>${c.d?`<a href="#ontwerp-${c.d}">Bekijk het 3D-ontwerp</a>`:''}</div></article>`).join('');
+$('#cards').innerHTML=PROJ.map(c=>`<article class="card"><svg viewBox="0 0 300 156" aria-hidden="true">${c.s}</svg><div><h3>${esc(c.t)}</h3><p>${esc(c.p)}</p>${c.d?`<a href="#ontwerp-${c.d}">Bekijk het 3D-ontwerp</a>`:''}</div></article>`).join('')+`<article class="card next"><svg viewBox="0 0 300 156" aria-hidden="true"><path d="M70 120 L70 60 L150 22 L230 60 L230 120 Z"/><path d="M150 22v98M70 60h160" stroke-dasharray="6 6"/><circle cx="150" cy="88" r="14"/><path d="M150 81v14M143 88h14"/></svg><div><h3>Uw klus?</h3><p>Vertel wat er speelt, dan denk ik vrijblijvend met u mee over de beste aanpak.</p><a href="#contact">Laten we sparren</a></div></article>`;
 
 /* ---------- ontwerpen ---------- */
 const D={
- nudration:{t:'Nudration frisdrankmachine',k:'R&D-project',f:'Nudration.iam',i:'Een eigen frisdrankmachine, uitgewerkt als complete assembly met behuizing, bediening, uitgifte en de techniek erachter.',x:'Bij een machine als deze moet alles samenwerken: koeling, carbonatatie, dosering en een bediening die voor iedereen logisch is. Door de machine eerst als assembly op te bouwen, passen de onderdelen en zijn ze bereikbaar voor onderhoud voordat er iets gemaakt wordt.',w:['3D-ontwerp van de complete machine','Indeling van de techniek in de behuizing','Prototyping en testen']},
+ nudration:{t:'Nudration frisdrankmachine',k:'R&D-project, opgeleverd',f:'Nudration.iam',i:'Een eigen frisdrankmachine, uitgewerkt als complete assembly met behuizing, bediening, uitgifte en de techniek erachter.',x:'Bij een machine als deze moet alles samenwerken: koeling, carbonatatie, dosering en een bediening die voor iedereen logisch is. Door de machine eerst als assembly op te bouwen, passen de onderdelen en zijn ze bereikbaar voor onderhoud voordat er iets gemaakt wordt.',w:['3D-ontwerp van de complete machine','Eigen mengsysteem en eigen firmware','Prototyping en testen']},
  bar:{t:'Ronde bar',k:'Maatwerk',f:'Ronde-bar.iam',i:'Een volledig ronde bar, eerst als assembly getekend en daarna gebouwd en geplaatst.',x:'Rond werk vraagt om precisie: het blad, de lamellen van de front en de voetsteun moeten exact op elkaar aansluiten. In het 3D-model zijn alle onderdelen los uitgewerkt, zodat maatvoering en productie vooraf kloppen.',w:['Ontwerp en 3D-assembly','Productie van blad en front','Plaatsing en afwerking']},
  tribune:{t:'Tribune basisschool',k:'Maatwerk',f:'Tribune-basisschool.iam',i:'Een zittribune voor een basisschool, ontworpen, gebouwd en geplaatst.',x:'Een tribune voor kinderen moet stevig, veilig en makkelijk schoon te houden zijn. De treden zijn als losse elementen opgebouwd, met zitkussens en opbergruimte in de onderste trede.',w:['Ontwerp afgestemd op de ruimte','Bouw van de trede-elementen','Plaatsing in de school']},
  gustav:{t:'Houtwerk ex-sportschool Gustav',k:'Maatwerk, opgeleverd',f:'Gustav-lamellen.iam',i:'Gebogen houten lamellen op de vide, een ronde balie met lamellen en een lamellenwand langs de trap.',x:'Gebogen lamellenwerk vraagt om een precieze onderconstructie: gebogen regels die de radius van de vide volgen, zodat elke lamel op gelijke afstand en haaks op de bocht staat. De balie volgt een kleinere radius, en de wand langs de stalen trap loopt in hetzelfde ritme door tot boven. Zo leest het interieur als één doorlopend houten element. Het model is een vereenvoudigde weergave.',w:['Lamellen op de gebogen vide-front','Ronde balie met lamellen','Lamellenwand langs de trap'],wl:'Wat ik deed'},
- bootlift:{t:'RVS-bootlift',k:'R&D-project, in ontwikkeling',f:'Bootlift.iam',i:'Een bootlift met twee spindelkolommen op de kade, uitkragende draagarmen en twee bunks met tapijt. In de laagste stand ligt het frame onder water en vaart de sloep erboven.',x:'Twee kolommen op de kademuur dragen elk een slede met een uitkragende draagarm. Een zelfremmende wormwielaandrijving met spindel tilt het frame met de sloep uit het water, en blijft staan als de stroom uitvalt. Omdat de armen uitkragen, zit het grootste buigmoment bij de kolomvoet: de knieschoren, de voetplaat en de verankering in de kade zijn de kern van de sterkteberekening. Alles is rvs 316, geschikt voor grachtwater; door één materiaal te gebruiken is er geen galvanische corrosie tussen verschillende metalen.',w:['Ontwerp van kolommen, sleden, draagarmen en bunks','Sterkteberekening van de uitkragende armen en de kolomvoet','Laswerk door een vaste partner'],wl:'Uitgewerkt in het ontwerp'},
+ bootlift:{t:'RVS-bootlift',k:'R&D-project, in ontwikkeling',f:'Bootlift.iam',i:'Een bootlift met twee spindelkolommen op de kade, uitkragende draagarmen en twee bunks met tapijt. In de laagste stand ligt het frame onder water en vaart de sloep erboven.',x:'Twee kolommen op de kademuur dragen elk een slede met een uitkragende draagarm. Een elektromotor met spindel tilt de sloep in een paar minuten uit het water, en de lift blijft op zijn plek staan als de stroom uitvalt. Motor en voeding worden afgestemd op het gewicht van de boot. De voetplaat en de verankering in de kade zijn het belangrijkste deel van het ontwerp. Alles is rvs 316, geschikt voor grachtwater.',w:['Kolommen, sleden, draagarmen en bunks','Sterkte van de draagarmen en de kolomvoet','Volledig in rvs 316'],wl:'Uitgewerkt in het ontwerp'},
  tvwand:{t:'Wandmeubel met tv-nis',k:'Ontwerpvoorbeeld',f:'Tv-wand.iam',i:'Een ontwerp voor een wandvullend tv-meubel: zwevende onderkasten, twee hoge kolomkasten en open eiken nissen met verlichting.',x:'Zo’n wandmeubel ontwerp ik per wand. De gelakte kolom- en onderkasten geven rust, het eiken middendeel met de tv-nis en de verlichte nissen is de blikvanger. Kabelgoten, ventilatie voor de apparatuur en de plek van de verlichting liggen in het ontwerp al vast.',w:['Indeling en maatvoering op de wand','Kabelgoten en ventilatie achter de tv','LED-verlichting in de nissen'],wl:'Uitgewerkt in het ontwerp'},
  kastenwand:{t:'Eiken kastenwand met bureau',k:'Ontwerpvoorbeeld',f:'Kastenwand-bureau.iam',i:'Een ontwerp voor een eiken kastenwand van vloer tot plafond, met dichte kasten onder, open vakken boven en een werkplek in het midden.',x:'Een kastenwand met ingebouwd bureau maakt van een gewone wand een werkplek. De open vakken hebben verspringende tussenschotten voor een luchtig beeld, de dichte kasten onderin houden de spullen uit zicht. Plankdiktes en overspanningen zijn zo gekozen dat niets doorbuigt onder boeken.',w:['Modulaire opbouw in drie kolommen','Verspringende tussenschotten','Bureau met lade en kabeldoorvoer'],wl:'Uitgewerkt in het ontwerp'},
- bordestrap:{t:'Stalen bordestrap',k:'Staalconstructie',f:'Bordestrap.iam',i:'Een stalen trap met twee steekarmen en een tussenbordes, met roostertreden en leuningen aan de buitenzijde.',x:'Bij een stalen trap draait het om stijfheid, aansluitingen en de regels: optrede, aantrede, vrije hoogte en leuninghoogte volgen het Besluit bouwwerken leefomgeving (Bbl). Bomen en bordes worden op sterkte en doorbuiging gecontroleerd, de kolommen dragen het bordes af naar de vloer.',w:['Trapberekening: optrede, aantrede en vrije hoogte','Sterkte en doorbuiging van bomen en bordes','Werkplaatstekeningen voor de staalbouwer'],wl:'Uitgewerkt in het ontwerp'},
- steektrap:{t:'Steektrap met zaagtandboom',k:'Staalconstructie',f:'Steektrap-zaagtand.iam',i:'Een rechte trap met één centrale zaagtandboom in staal en eiken treden.',x:'Met één boom in het midden lijkt de trap te zweven. Juist daarom wordt hij gecontroleerd op torsie en trillingen: een trap die meeveert voelt onveilig, ook als hij sterk genoeg is. De eigenfrequentie moet ruim boven die van lopende mensen liggen.',w:['Ontwerp van boom en treden','Controle op torsie, doorbuiging en eigenfrequentie','Detaillering van voetplaat en muuranker'],wl:'Uitgewerkt in het ontwerp'},
- boekenkast:{t:'Boekenkast op maat',k:'Maatwerk',f:'Boekenkast.iam',i:'Boekenkasten ontworpen en gebouwd op de maat van de ruimte.',x:'Een kast op maat benut elke centimeter. Plankafstanden, materiaaldikte en doorbuiging van de legplanken worden in het ontwerp bepaald, zodat de kast ook vol boeken recht blijft.',w:['Inmeten en 3D-ontwerp','Controle doorbuiging legplanken','Bouw en plaatsing']}
+ bordestrap:{t:'Stalen bordestrap',k:'Staalconstructie',f:'Bordestrap.iam',i:'Een stalen trap met twee steekarmen en een tussenbordes, met roostertreden en leuningen aan de buitenzijde.',x:'Een stalen trap met roostertreden en een tussenbordes. Optrede, aantrede, vrije hoogte en leuning volgen het Besluit bouwwerken leefomgeving (Bbl). Vier kolommen dragen het bordes af naar de vloer.',w:['Optrede, aantrede en vrije hoogte volgens het Bbl','Bomen, bordes en kolommen in staal','Spijlen en leuning volgens het Bbl'],wl:'Uitgewerkt in het ontwerp'},
+ steektrap:{t:'Steektrap met zaagtandboom',k:'Staalconstructie',f:'Steektrap-zaagtand.iam',i:'Een rechte trap met één centrale zaagtandboom in staal en eiken treden.',x:'Met één boom in het midden lijkt de trap te zweven. De eiken treden liggen op de zaagtand, de boom staat op een voetplaat en hangt boven aan een muuranker.',w:['Eén centrale boom met eiken treden','Voetplaat en muuranker','Leuning met spijlen'],wl:'Uitgewerkt in het ontwerp'},
+ boekenkast:{t:'Boekenkast op maat',k:'Maatwerk',f:'Boekenkast.iam',i:'Boekenkasten ontworpen en gebouwd op de maat van de ruimte.',x:'Een kast op maat benut elke centimeter. Plankafstanden, materiaaldikte en doorbuiging van de legplanken worden in het ontwerp bepaald, zodat de kast ook vol boeken recht blijft.',w:['Inmeten en 3D-ontwerp','Bouw en plaatsing']}
 };
 const GROUPS=[['Maatwerk',['gustav','tribune','boekenkast','bar','tvwand','kastenwand']],['Staalconstructies',['bordestrap','steektrap']],['R&D',['nudration','bootlift']]];
 const ORDER=GROUPS.flatMap(x=>x[1]);
@@ -957,24 +968,24 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
 /* hero: opengewerkt grachtenpand met herkenbare producten */
 {const RC={gevel:[.4,1.4,4.7],vloer:[.3,2.6,3.7],dak:[.4,2.1,6.3]};
  const SPOT={
-  dak:{t:'Dakisolatie en dakonderhoud',d:'Het dak isoleren aan de binnenzijde, en pannen, goten en lood inspecteren en herstellen.',h:'onderhoud'},
-  gevel:{t:'Gevelisolatie',d:'Gevels van grachtenpanden isoleren, meestal aan de binnenkant, met aandacht voor vocht en koudebruggen.',h:'onderhoud'},
-  vloer:{t:'Vloerisolatie',d:'De vloer boven kelder of kruipruimte isoleren, vanaf de onderkant tussen of onder de balken.',h:'onderhoud'},
-  airco:{t:'Split-airco',d:'Binnenunit op de slaapkamer, buitenunit in de tuin, verbonden met koelleidingen langs de gevel. Plaatsing en onderhoud, F-gassen gecertificeerd.',h:'onderhoud'},
-  cv:{t:'Cv-ketel',d:'Hr-ketel op zolder met rookgasafvoer door het dak. Installatie en vervanging, CO-gecertificeerd.',h:'onderhoud'},
-  bad:{t:'Badkamerrenovatie',d:'Ligbad, inloopdouche, toilet en badmeubel. Van sloop en leidingwerk tot tegelwerk en afkitten.',h:'onderhoud'},
-  kast:{t:'Kastenwand op maat',d:'Eiken kastenwand van vloer tot plafond, met dichte kasten onder en open vakken boven. Ontworpen en gebouwd op de maat van de kamer.',h:'projecten'},
-  kelder:{t:'Kelder rat- en muisdicht',d:'Kierdichting langs vloer en wanden, rvs-gaas achter het rooster en een knaagvaste manchet om de leidingdoorvoer.',h:'knaagdierwering'},
-  schuur:{t:'Werkplaats',d:'Hier ontstaan prototypes en maatwerk: werkbank, gereedschapsbord, 3D-printer en lasapparaat.',h:'rd'},
-  bootlift:{t:'RVS-bootlift',d:'Een sloep boven een rvs-bootlift: twee spindelkolommen op de kade, het frame ligt onder water. Ontwerp en berekening in eigen beheer, laswerk door een vaste partner.',h:'ontwerp-bootlift',l:'Bekijk het 3D-ontwerp'}};
- const ORD=['dak','gevel','vloer','airco','cv','bad','kast','kelder','schuur','bootlift'];
+  zon:{t:'Zonnepanelen en thuisaccu',d:'Panelen op het dak, omvormer en thuisaccu op zolder. Compleet geleverd en aangesloten.',h:'zonnepanelen',l:'Reken uw opbrengst uit'},
+  airco:{t:'Airco',d:'Binnenunit op de slaapkamer, buitenunit in de tuin, verbonden met koelleidingen langs de gevel. Geleverd en geplaatst door een gecertificeerde monteur.',h:'producten',l:'Naar de producten'},
+  cv:{t:'Cv-ketel',d:'Hr-ketel op zolder met rookgasafvoer door het dak. Geleverd en geplaatst door een gecertificeerde monteur.',h:'producten',l:'Naar de producten'},
+  dak:{t:'Dakonderhoud',d:'Pannen, goten en lood inspecteren en herstellen.',h:'diensten'},
+  bad:{t:'Badkamerrenovatie',d:'Ligbad, inloopdouche, toilet en badmeubel. Van sloop en leidingwerk tot tegelwerk en afkitten.',h:'diensten'},
+  vloer:{t:'Vloeren',d:'Nieuwe vloeren leggen en vervangen, van hout en marmoleum tot droogloopmatten op maat.',h:'diensten'},
+  kast:{t:'Kasten op maat',d:'Een kastenwand van vloer tot plafond, ontworpen en gebouwd op de maat van de kamer.',h:'diensten'},
+  kelder:{t:'Muis- en ratdicht',d:'Kieren, roosters en leidingdoorvoeren dichtmaken, zodat muizen en ratten niet meer binnenkomen.',h:'diensten'},
+  schuur:{t:'De werkplaats',d:'Hier ontstaan prototypes en ontwerpen. Kijk binnen bij mijn 3D-modellen, simulaties en eigen projecten.',h:'werkplaats',l:'Naar de werkplaats'},
+  bootlift:{t:'RVS-bootlift',d:'Een sloep boven een rvs-bootlift: twee spindelkolommen op de kade, het frame ligt onder water. Een eigen ontwerp, in ontwikkeling.',h:'ontwerp-bootlift',l:'Bekijk het 3D-ontwerp'}};
+ const ORD=['zon','airco','cv','dak','bad','vloer','kast','kelder','schuur','bootlift'];
  const chips=$('#chips');chips.innerHTML=ORD.map(id=>`<a href="#${SPOT[id].h}" data-id="${id}">${esc(SPOT[id].t)}</a>`).join('');
  const card=document.createElement('div');card.className='hcard';$('#vpHouse').appendChild(card);
  const nf=v=>String(v).replace('.',',');let sel=null,house=null;const G={};
  function show(id){sel=id;const sp=SPOT[id];chips.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.id===id));
-  if(!sp){card.innerHTML='<b>Klik op een onderdeel van het huis</b><span>Dak, gevel, vloer, airco, cv-ketel, badkamer, kastenwand, kelder, werkplaats of de bootlift in de gracht.</span>';house&&house.hl(null);return}
+  if(!sp){card.innerHTML='<b>Klik op een onderdeel van het huis</b><span>Zonnepanelen, airco, cv-ketel, badkamer, kasten, de kelder, de werkplaats in de tuin of de bootlift in de gracht.</span>';house&&house.hl(null);return}
   let h=`<button class="hx" aria-label="Sluiten">×</button><b>${esc(sp.t)}</b><span>${esc(sp.d)}</span>`;
-  h+=`<a href="#${sp.h}">${sp.l||'Naar de dienst'}</a>`;card.innerHTML=h;house&&house.hl(id)}
+  h+=`<a href="#${sp.h}">${sp.l||'Naar de diensten'}</a>`;card.innerHTML=h;house&&house.hl(id)}
  card.addEventListener('click',e=>{const b=e.target.closest('button.hx');if(b)show(null)});
  chips.querySelectorAll('a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.id)});a.addEventListener('mouseenter',()=>house&&house.hl(a.dataset.id));a.addEventListener('mouseleave',()=>house&&house.hl(sel))});
  show(null);
@@ -1055,6 +1066,11 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
    for(let i=1;i<7;i++){const t=mesh(Bx(3.2,.03,.04),'dark');t.rotation.z=-sd*.852;add('Pannenrij',t,[sd*1.05+sd*.06,10.29,-3.1+i*.75])}
    const ins=mesh(Bx(2.9,.14,5),'insul');ins.rotation.z=-sd*.852;add('Dakisolatie',ins,[sd*.96,10.05,-.5]);
    const goot=mesh(Cy(.08,.08,5.3,12,true),'chrome');goot.rotation.x=Math.PI/2;add('Dakgoot',goot,[sd*2.2,9,-.5])});}
+ /* zonnepanelen op het rechter dakvlak, omvormer en accu op zolder */
+ {const{mesh,add}=grp('zon');const a=.852,nx=Math.sin(a),ny=Math.cos(a),ux=Math.cos(a),uy=-Math.sin(a);
+  [-.62,.5].forEach(u=>[-2.35,-1.3,-.25,.8].forEach(z=>{const p=mesh(Bx(1,.04,1),'navy');p.rotation.z=-a;add('Zonnepaneel',p,[1.05+nx*.1+ux*u,10.22+ny*.1+uy*u,z])}));
+  add('Thuisaccu',mesh(Bx(.5,.7,.18),'white'),[1.05,9.73,-2.6]);add('Statuslampje',mesh(Bx(.06,.02,.01),'grass'),[1.05,9.95,-2.505]);
+  add('Omvormer',mesh(Bx(.36,.4,.14),'chrome'),[.35,9.6,-2.65]);}
  /* schuur = werkplaats */
  {const{mesh,add}=grp('schuur');
   add('Schuurvloer',mesh(Bx(3.2,.1,2.8),'concrete'),[0,.05,-9.4]);
@@ -1179,11 +1195,33 @@ $('#inM').addEventListener('input',()=>hxUpdate(false));$('#inB').addEventListen
  }else{$('#vpArm').insertAdjacentHTML('beforeend','<div class="msg">De 3D-weergave kan in deze browser niet starten.</div>');$('#sRun').addEventListener('click',()=>{})}}
 let wasDetail=false;
 function route(){const h=location.hash.slice(1),m=h.match(/^ontwerp-(\w+)$/);
- if(m&&D[m[1]]){showDetail(m[1]);wasDetail=true;return}
- $('#detail').hidden=true;$('#home').hidden=false;document.title='Ray Engineering';
+ if(m&&D[m[1]]){$('#werkplaats').hidden=true;showDetail(m[1]);wasDetail=true;return}
+ const el0=h&&document.getElementById(h),inW=h==='werkplaats'||(el0&&$('#werkplaats').contains(el0));
+ $('#detail').hidden=true;$('#home').hidden=inW;$('#werkplaats').hidden=!inW;document.title=inW?'De werkplaats | Ray Engineering':'Ray Engineering';
  const el=h&&document.getElementById(h);if(wasDetail||el){requestAnimationFrame(()=>el?el.scrollIntoView():window.scrollTo(0,0))}wasDetail=false;main&&main.req()}
 addEventListener('hashchange',route);route();
 }
+</script>
+<script>
+/* zonnepanelen-indicatie Amsterdam */
+{const $=q=>document.querySelector(q),nf=(v,d=0)=>v.toLocaleString('nl-NL',{maximumFractionDigits:d});
+ const PV=[2.6,4.6,8.0,11.3,13.2,13.0,13.0,11.3,8.9,6.0,3.2,2.0],ps=PV.reduce((a,b)=>a+b),CU=[10,9,9,8,7,6.5,6.5,7,7.5,8.5,9.5,11.5],M='JFMAMJJASOND';
+ function calc(){const A=+$('#zIA').value,f=+$('#zIO').value,V=+$('#zIV').value,B=+$('#zIB').value;
+  const n=Math.max(1,Math.floor(A/1.95)),kWp=n*.43,E=kWp*900*f;let self=0;const P=[],C=[];
+  for(let m=0;m<12;m++){const p=E*PV[m]/ps,c=V*CU[m]/100,dir=Math.min(p,.4*c*.75),st=Math.min((p-dir)*.9,.6*c,B*.9*30);self+=dir+st;P.push(p);C.push(c)}
+  $('#zA').textContent=A+' m²';$('#zV').textContent=nf(V)+' kWh';
+  $('#zP').textContent=n;$('#zPl').textContent='Panelen, '+nf(kWp,1)+' kWp';$('#zE').textContent=nf(Math.round(E/10)*10)+' kWh';$('#zS').textContent=Math.round(100*self/E)+'%';
+  const x0=34,x1=410,y0=200,top=14,mx=Math.max(...P,...C)*1.1,Y=v=>y0-(v/mx)*(y0-top),bw=(x1-x0)/12;
+  let g='';const step=mx>800?200:mx>400?100:50;for(let v=0;v<=mx;v+=step)g+=`<line x1="${x0}" x2="${x1}" y1="${Y(v)}" y2="${Y(v)}" stroke="currentColor" opacity=".12"/><text x="${x0-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="currentColor" opacity=".6">${v}</text>`;
+  P.forEach((p,i)=>{g+=`<rect x="${x0+i*bw+bw*.18}" y="${Y(p)}" width="${bw*.64}" height="${y0-Y(p)}" rx="2" fill="var(--oak)"><title>${nf(Math.round(p))} kWh</title></rect><text x="${x0+i*bw+bw/2}" y="${y0+16}" text-anchor="middle" font-size="12" fill="currentColor" opacity=".7">${M[i]}</text>`});
+  g+=`<polyline fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" points="${C.map((c,i)=>(x0+i*bw+bw/2)+','+Y(c)).join(' ')}"/>`;
+  g+=`<text x="${x0}" y="${top-2}" font-size="11" fill="currentColor" opacity=".6">kWh per maand</text>`;
+  $('#zChart').innerHTML=g}
+ ['zIA','zIV'].forEach(i=>$('#'+i).addEventListener('input',calc));['zIO','zIB'].forEach(i=>$('#'+i).addEventListener('change',calc));calc();
+ $('#cform').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);
+  const body=`Soort klus: ${f.get('soort')}\nNaam: ${f.get('naam')}\nContact: ${f.get('contact')}\nAdres: ${f.get('adres')}\n\n${f.get('vraag')}`;
+  location.href='mailto:info@rayengineering.nl?subject='+encodeURIComponent('Aanvraag: '+f.get('soort'))+'&body='+encodeURIComponent(body);
+  $('#fmsg').textContent='Uw mailprogramma opent met het bericht. Voeg de foto\'s daar toe als bijlage.'});}
 </script>
 </body>
 </html>
