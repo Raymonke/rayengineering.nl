@@ -486,8 +486,6 @@ footer a{color:inherit}
     <div class="info">
       <h3 style="margin-top:0">Over dit ontwerp</h3>
       <p id="dText"></p>
-      <h3 id="dDidH">Wat ik deed</h3>
-      <ul id="dDid"></ul>
       <h3>Onderdelenlijst</h3>
       <table><thead><tr><th>Onderdeel</th><th>Aantal</th></tr></thead><tbody id="dBom"></tbody></table>
       <p class="note" style="color:var(--mute)">Het 3D-model is een vereenvoudigde weergave van het ontwerp.</p>
@@ -772,7 +770,7 @@ const BUILD={
    add('Vloer vide (referentie)',mesh(geo,'concrete'),[0,vy,0],[0,1.4,0]);}
   [[-2.6,-.3],[2.6,-.3]].forEach(([x,z])=>add('Kolom (referentie)',mesh(Cy(.09,.09,vy-dz,16),'black'),[x,(vy-dz)/2,z],[0,0,0]));
   /* lamellenband: gebogen én schuin (kegelvlak), boven op de rand van de vide, onder naar binnen */
-  const hb=1.3,tl=.32,Rm=R-hb/2*Math.tan(tl),lv=new THREE.Group(),n=Math.round(2*A*R/.075);
+  const hb=1.3,tl=.2,Rm=R-hb/2*Math.tan(tl),lv=new THREE.Group(),n=Math.round(2*A*R/.075);
   for(let i=0;i<=n;i++){const a=-A+2*A*i/n,m=mesh(Bx(.035,hb/Math.cos(tl),.05),'oak');m.clear();m.position.set(Rm*Math.sin(a),vy+.05-hb/2,cz+Rm*Math.cos(a));m.rotation.order='YXZ';m.rotation.y=a;m.rotation.x=tl;lv.add(m)}
   for(let x=-7.05;x<=-3.75;x+=.075){const m=mesh(Bx(.035,hb/Math.cos(tl),.05),'oak');m.clear();m.position.set(x,vy+.05-hb/2,cz+1.58-hb/2*Math.tan(tl));m.rotation.x=tl;lv.add(m)}
   add('Lamellenband vide',lv,[0,0,0],[0,.9,.5]);
@@ -788,7 +786,7 @@ const BUILD={
   rod('Leuning (referentie)',[-2.9,1,z1+.03],[-6.6,vy+1,z1+.03],.02,'black',[0,0,1.1]);
   /* balie onder de vide: gebogen front met lamellen, wit blad */
   const r=1.5,B=1.05,bz=-.9,bl=new THREE.Group(),nb=Math.round(2*B*r/.07);
-  const tb=.14,rbm=r-.52*Math.tan(tb);
+  const tb=.09,rbm=r-.52*Math.tan(tb);
   for(let i=0;i<=nb;i++){const a=-B+2*B*i/nb,m=mesh(Bx(.035,1.04/Math.cos(tb),.045),'oak');m.clear();m.position.set(.4+rbm*Math.sin(a),.54,bz+rbm*Math.cos(a));m.rotation.order='YXZ';m.rotation.y=a;m.rotation.x=tb;bl.add(m)}
   add('Lamellen balie',bl,[0,0,0],[0,0,.9]);
   add('Balieblad',mesh(sec(r+.05,.05,-B,B),'white'),[.4,1.09,bz],[0,.6,.5]);
@@ -920,7 +918,7 @@ bindTools(dBox,det);
 function showDetail(id){
  const d=D[id];$('#home').hidden=true;$('#detail').hidden=false;
  $('#dCrumb').textContent=d.t;$('#dKind').textContent=d.k;$('#dTitle').textContent=d.t;$('#dIntro').textContent=d.i;$('#dFile').textContent=d.f;$('#dText').textContent=d.x;
- $('#dDidH').textContent=d.wl||'Wat ik deed';$('#dDid').innerHTML=d.w.map(s=>`<li>${esc(s)}</li>`).join('');
+ 
  document.title=d.t+' | Ray Engineering';
  dBox.querySelector('[data-explode]').value=0;const w=dBox.querySelector('[data-wire]');w.setAttribute('aria-pressed','false');
  const g=BUILD[id]?(has3D?BUILD[id]():null):null;
