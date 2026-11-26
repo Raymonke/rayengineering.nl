@@ -82,8 +82,8 @@ nav .wrap{display:flex;align-items:center;gap:20px;padding:10px max(5vw,16px);fl
 .sim3d{border-bottom:2px solid var(--pen)}
 .armsim{grid-column:1/-1}.armsim .sheet{margin-top:0;color:var(--ink)}
 .modes,.frf{display:block;width:100%;height:auto;background:#1d2126;border-radius:6px}
-.modalb{grid-column:1/-1}.mgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media(max-width:700px){.mgrid{grid-template-columns:minmax(0,1fr)}}
+.modalb{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:18px;align-items:start}.mfig{display:grid;gap:8px}.mfig .note{margin:0}.story{margin:6px 0 10px;color:#dfe5ea}.modalb .ctrls{grid-template-columns:1fr 1fr}
+@media(max-width:800px){.modalb{grid-template-columns:minmax(0,1fr)}}
 .modes text,.frf text{fill:#c5ccd3;font:600 13px 'Source Sans 3',sans-serif}
 .fem select{width:100%;height:36px;font:16px 'Source Sans 3',sans-serif;border-radius:5px;border:1px solid #454c54;background:#353b42;color:#fff;padding:0 8px}
 .house3d{border-bottom:2px solid var(--pen)}
@@ -469,16 +469,19 @@ footer a{color:inherit}
         <p class="note">Vereenvoudigd model: ε-NTU in tegenstroom, warmteoverdracht aan mantelzijde volgens h ∝ v<sup>0,55</sup> (Kern). Drukval is een schatting. Volledige stroming en warmte reken ik in COMSOL.</p>
       </div>
       <div class="fem modalb">
-        <h3>Eigenfrequenties en resonantie van een trapboom</h3>
-        <p class="note" style="margin:6px 0 12px">Een stalen trapboom op twee steunpunten. Bij het ontwerpen houd ik de eerste eigenfrequentie ruim boven de loopfrequentie, anders gaat de trap meetrillen.</p>
-        <div class="mgrid"><svg class="modes" id="modes" viewBox="0 0 520 250" aria-label="Eerste drie trillingsvormen van de trapboom"></svg>
-        <svg class="frf" id="frf" viewBox="0 0 520 250" aria-label="Resonantiecurve met loopfrequenties"></svg></div>
-        <div class="ctrls">
-          <label>Overspanning <output id="oL"></output><input id="inL" type="range" min="2" max="7" step="0.1" value="4.5"></label>
-          <label>Profiel <output id="oP"></output><select id="inP"><option value="0">Koker 80×80×4</option><option value="1" selected>Koker 100×100×5</option><option value="2">Koker 120×120×6</option><option value="3">HEA 140</option></select></label>
+        <div class="mtxt">
+          <h3>Waarom een trap kan meetrillen</h3>
+          <p class="note story">In juni 2000 ging in Londen de Millennium Bridge open, een voetgangersbrug over de Theems. Onder de drukte begon hij zijwaarts te zwaaien, rond 1 hertz. Mensen gingen onbewust in het ritme van de brug lopen en duwden hem zo steeds verder op. Na twee dagen ging hij dicht, en pas in 2002 weer open, met 91 dempers.</p>
+          <p class="note">Bij een trap gaat het om op en neer, maar het idee is hetzelfde: de eerste eigenfrequentie moet ruim boven het ritme van lopen liggen. Kies hier een stalen trapboom.</p>
+          <div class="ctrls">
+            <label>Overspanning <output id="oL"></output><input id="inL" type="range" min="2" max="7" step="0.1" value="4.5"></label>
+            <label>Profiel <output id="oP"></output><select id="inP"><option value="0">Koker 80×80×4</option><option value="1" selected>Koker 100×100×5</option><option value="2">Koker 120×120×6</option><option value="3">HEA 140</option></select></label>
+          </div>
+          <div class="read"><div><small>1e eigenfrequentie</small><b id="mF1"></b></div><div><small>2e / 3e</small><b id="mF23"></b></div><div><small>Oordeel</small><b id="mOk"></b></div></div>
         </div>
-        <div class="read"><div><small>1e eigenfrequentie</small><b id="mF1"></b></div><div><small>2e / 3e</small><b id="mF23"></b></div><div><small>Oordeel</small><b id="mOk"></b></div></div>
-        <p class="note">Euler-Bernoulli-balk, staal, met 40 kg/m voor treden. Demping 2%. Lopen geeft krachten rond 1,6–2,4 Hz en een tweede harmonische tot ongeveer 4,8 Hz.</p>
+        <div class="mfig"><svg class="modes" id="modes" viewBox="0 0 520 86" aria-label="Eerste trillingsvorm van de trapboom"></svg>
+          <svg class="frf" id="frf" viewBox="0 0 520 210" aria-label="Resonantiecurve met loopfrequenties"></svg>
+          <p class="note">Balk op twee steunpunten, staal, 40 kg/m voor treden, 2% demping. Lopen: rond 1,6–2,4 Hz, tweede harmonische tot 4,8 Hz.</p></div>
       </div>
       <div class="fem armsim">
         <h3>Wielophanging over een drempel</h3>
@@ -1248,14 +1251,14 @@ const OPEN=[[.05,0,1.35,2.3],[-1.55,4.35,-.55,5.6],[-1.5,6.8,-.5,8.45]];/* openi
   $('#oL').textContent=L.toFixed(1).replace('.',',')+' m';$('#oP').textContent='';
   const fx=v=>v.toFixed(1).replace('.',',')+' Hz';$('#mF1').textContent=fx(F[0]);$('#mF23').textContent=Math.round(F[1])+' / '+Math.round(F[2])+' Hz';
   const ok=F[0]>=5,ob=$('#mOk');ob.textContent=F[0]<2.6?'Resonantie bij lopen':ok?'Comfortabel':'Kan meetrillen';ob.style.color=ok?'#7fe0a0':F[0]<2.6?'#ff6b5b':'#ffb04a';
-  const W=520,H=250,x0=40,x1=505,fmax=30,X=f=>x0+f/fmax*(x1-x0),pts=[];let hmax=0;const hs=[];
+  const W=520,H=210,x0=40,x1=505,fmax=30,X=f=>x0+f/fmax*(x1-x0),pts=[];let hmax=0;const hs=[];
   for(let i=0;i<=300;i++){const f=i/300*fmax;let re=0,im=0;[0,2].forEach(k=>{const r=f/F[k],d=(1-r*r)**2+(2*ze*r)**2;re+=(1-r*r)/d/(F[k]**2);im+=(-2*ze*r)/d/(F[k]**2)});const h=Math.hypot(re,im);hs.push([f,h]);hmax=Math.max(hmax,h)}
   const Y=h=>H-24-Math.log10(1+h/hmax*999)/3*(H-50);
   let g=`<rect x="${X(1.6)}" y="20" width="${X(2.4)-X(1.6)}" height="${H-44}" fill="#ffb04a" opacity=".22"/><rect x="${X(3.2)}" y="20" width="${X(4.8)-X(3.2)}" height="${H-44}" fill="#ffb04a" opacity=".12"/>`;
   g+=`<line x1="${x0}" y1="${H-24}" x2="${x1}" y2="${H-24}" stroke="#5c656e"/><polyline fill="none" stroke="#4fc3d0" stroke-width="2.4" points="${hs.map(([f,h])=>X(f).toFixed(1)+','+Y(h).toFixed(1)).join(' ')}"/>`;
   [0,5,10,15,20,25,30].forEach(f=>g+=`<text x="${X(f)-4}" y="${H-6}">${f}</text>`);g+=`<text x="${x1-30}" y="${H-30}">Hz</text><text x="${x0}" y="16">Respons midden van de boom</text><text x="${X(1.6)}" y="${H-30}" style="fill:#ffb04a">lopen</text>`;
   F.forEach((f,i)=>{if(f<fmax)g+=`<line x1="${X(f)}" y1="20" x2="${X(f)}" y2="${H-24}" stroke="#4fc3d0" stroke-dasharray="3 4" opacity=".6"/><text x="${X(f)+4}" y="${32+i*14}">f${i+1}</text>`});fr.innerHTML=g}
- function anim(ts){const W=520,x0=40,x1=480,rows=[50,125,200],amp=24;let g='';
+ function anim(ts){const W=520,x0=40,x1=480,rows=[48],amp=18;let g='';
   rows.forEach((y,i)=>{const n=i+1,ph=Math.cos((ts-t0)/1000*Math.PI*2*(.55+.25*i));let d=`M${x0} ${y}`;for(let k=1;k<=60;k++){const x=k/60;d+=` L${(x0+x*(x1-x0)).toFixed(1)} ${(y-amp*Math.sin(n*Math.PI*x)*ph).toFixed(1)}`}
    g+=`<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="#5c656e" stroke-dasharray="4 4"/><path d="${d}" fill="none" stroke="#4fc3d0" stroke-width="5" stroke-linecap="round"/><path d="M${x0-9} ${y+16}L${x0} ${y+3}L${x0+9} ${y+16}ZM${x1-9} ${y+16}L${x1} ${y+3}L${x1+9} ${y+16}Z" fill="#c5ccd3"/><text x="${x1+8}" y="${y+5}">${'f'+n}</text><text x="${x0}" y="${y-30}">Mode ${n}: ${F[i].toFixed(1).replace('.',',')} Hz</text>`;
    for(let k=1;k<n;k++){const xn=x0+k/n*(x1-x0);g+=`<circle cx="${xn}" cy="${y}" r="4" fill="#ffb04a"/>`}});
