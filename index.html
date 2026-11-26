@@ -606,7 +606,7 @@ const D={
  kastenwand:{t:'Eiken kastenwand met bureau',k:'Ontwerpvoorbeeld',f:'Kastenwand-bureau.iam',i:'Een ontwerp voor een eiken kastenwand van vloer tot plafond, met dichte kasten onder, open vakken boven en een werkplek in het midden.',x:'Een kastenwand met ingebouwd bureau maakt van een gewone wand een werkplek. De open vakken hebben verspringende tussenschotten voor een luchtig beeld, de dichte kasten onderin houden de spullen uit zicht. Plankdiktes en overspanningen zijn zo gekozen dat niets doorbuigt onder boeken.',w:['Modulaire opbouw in drie kolommen','Verspringende tussenschotten','Bureau met lade en kabeldoorvoer'],wl:'Uitgewerkt in het ontwerp'},
  bordestrap:{t:'Stalen bordestrap',k:'Staalconstructie',f:'Bordestrap.iam',i:'Een stalen trap met twee steekarmen en een tussenbordes, met roostertreden en leuningen aan de buitenzijde.',x:'Een stalen trap met roostertreden en een tussenbordes. Optrede, aantrede, vrije hoogte en leuning volgen het Besluit bouwwerken leefomgeving (Bbl). Vier kolommen dragen het bordes af naar de vloer.',w:['Optrede, aantrede en vrije hoogte volgens het Bbl','Bomen, bordes en kolommen in staal','Spijlen en leuning volgens het Bbl'],wl:'Uitgewerkt in het ontwerp'},
  steektrap:{t:'Steektrap met zaagtandboom',k:'Staalconstructie',f:'Steektrap-zaagtand.iam',i:'Een rechte trap met één centrale zaagtandboom in staal en eiken treden.',x:'Met één boom in het midden lijkt de trap te zweven. De eiken treden liggen op de zaagtand, de boom staat op een voetplaat en hangt boven aan een muuranker.',w:['Eén centrale boom met eiken treden','Voetplaat en muuranker','Leuning met spijlen'],wl:'Uitgewerkt in het ontwerp'},
- boekenkast:{t:'Boekenkast op maat',k:'Maatwerk',f:'Boekenkast.iam',i:'Boekenkasten ontworpen en gebouwd op de maat van de ruimte.',x:'Een kast op maat benut elke centimeter. Plankafstanden, materiaaldikte en doorbuiging van de legplanken worden in het ontwerp bepaald, zodat de kast ook vol boeken recht blijft.',w:['Inmeten en 3D-ontwerp','Bouw en plaatsing']}
+ boekenkast:{t:'Boekenkast op maat',k:'Maatwerk',f:'Boekenkast.iam',i:'Boekenkasten ontworpen en gebouwd op de maat van de ruimte.',x:'Een kast op maat benut elke centimeter, van vloer tot plafond en van wand tot wand. De plankafstanden en de indeling worden afgestemd op wat erin moet.',w:['Inmeten en 3D-ontwerp','Bouw en plaatsing']}
 };
 const GROUPS=[['Maatwerk',['vide','trapkast','tribune','boekenkast','bar','tvwand','kastenwand']],['Staalconstructies',['bordestrap','steektrap']],['R&D',['nudration']]];
 const ORDER=GROUPS.flatMap(x=>x[1]);
@@ -878,8 +878,11 @@ function Viewer(wrap,opt){
  let raf=0,ex=0,hover=null,anim=null,lt=0,vis=!opt.tick;
  if(opt.tick){const vio=new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis)req()});vio.observe(wrap)}
  const place=()=>{const c=Math.cos(st.el);cam.position.set(st.tgt.x+st.dist*c*Math.sin(st.az),st.tgt.y+st.dist*Math.sin(st.el),st.tgt.z+st.dist*c*Math.cos(st.az));cam.lookAt(st.tgt)};
- const fit=()=>{const e=ex;explode(0);const s=new THREE.Box3().setFromObject(root).getBoundingSphere(new THREE.Sphere());explode(e);
-  st.tgt.copy(s.center);st.tgt.y*=(opt.ty??.35);const f=THREE.MathUtils.degToRad(cam.fov),fh=2*Math.atan(Math.tan(f/2)*cam.aspect);st.dist=s.radius*(cam.aspect<1&&opt.kn?opt.kn:(opt.k||1))/Math.sin(Math.min(f,fh)/2)};
+ const fit=()=>{const e=ex;explode(0);const bx=new THREE.Box3().setFromObject(root),s=bx.getBoundingSphere(new THREE.Sphere());explode(e);
+  st.tgt.copy(s.center);st.tgt.y*=(opt.ty??.35);const f=THREE.MathUtils.degToRad(cam.fov),fh=2*Math.atan(Math.tan(f/2)*cam.aspect);st.dist=s.radius*(cam.aspect<1&&opt.kn?opt.kn:(opt.k||1))/Math.sin(Math.min(f,fh)/2);
+  if(opt.box&&!bx.isEmpty()){/* passend maken op de echte omtrek van het model, in elke beeldverhouding */
+   bx.getCenter(st.tgt);const P=[],v=new THREE.Vector3();for(let i=0;i<8;i++)P.push(new THREE.Vector3(i&1?bx.max.x:bx.min.x,i&2?bx.max.y:bx.min.y,i&4?bx.max.z:bx.min.z));
+   for(let it=0;it<5;it++){place();cam.updateMatrixWorld();let m=0;for(const p of P){v.copy(p).project(cam);m=Math.max(m,Math.abs(v.x),Math.abs(v.y))}st.dist*=Math.max(.5,Math.min(2,m/opt.box))}}};
  const tx=[[1,0,0,'#e5484d','X'],[0,1,0,'#46a758','Y'],[0,0,1,'#3e7be0','Z']].map(([x,y,z,c,l])=>{const ln=document.createElementNS('http://www.w3.org/2000/svg','line'),t=document.createElementNS('http://www.w3.org/2000/svg','text');ln.setAttribute('x1',32);ln.setAttribute('y1',32);ln.setAttribute('stroke',c);ln.setAttribute('stroke-width',3);ln.setAttribute('stroke-linecap','round');t.setAttribute('fill',c);t.setAttribute('font-size',13);t.setAttribute('font-weight',700);t.textContent=l;tri.append(ln,t);return{v:new THREE.Vector3(x,y,z),ln,t}});
  const triad=()=>{for(const a of tx){const v=a.v.clone().transformDirection(cam.matrixWorldInverse),X=32+v.x*22,Y=32-v.y*22;a.ln.setAttribute('x2',X);a.ln.setAttribute('y2',Y);a.t.setAttribute('x',X+(v.x>=0?3:-11));a.t.setAttribute('y',Y+4)}};
  const loop=t=>{raf=0;if(opt.tick){const dt=lt?Math.min(.05,(t-lt)/1000):0;lt=t;opt.tick(dt);if(vis)req();else lt=0}if(anim){const k=Math.min(1,(t-anim.t0)/anim.d),e=k<.5?2*k*k:1-(-2*k+2)**2/2;st.az=anim.a0+(anim.a1-anim.a0)*e;st.el=anim.e0+(anim.e1-anim.e0)*e;if(k<1)req();else anim=null}
@@ -951,7 +954,7 @@ tb.forEach(b=>{b.addEventListener('click',()=>go(b.dataset.id));b.addEventListen
 
 /* detail */
 let det=null;const dBox=$('#detail .cad');
-if(has3D)det=Viewer($('#vpDetail'),{k:.9,label:u=>u.part});
+if(has3D)det=Viewer($('#vpDetail'),{k:.9,box:.86,label:u=>u.part});
 bindTools(dBox,det);
 function showDetail(id){
  const d=D[id];$('#home').hidden=true;$('#detail').hidden=false;
