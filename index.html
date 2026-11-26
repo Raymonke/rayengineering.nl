@@ -590,7 +590,7 @@ const PROJ=[
  {t:'Boekenkasten op maat',p:'Ontworpen en gebouwd op de maat van de ruimte.',d:'boekenkast',s:'<rect x="80" y="18" width="140" height="118"/><path d="M80 48h140M80 78h140M80 108h140M92 48V26M100 48V30M108 48V24M150 78V56M158 78V60M190 108V86M198 108V84M206 108V90"/>'},
  {t:'Tribune voor een basisschool',p:'Een zittribune voor de kinderen, ontworpen, gebouwd en geplaatst.',d:'tribune',s:'<path d="M40 136V108H110V80H180V52H250V136Z"/><path d="M44 104h62M114 76h62M184 48h62"/>'},
  {t:'Ronde bar',p:'Van eerste schets tot een geplaatste, volledig ronde bar.',d:'bar',s:'<ellipse cx="150" cy="50" rx="95" ry="24"/><ellipse cx="150" cy="50" rx="60" ry="14"/><path d="M58 56v66a92 24 0 0 0 184 0V56"/><path d="M90 70v60M120 74v62M150 75v62M180 74v62M210 70v60"/>'},
- {t:'Houtwerk ex-sportschool Gustav',p:'Een lamellenband om de vide, de gebogen balie en de lamellenwand langs de trap.',d:'gustav',s:'<path d="M50 20V136H250V20"/><path d="M70 20v116M90 20v116M110 20v116M130 20v116M150 20v116M170 20v116M190 20v116M210 20v116M230 20v116"/>'},
+ {t:'Lamellenwerk vide en balie',p:'Een lamellenband om de vide, de gebogen balie en de lamellenwand langs de trap.',d:'vide',s:'<path d="M50 20V136H250V20"/><path d="M70 20v116M90 20v116M110 20v116M130 20v116M150 20v116M170 20v116M190 20v116M210 20v116M230 20v116"/>'},
  {t:'Marmoleum en droogloopmat',p:'Voor een school: een nieuwe marmoleumvloer en een droogloopmat op maat bij de entree.',s:'<path d="M20 136 80 44H220L280 136Z"/><path d="M130 44 116 136M170 44 184 136M52 92h196"/><path d="M110 16h80v28h-80zM150 16v28"/>'}
 ];
 $('#cards').innerHTML=PROJ.map(c=>`<article class="card"><svg viewBox="0 0 300 156" aria-hidden="true">${c.s}</svg><div><h3>${esc(c.t)}</h3><p>${esc(c.p)}</p>${c.d?`<a href="#ontwerp-${c.d}">Bekijk het 3D-ontwerp</a>`:''}</div></article>`).join('')+`<article class="card next"><svg viewBox="0 0 300 156" aria-hidden="true"><path d="M70 120 L70 60 L150 22 L230 60 L230 120 Z"/><path d="M150 22v98M70 60h160" stroke-dasharray="6 6"/><circle cx="150" cy="88" r="14"/><path d="M150 81v14M143 88h14"/></svg><div><h3>Uw klus?</h3><p>Vertel wat er speelt, dan denk ik vrijblijvend met u mee over de beste aanpak.</p><a href="#contact">Laten we sparren</a></div></article>`;
@@ -600,14 +600,15 @@ const D={
  nudration:{t:'Nudration frisdrankmachine',k:'R&D-project, opgeleverd',f:'Nudration.iam',i:'Een eigen frisdrankmachine, uitgewerkt als complete assembly met behuizing, bediening, uitgifte en de techniek erachter.',x:'Bij een machine als deze moet alles samenwerken: koeling, carbonatatie, dosering en een bediening die voor iedereen logisch is. Door de machine eerst als assembly op te bouwen, passen de onderdelen en zijn ze bereikbaar voor onderhoud voordat er iets gemaakt wordt.',w:['3D-ontwerp van de complete machine','Eigen mengsysteem en eigen firmware','Prototyping en testen']},
  bar:{t:'Ronde bar',k:'Maatwerk',f:'Ronde-bar.iam',i:'Een volledig ronde bar, eerst als assembly getekend en daarna gebouwd en geplaatst.',x:'Rond werk vraagt om precisie: het blad, de lamellen van de front en de voetsteun moeten exact op elkaar aansluiten. In het 3D-model zijn alle onderdelen los uitgewerkt, zodat maatvoering en productie vooraf kloppen.',w:['Ontwerp en 3D-assembly','Productie van blad en front','Plaatsing en afwerking']},
  tribune:{t:'Tribune basisschool',k:'Maatwerk',f:'Tribune-basisschool.iam',i:'Een zittribune voor een basisschool, ontworpen, gebouwd en geplaatst.',x:'Een tribune voor kinderen moet stevig, veilig en makkelijk schoon te houden zijn. De treden zijn als losse elementen opgebouwd, met zitkussens en opbergruimte in de onderste trede.',w:['Ontwerp afgestemd op de ruimte','Bouw van de trede-elementen','Plaatsing in de school']},
- gustav:{t:'Houtwerk ex-sportschool Gustav',k:'Maatwerk, opgeleverd',f:'Gustav-lamellen.iam',i:'Een band van gebogen houten lamellen om de rand van de vide, een gebogen balie met lamellen eronder en een lamellenwand van vloer tot vide langs de trap.',x:'De lamellen volgen niet alleen een radius, ze staan ook schuin: de band om de vide is een kegelvlak, boven op de rand en onder naar binnen. Elke lamel staat daardoor onder een hoek ten opzichte van de radius. Dat vraagt om een onderconstructie met gebogen regels op twee verschillende stralen, zodat elke lamel op gelijke afstand en onder dezelfde hoek staat. De balie volgt een kleinere radius met een lichtere helling, en de wand langs de trap loopt in hetzelfde ritme door. Het model is een vereenvoudigde weergave.',w:['Lamellenband om de gebogen rand van de vide','Gebogen balie met lamellen','Lamellenwand langs de trap'],wl:'Wat ik deed'},
+ trapkast:{t:'Kast onder de trap',k:'Maatwerk, eigen ontwerp',f:'Trapkast.iam',i:'Een kast onder de trap in eikenfineer, met laden op volledig uittrekbare geleiders en push-to-open, zonder grepen.',x:'De kast is parametrisch ontworpen: met de lengte onder de trap, de hoogte aan beide kanten en de diepte rekent het model alle delen, boorgaten, de zaaglijst en de montagehandleiding uit. De deuren zijn recht, met een vast schuin paneel erboven, zodat ze altijd netjes hangen. Passtroken sluiten de kast naadloos aan op trap en muur.',w:[]},
+ vide:{t:'Lamellenwerk vide en balie',k:'Maatwerk, opgeleverd',f:'Vide-lamellen.iam',i:'Een band van gebogen houten lamellen om de rand van de vide, een gebogen balie met lamellen eronder en een lamellenwand van vloer tot vide langs de trap.',x:'De lamellen volgen niet alleen een radius, ze staan ook schuin: de band om de vide is een kegelvlak, boven op de rand en onder naar binnen. Elke lamel staat daardoor onder een hoek ten opzichte van de radius. Dat vraagt om een onderconstructie met gebogen regels op twee verschillende stralen, zodat elke lamel op gelijke afstand en onder dezelfde hoek staat. De balie volgt een kleinere radius met een lichtere helling, en de wand langs de trap loopt in hetzelfde ritme door. Het model is een vereenvoudigde weergave.',w:['Lamellenband om de gebogen rand van de vide','Gebogen balie met lamellen','Lamellenwand langs de trap'],wl:'Wat ik deed'},
  tvwand:{t:'Wandmeubel met tv-nis',k:'Ontwerpvoorbeeld',f:'Tv-wand.iam',i:'Een ontwerp voor een wandvullend tv-meubel: zwevende onderkasten, twee hoge kolomkasten en open eiken nissen met verlichting.',x:'Zo’n wandmeubel ontwerp ik per wand. De gelakte kolom- en onderkasten geven rust, het eiken middendeel met de tv-nis en de verlichte nissen is de blikvanger. Kabelgoten, ventilatie voor de apparatuur en de plek van de verlichting liggen in het ontwerp al vast.',w:['Indeling en maatvoering op de wand','Kabelgoten en ventilatie achter de tv','LED-verlichting in de nissen'],wl:'Uitgewerkt in het ontwerp'},
  kastenwand:{t:'Eiken kastenwand met bureau',k:'Ontwerpvoorbeeld',f:'Kastenwand-bureau.iam',i:'Een ontwerp voor een eiken kastenwand van vloer tot plafond, met dichte kasten onder, open vakken boven en een werkplek in het midden.',x:'Een kastenwand met ingebouwd bureau maakt van een gewone wand een werkplek. De open vakken hebben verspringende tussenschotten voor een luchtig beeld, de dichte kasten onderin houden de spullen uit zicht. Plankdiktes en overspanningen zijn zo gekozen dat niets doorbuigt onder boeken.',w:['Modulaire opbouw in drie kolommen','Verspringende tussenschotten','Bureau met lade en kabeldoorvoer'],wl:'Uitgewerkt in het ontwerp'},
  bordestrap:{t:'Stalen bordestrap',k:'Staalconstructie',f:'Bordestrap.iam',i:'Een stalen trap met twee steekarmen en een tussenbordes, met roostertreden en leuningen aan de buitenzijde.',x:'Een stalen trap met roostertreden en een tussenbordes. Optrede, aantrede, vrije hoogte en leuning volgen het Besluit bouwwerken leefomgeving (Bbl). Vier kolommen dragen het bordes af naar de vloer.',w:['Optrede, aantrede en vrije hoogte volgens het Bbl','Bomen, bordes en kolommen in staal','Spijlen en leuning volgens het Bbl'],wl:'Uitgewerkt in het ontwerp'},
  steektrap:{t:'Steektrap met zaagtandboom',k:'Staalconstructie',f:'Steektrap-zaagtand.iam',i:'Een rechte trap met één centrale zaagtandboom in staal en eiken treden.',x:'Met één boom in het midden lijkt de trap te zweven. De eiken treden liggen op de zaagtand, de boom staat op een voetplaat en hangt boven aan een muuranker.',w:['Eén centrale boom met eiken treden','Voetplaat en muuranker','Leuning met spijlen'],wl:'Uitgewerkt in het ontwerp'},
  boekenkast:{t:'Boekenkast op maat',k:'Maatwerk',f:'Boekenkast.iam',i:'Boekenkasten ontworpen en gebouwd op de maat van de ruimte.',x:'Een kast op maat benut elke centimeter. Plankafstanden, materiaaldikte en doorbuiging van de legplanken worden in het ontwerp bepaald, zodat de kast ook vol boeken recht blijft.',w:['Inmeten en 3D-ontwerp','Bouw en plaatsing']}
 };
-const GROUPS=[['Maatwerk',['gustav','tribune','boekenkast','bar','tvwand','kastenwand']],['Staalconstructies',['bordestrap','steektrap']],['R&D',['nudration']]];
+const GROUPS=[['Maatwerk',['vide','trapkast','tribune','boekenkast','bar','tvwand','kastenwand']],['Staalconstructies',['bordestrap','steektrap']],['R&D',['nudration']]];
 const ORDER=GROUPS.flatMap(x=>x[1]);
 
 const tree=$('#tree');
@@ -685,10 +686,10 @@ const BUILD={
   seed=11;const bk=new THREE.Group(),pal=['dark','blue','red','green','white','oakd'];
   [.105,.4825,.8625,1.2425].forEach(y=>{let x=-w/2+t+.02;while(x<w/2-t-.12){const bt=.03+rnd()*.035,bh=.2+rnd()*.12;if(rnd()<.12){x+=.06;continue}const b=mesh(Bx(bt,bh,.2),pal[Math.floor(rnd()*pal.length)]);b.position.set(x+bt/2,y+t/2+bh/2,0);bk.add(b);x+=bt+.004}});
   add('Boeken (referentie)',bk,[0,0,0],[0,0,.75]);return g},
- tribune(){const{g,mesh,add}=Asm('tribune');const W=2,R=.38,T=.42,zc=T;
+ tribune(){const{g,mesh,add}=Asm('tribune');const W=6,R=.38,T=.42,zc=T;
   for(let i=0;i<3;i++){const h=R*(i+1),z=-i*T+zc;add('Trede-element',mesh(Bx(W,h,T),'oak'),[0,h/2,z],[0,0,(1-i)*.38]);
    add('Zitkussen',mesh(Bx(W-.08,.06,T-.05),'blue'),[0,h+.03,z],[0,.4,(1-i)*.38])}
-  [-.5,.5].forEach(x=>add('Ladefront',mesh(Bx(.7,.26,.018),'oakd'),[x,.19,zc+T/2+.009],[0,0,.7]));
+  for(let i=0;i<7;i++){const x=-W/2+W/7*(i+.5);add('Ladefront',mesh(Bx(W/7-.04,.26,.018),'oakd'),[x,.19,zc+T/2+.009],[0,0,.7])}
   [-1,1].forEach(s=>add('Zijpaneel',mesh(Bx(.02,3*R,3*T),'oakd'),[s*(W/2+.01),1.5*R,zc-T],[s*.4,0,0]));
   return g},
  bar(){const{g,mesh,add,at}=Asm('bar');const R=.85;
@@ -760,7 +761,26 @@ const BUILD={
   for(let x=go/2+.09;x<(n-2)*go+go/2-.02;x+=.09){const i=Math.min(n-2,Math.floor(x/go)),y=(i+1)*ri+.045;rod('Spijl',[x,y,.47],[x,hr(x),.47],.006,'steel',[0,.25,.3])}
   rod('Handregel',[go/2,ri+.945,.47],[(n-2)*go+go/2,(n-1)*ri+.945,.47],.02,'steel',[0,.25,.3]);
   add('Vloer (referentie)',mesh(Bx(1,.2,1.3),'concrete'),[X+s/2+.5,H-.1,0],[.3,0,0]);return g},
- gustav(){const{g,mesh,add}=Asm('gustav'),{beam,rod}=steel(mesh,add);
+ trapkast(){const{g,mesh,add}=Asm('trapkast'),{beam}=steel(mesh,add);
+  /* kast onder een trap: rechte deuren met een vast schuin paneel erboven, laden onderin, push-to-open */
+  const B=2.4,h1=.5,h2=2.2,D=.8,t=.019,k=4,pl=.08,s=.003,top=x=>h1+(h2-h1)*x/B,an=Math.atan2(h2-h1,B);
+  const vak=(B-2*t-(k-1)*t)/k,bf=(B-(k+1)*s)/k;
+  const plane=(pts,kl)=>{const sh=new THREE.Shape();sh.moveTo(pts[0][0],pts[0][1]);pts.slice(1).forEach(p=>sh.lineTo(p[0],p[1]));return mesh(new THREE.ExtrudeGeometry(sh,{depth:t,bevelEnabled:false}),kl)};
+  add('Zijwand laag',mesh(Bx(t,top(t),D),'oak'),[t/2,top(t)/2,-D/2],[-.4,0,0]);
+  add('Zijwand hoog',mesh(Bx(t,h2,D),'oak'),[B-t/2,h2/2,-D/2],[.4,0,0]);
+  {const L=(B-2*t)/Math.cos(an),m=mesh(Bx(L,t,D),'oak');m.rotation.z=an;add('Schuin bovenblad',m,[B/2,(top(t)+top(B-t))/2-t/2,-D/2],[0,.45,0])}
+  add('Bodem',mesh(Bx(B-2*t,t,D),'oak'),[B/2,pl+t/2,-D/2]);add('Plint',mesh(Bx(B-2*t,pl,t),'oakd'),[B/2,pl/2,-.03]);
+  add('Achterwand',plane([[t,pl],[B-t,pl],[B-t,top(B-t)-.02],[t,top(t)-.02]],'oakd'),[0,0,-D],[0,0,-.4]);
+  for(let i=1;i<k;i++){const x=t+i*vak+(i-1)*t+t/2,h=top(x)-pl-t-.03;add('Tussenwand',mesh(Bx(t,h,D-.02),'oak'),[x,pl+t+h/2,-D/2-.01],[0,0,-.2])}
+  for(let i=0;i<k;i++){const fx=s+i*(bf+s),fr=fx+bf,lo=Math.min(top(fx),top(fr))-s;let z=pl+s;
+   const nl=lo-pl>1.1?2:0;for(let j=0;j<nl;j++){add('Ladefront',mesh(Bx(bf,.177,t),'oak'),[fx+bf/2,z+.0885,t/2],[0,0,.45+j*.12]);z+=.18}
+   const hd=lo-z-s;if(hd>.12)add('Deur',mesh(Bx(bf,hd,t),'oak'),[fx+bf/2,z+hd/2,t/2],[0,0,.6]);
+   const zp=z+hd+s;add('Vast schuin paneel',plane([[fx,zp],[fr,zp],[fr,top(fr)-s],[fx,top(fx)-s]],'oak'),[0,0,0],[0,.15,.5])}
+  /* trap erboven (referentie) */
+  [-.02,-D+.02].forEach(z=>beam('Trapboom (referentie)',[0,h1+.1,z],[B,h2+.1,z],.04,.18,'white',[0,.8,0]));
+  for(let i=0;i<9;i++){const x=.12+i*B/9,y=top(x)+.16;add('Trede (referentie)',mesh(Bx(.27,.04,D+.04),'white'),[x+.1,y,-D/2],[0,.8,0])}
+  return g},
+ vide(){const{g,mesh,add}=Asm('vide'),{beam,rod}=steel(mesh,add);
   /* vide met gebogen rand, lamellenband om de rand, glazen balustrade erboven; balie eronder; lamellenwand langs de trap */
   const sec=(r,h,a0,a1,open)=>new THREE.CylinderGeometry(r,r,h,56,1,!!open,a0,a1-a0);
   const R=4,A=1.2,cz=-2.5,vy=3,dz=.3;
@@ -774,8 +794,10 @@ const BUILD={
   for(let i=0;i<=n;i++){const a=-A+2*A*i/n,m=mesh(Bx(.035,hb/Math.cos(tl),.05),'oak');m.clear();m.position.set(Rm*Math.sin(a),vy+.05-hb/2,cz+Rm*Math.cos(a));m.rotation.order='YXZ';m.rotation.y=a;m.rotation.x=tl;lv.add(m)}
   for(let x=-7.05;x<=-3.75;x+=.075){const m=mesh(Bx(.035,hb/Math.cos(tl),.05),'oak');m.clear();m.position.set(x,vy+.05-hb/2,cz+1.58-hb/2*Math.tan(tl));m.rotation.x=tl;lv.add(m)}
   add('Lamellenband vide',lv,[0,0,0],[0,.9,.5]);
-  add('Glazen balustrade',mesh(sec(R-.03,1,-A,A,true),'glass'),[0,vy+.5,cz],[0,1.6,0]);
-  add('Glazen balustrade',mesh(Bx(2.1,1,.02),'glass'),[-4.8,vy+.5,cz+1.55],[0,1.6,0]);
+  const gh=2.6;add('Glazen wand',mesh(sec(R-.03,gh,-A,A,true),'glass'),[0,vy+gh/2,cz],[0,1.6,0]);
+  [vy+.02,vy+gh].forEach(y=>{const t=mesh(new THREE.TorusGeometry(R-.03,.025,6,72,2*A),'black');t.rotation.x=Math.PI/2;t.rotation.z=Math.PI/2-A;add('Profiel glazen wand',t,[0,y,cz],[0,1.6,0])});
+  for(let i=0;i<=8;i++){const a=-A+2*A*i/8;add('Stijl glazen wand',mesh(Bx(.04,gh,.04),'black'),[(R-.03)*Math.sin(a),vy+gh/2,cz+(R-.03)*Math.cos(a)],[0,1.6,0])}
+  add('Glazen wand',mesh(Bx(2.1,gh,.02),'glass'),[-4.8,vy+gh/2,cz+1.55],[0,1.6,0]);
   /* lamellenwand van vloer tot vide, achter de trap */
   const tw=new THREE.Group(),zt=cz+1.58-hb*Math.tan(tl);for(let x=-7.05;x<=-3.75;x+=.075){const m=mesh(Bx(.035,vy-hb+.05,.05),'oak');m.clear();m.position.set(x,(vy-hb+.05)/2,zt);tw.add(m)}
   add('Lamellenwand trap',tw,[0,0,0],[0,0,.4]);
@@ -892,8 +914,8 @@ if(has3D){
  /* digitale showroom: alle ontwerpen in één ruimte, per thema gegroepeerd */
  const objs=[],W0=-13,W1=13,Z0=-8,Z1=8,HW=4.4;
  const P={tvwand:{x:-10.3,wall:'back'},kastenwand:{x:-6.4,wall:'back'},boekenkast:{x:-3.4,wall:'back'},
-  gustav:{x:6.6,wall:'back'},bordestrap:{z:-3,wall:'left',rot:Math.PI/2},steektrap:{z:3.6,wall:'left',rot:Math.PI/2},
-  tribune:{x:-5.2,z:4.6},bar:{x:.6,z:4},nudration:{x:9.6,z:5.4,rot:-.5}};
+  vide:{x:6.6,wall:'back'},bordestrap:{z:-3,wall:'left',rot:Math.PI/2},steektrap:{z:3.6,wall:'left',rot:Math.PI/2},
+  tribune:{x:-6.2,z:4.8},trapkast:{x:5.2,z:5.2},bar:{x:.6,z:4},nudration:{x:9.6,z:5.4,rot:-.5}};
  Object.entries(P).forEach(([id,o])=>{const g=BUILD[id]();if(o.rot)g.rotation.y=o.rot;const b=new THREE.Box3().setFromObject(g);
   const cx=(b.min.x+b.max.x)/2,cz=(b.min.z+b.max.z)/2;
   if(o.wall==='back'){g.position.x=o.x-cx;g.position.z=Z0+.06-b.min.z}
