@@ -481,7 +481,7 @@ footer a{color:inherit}
         <label>Uitgeklapt <input type="range" min="0" max="1" step="0.01" value="0" data-explode aria-label="Uitgeklapte weergave"></label>
       </div>
       <div class="cad-b"><div class="vp" id="vpDetail"><div class="tip" hidden></div><svg class="triad" viewBox="0 0 64 64"></svg></div></div>
-      <div class="cad-s"><span id="dStatus">Sleep om te draaien. Beweeg over een onderdeel om de naam te zien.</span><script>if(matchMedia("(pointer:coarse)").matches)document.getElementById("dStatus").textContent="Veeg opzij om te draaien. Tik op een onderdeel voor de naam."</script><span>mm</span></div>
+      <div class="cad-s"><span id="dStatus">Sleep om te draaien. Beweeg over een onderdeel om de naam te zien.</span><script>if(matchMedia("(pointer:coarse)").matches)document.getElementById("dStatus").textContent="Veeg eerst opzij en beweeg dan alle kanten op om te draaien. Tik op een onderdeel voor de naam."</script><span>mm</span></div>
     </div>
     <div class="info">
       <h3 style="margin-top:0">Over dit ontwerp</h3>
@@ -895,7 +895,7 @@ function Viewer(wrap,opt){
  wrap.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,az:st.az,el:st.el,m:false};anim=null;wrap.style.cursor='grabbing'});
  wrap.addEventListener('pointermove',e=>{
   if(down){const dx=e.clientX-down.x,dy=e.clientY-down.y;if(Math.abs(dx)+Math.abs(dy)>5){down.m=true;if(!wrap.hasPointerCapture(e.pointerId))wrap.setPointerCapture(e.pointerId)}
-   if(down.m){st.az=down.az-dx*.008;if(e.pointerType==='mouse')st.el=Math.max(.04,Math.min(1.5,down.el+dy*.006));tip.hidden=true;req()}return}
+   if(down.m){st.az=down.az-dx*.008;st.el=Math.max(.04,Math.min(1.5,down.el+dy*(e.pointerType==='mouse'?.006:.009)));tip.hidden=true;req()}return}
   lastE=e;if(hq)return;hq=requestAnimationFrame(()=>{hq=0;hov(lastE)})});
  const hov=e=>{
   const o=pick(e),b=wrap.getBoundingClientRect();
